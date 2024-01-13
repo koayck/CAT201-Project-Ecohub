@@ -1,0 +1,52 @@
+* {
+    -fx-primary : #2A2E37;
+    -fx-secondary : #3A3F48;
+    -fx-primarytext : white;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-color-1:#1976D2;
+}
+
+.root{
+    -fx-background-color: -fx-primary;
+}
+.button{
+    -fx-background-color: -fx-blue;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+}
+.transparent-btn{
+     -fx-background-color: transparent;
+}
+.root-label{
+    -fx-text-fill: white;
+}
+.home-btn{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 5;
+    -fx-background-radius: 0;
+}
+.home-btn:hover{
+    -fx-background-color: -fx-secondary;
+    -fx-border-color: -fx-primarytext;
+    -fx-cursor: hand;
+}
+.footer .label{
+    -fx-text-fill: -fx-primarytext;
+}
+
+.text-field-normal{
+    -jfx-focus-color: -fx-primarytext;
+    -jfx-unfocus-color: -fx-primarytext;
+    -fx-prompt-text-fill: -fx-primarytext;
+    -fx-text-inner-color: -fx-primarytext;
+}
+.text-field-icon{
+    -fx-fill: white;   
+}
+.text-field-normal{
+    -fx-text-fill: white;
+}
+
