@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
@@ -120,7 +121,7 @@
                   <Insets left="340.0" top="130.0" />
                </StackPane.margin>
             </MenuButton>
-            <JFXButton text="SUBMIT">
+            <JFXButton fx:id="submitButton" onAction="#handleSubmit" text="SUBMIT">
                <StackPane.margin>
                   <Insets top="260.0" />
                </StackPane.margin>
@@ -155,6 +156,31 @@
                   <Insets left="340.0" top="40.0" />
                </StackPane.margin>
             </MenuButton>
+            <Label fx:id="distanceLabel" textFill="WHITE">
+               <StackPane.margin>
+                  <Insets bottom="130.0" left="500.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="electricLabel" textFill="WHITE">
+               <StackPane.margin>
+                  <Insets bottom="45.0" left="500.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="wasteLabel" textFill="WHITE">
+               <StackPane.margin>
+                  <Insets left="500.0" top="40.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="waterLabel" textFill="WHITE">
+               <StackPane.margin>
+                  <Insets left="500.0" top="130.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="submitLabel" text="" textFill="WHITE">
+               <StackPane.margin>
+                  <Insets top="350.0" />
+               </StackPane.margin>
+            </Label>
          </children>
       </StackPane>
    </children>
