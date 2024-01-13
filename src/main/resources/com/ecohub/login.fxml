@@ -28,7 +28,8 @@
             <TextField fx:id="usernameField" prefHeight="50.0" prefWidth="360.0" promptText="Username" styleClass="field" />
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="360.0" promptText="Password" styleClass="field" />
             <JFXCheckBox checkedColor="#007bff" styleClass="checkbox" text="Remember me" />
-            <JFXButton onAction="#login" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Log in" />
+            <JFXButton fx:id="submitButton" onAction="#login" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Log in" />
+            <JFXButton onAction="#switchToSignUp" prefHeight="50.0" prefWidth="360.0" styleClass="secondaryBtn" text="Sign up a new account" />
          </children>
       </VBox>
       <Label styleClass="footer-text" text="© EcoHub 2024">
