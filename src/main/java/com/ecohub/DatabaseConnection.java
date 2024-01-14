@@ -10,30 +10,18 @@ public class DatabaseConnection {
 
   private static final String DATABASE_NAME = "ecohub";
   private static final String DATABASE_USERNAME = "root";
-  private static final String DATABASE_PASSWORD = "73812";
-  private static final String DATABASE_URL =
-    "jdbc:mysql://localhost:3306/" +
-    DATABASE_NAME +
-    "?useSSL=false&serverTimezone=UTC";
-  private static final String INSERT_QUERY =
-    "INSERT INTO ecohub.user (username, email, password) VALUES (?, ?, ?)";
+  private static final String DATABASE_PASSWORD = "454545";
+  private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME
+      + "?useSSL=false&serverTimezone=UTC";
+  private static final String INSERT_QUERY = "INSERT INTO ecohub.user (username, email, password) VALUES (?, ?, ?)";
 
   // public static void main(String[] args) throws SQLException {
-  public void insertRecord(String username, String email, String password)
-    throws SQLException {
+  public void insertRecord(String username, String email, String password) throws SQLException {
     // Step 1: Establishing a Connection and
     // try-with-resource statement will auto close the connection.
-    try (
-      Connection connection = DriverManager.getConnection(
-        DATABASE_URL,
-        DATABASE_USERNAME,
-        DATABASE_PASSWORD
-      );
-      // Step 2:Create a statement using connection object
-      PreparedStatement preparedStatement = connection.prepareStatement(
-        INSERT_QUERY
-      )
-    ) {
+    try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        // Step 2:Create a statement using connection object
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, email);
       preparedStatement.setString(3, password);
@@ -47,22 +35,15 @@ public class DatabaseConnection {
     }
   }
 
-  // generate code to check if username and password match for login page, return false if not
-  public boolean checkLogin(String username, String password)
-    throws SQLException {
+  // generate code to check if username and password match for login page, return
+  // false if not
+  public boolean checkLogin(String username, String password) throws SQLException {
     // Step 1: Establishing a Connection and
     // try-with-resource statement will auto close the connection.
-    try (
-      Connection connection = DriverManager.getConnection(
-        DATABASE_URL,
-        DATABASE_USERNAME,
-        DATABASE_PASSWORD
-      );
-      // Step 2:Create a statement using connection object
-      PreparedStatement preparedStatement = connection.prepareStatement(
-        "SELECT * FROM user WHERE username = ? AND password = ?"
-      )
-    ) {
+    try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        // Step 2:Create a statement using connection object
+        PreparedStatement preparedStatement = connection
+            .prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?")) {
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
 

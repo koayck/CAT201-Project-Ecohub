@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+   prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.testController">
+   <children>
+      <Text layoutX="24.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity" />
+      <TextField fx:id="acText" layoutX="24.0" layoutY="50.0" />
+      <Text layoutX="24.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input"
+         wrappingWidth="38.783203125" />
+      <TextField fx:id="inText" layoutX="24.0" layoutY="99.0" />
+      <Button fx:id="submitBtn" layoutX="274.0" layoutY="361.0" mnemonicParsing="false"
+         onAction="#save" text="Submit" />
+   </children>
+</AnchorPane>

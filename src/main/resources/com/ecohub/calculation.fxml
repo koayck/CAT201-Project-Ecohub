@@ -13,18 +13,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.CalculationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@calculation.css"
+   minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0"
+   xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.ecohub.CalculationController">
    <children>
-      <SplitPane dividerPositions="0.7" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.7" prefHeight="400.0" prefWidth="600.0"
+         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="14.0" layoutY="32.0" prefHeight="357.0" prefWidth="387.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="32.0">
+                  <TableView layoutX="14.0" layoutY="32.0" prefHeight="357.0" prefWidth="387.0"
+                     AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="14.0"
+                     AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="32.0">
                      <columns>
                         <TableColumn prefWidth="131.33332347869873" text="Category" />
                         <TableColumn prefWidth="130.6666259765625" text="Activity" />
                         <TableColumn prefWidth="159.33331298828125" text="Input" />
                         <TableColumn prefWidth="122.00006103515625" text="Emission" />
+                        <TableColumn prefWidth="122.00006103515625" text="Percentage" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -34,7 +42,9 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <VBox layoutX="14.0" layoutY="49.0" prefHeight="172.0" prefWidth="239.0" AnchorPane.bottomAnchor="476.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="49.0">
+                  <VBox layoutX="14.0" layoutY="49.0" prefHeight="172.0" prefWidth="239.0"
+                     AnchorPane.bottomAnchor="476.0" AnchorPane.leftAnchor="14.0"
+                     AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="49.0">
                      <children>
                         <JFXCheckBox fx:id="selectAll" selected="true" text="Select All">
                            <VBox.margin>
@@ -63,7 +73,9 @@
                         </JFXCheckBox>
                      </children>
                   </VBox>
-                  <Text layoutX="14.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL (kgCO₂E):" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="247.0">
+                  <Text layoutX="14.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                     text="TOTAL (kgCO₂E):" AnchorPane.leftAnchor="14.0"
+                     AnchorPane.topAnchor="247.0">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -72,7 +84,8 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <MenuBar prefHeight="25.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefHeight="25.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0"
+         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
