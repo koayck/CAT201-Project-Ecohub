@@ -17,7 +17,7 @@
   prefHeight="690.0" prefWidth="1242.0" style="-fx-alignment: #0F0;" styleClass="parent"
   stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8.0.171"
   xmlns:fx="http://javafx.com/fxml/1"
-    >
+  fx:controller="com.ecohub.DashboardController">
   <children>
     <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
