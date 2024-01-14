@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
-public class DashboardController implements Initializable {
+public class HomeController implements Initializable {
 
     @FXML // Menu (Left Box)
     private VBox sidebar;
@@ -48,7 +48,7 @@ public class DashboardController implements Initializable {
 
     // @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // styleBox(0); // for changing the color of Home Icon
+        styleBox(0); // for changing the color of Home Icon
 
         // Initialize the image of slider (to fill parent)
         // imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
@@ -101,14 +101,14 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onHome() {
-        // styleBox(0);
+        styleBox(0);
         homePane.setVisible(true);
         sidebar.setPrefWidth(50);
     }
 
     @FXML
     private void onTitle1() {
-        // styleBox(1);
+        styleBox(1);
         try {
             ItemPane = FXMLLoader.load(getClass().getResource("sectionview.fxml"));
         } catch (IOException ioe) {
@@ -119,7 +119,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onTitle2() {
-        // styleBox(2);
+        styleBox(2);
         try {
             ItemPane = FXMLLoader.load(getClass().getResource("sectionview.fxml"));
         } catch (IOException ioe) {
@@ -130,7 +130,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onTitle3() {
-        // styleBox(3);
+        styleBox(3);
         try {
             ItemPane = FXMLLoader.load(getClass().getResource("sectionview.fxml"));
         } catch (IOException ioe) {
@@ -141,7 +141,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onTitle4() {
-        // styleBox(4);
+        styleBox(4);
         try {
             ItemPane = FXMLLoader.load(getClass().getResource("sectionview.fxml"));
         } catch (IOException ioe) {
@@ -155,43 +155,43 @@ public class DashboardController implements Initializable {
         System.out.println("About Clicked !");
     }
 
-    // private void styleBox(int index) {
-    //     // This function change the style+color of the menu (Menu Item Selected)
-    //     ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
-    //     ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
-    //     ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
-    //     ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
-    //     ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
+    private void styleBox(int index) {
+        // This function change the style+color of the menu (Menu Item Selected)
+        ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
+        ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
+        ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
+        ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
+        ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(Paint.valueOf("#4a4949"));
 
-    //     navHome.setStyle("-fx-border: 0");
-    //     navTitle1.setStyle("-fx-border: 0");
-    //     navTitle2.setStyle("-fx-border: 0");
-    //     navTitle3.setStyle("-fx-border: 0");
-    //     navTitle4.setStyle("-fx-border: 0");
+        navHome.setStyle("-fx-border: 0");
+        navTitle1.setStyle("-fx-border: 0");
+        navTitle2.setStyle("-fx-border: 0");
+        navTitle3.setStyle("-fx-border: 0");
+        navTitle4.setStyle("-fx-border: 0");
 
-    //     switch (index) {
-    //         case 0:
-    //             navHome.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-    //             ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
-    //             break;
-    //         case 1:
-    //             navTitle1.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-    //             ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
-    //             break;
-    //         case 2:
-    //             navTitle2.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-    //             ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
-    //             break;
-    //         case 3:
-    //             navTitle3.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-    //             ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
-    //             break;
-    //         case 4:
-    //             navTitle4.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-    //             ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
-    //             break;
-    //     }
-    // }
+        switch (index) {
+            case 0:
+                navHome.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 1:
+                navTitle1.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 2:
+                navTitle2.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 3:
+                navTitle3.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 4:
+                navTitle4.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(Paint.valueOf("#2196f3"));
+                break;
+        }
+    }
 
     
 }
