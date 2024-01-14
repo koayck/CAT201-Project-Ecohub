@@ -57,7 +57,7 @@ public class LoginController {
     );
 
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("primary.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
       Scene scene = usernameField.getScene();
       scene.setRoot(root);
     } catch (IOException e) {
