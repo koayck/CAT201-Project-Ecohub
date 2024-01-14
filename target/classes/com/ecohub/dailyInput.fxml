@@ -28,7 +28,7 @@
                   <Font size="34.0" />
                </font>
                <StackPane.margin>
-                  <Insets bottom="300.0" />
+                  <Insets bottom="400.0" />
                </StackPane.margin>
             </Text>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance Travelled: ">
@@ -143,6 +143,19 @@
                   <Insets left="380.0" top="200.0" />
                </StackPane.margin>
             </JFXComboBox>
+            <TextField fx:id="recordText" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="Record Name">
+               <StackPane.margin>
+                  <Insets bottom="230.0" left="222.0" right="229.0" />
+               </StackPane.margin>
+            </TextField>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Record Name:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="240.0" right="300.0" />
+               </StackPane.margin>
+            </Text>
          </children>
       </StackPane>
    </children>

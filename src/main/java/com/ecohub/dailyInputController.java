@@ -85,6 +85,9 @@ public class dailyInputController {
     private TextField waterText;
 
     @FXML
+    private TextField recordText;
+
+    @FXML
     void AC(ActionEvent event) {
         electricLabel.setText("AC"); 
     }
@@ -141,6 +144,7 @@ public class dailyInputController {
         elecText.clear();
         wasteText.clear();
         waterText.clear();
+        recordText.clear();
 
         
         submitLabel.setText("Submitted Sucessfully!");
