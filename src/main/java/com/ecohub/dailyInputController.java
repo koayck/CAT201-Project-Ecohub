@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 public class dailyInputController {
 
@@ -39,7 +40,7 @@ public class dailyInputController {
     private MenuItem Bathing;
 
     @FXML
-    private MenuItem Car;
+    private MenuItem Car;   
 
     @FXML
     private MenuItem Drinking;
@@ -70,6 +71,18 @@ public class dailyInputController {
 
     @FXML
     JFXComboBox<String> waterBox;
+
+    @FXML
+    private TextField distanceText;
+    
+    @FXML
+    private TextField elecText;
+    
+    @FXML
+    private TextField wasteText;
+    
+    @FXML
+    private TextField waterText;
 
     @FXML
     void AC(ActionEvent event) {
@@ -124,6 +137,12 @@ public class dailyInputController {
         wasteBox.valueProperty().set(null);
         waterBox.valueProperty().set(null);
 
+        distanceText.clear();
+        elecText.clear();
+        wasteText.clear();
+        waterText.clear();
+
+        
         submitLabel.setText("Submitted Sucessfully!");
     }
 
