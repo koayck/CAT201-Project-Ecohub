@@ -102,7 +102,7 @@
                               <Insets left="10.0" top="10.0" />
                            </padding>
                 </VBox>
-                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showElectric" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
+                <VBox fx:id="show4" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showElectric" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
                   <children>
                     <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Electricity Usage" wrapText="true">
                       <font>
