@@ -1,6 +1,9 @@
 package com.ecohub;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -57,6 +60,18 @@ public class dailyInputController {
     private MenuItem Washing;
 
     @FXML
+    JFXComboBox<String> modeBox;
+    
+    @FXML
+    JFXComboBox<String> elecBox;
+
+    @FXML
+    JFXComboBox<String> wasteBox;
+
+    @FXML
+    JFXComboBox<String> waterBox;
+
+    @FXML
     void AC(ActionEvent event) {
         electricLabel.setText("AC"); 
     }
@@ -104,12 +119,29 @@ public class dailyInputController {
     
     @FXML
     private void handleSubmit(ActionEvent event) {
+        modeBox.valueProperty().set(null);
+        elecBox.valueProperty().set(null);
+        wasteBox.valueProperty().set(null);
+        waterBox.valueProperty().set(null);
+
         submitLabel.setText("Submitted Sucessfully!");
     }
 
     @FXML
     void initialize() {
+        modeBox.getItems().add("Walking");
+        modeBox.getItems().add("Car");
 
+        elecBox.getItems().add("AC");
+        elecBox.getItems().add("Refrigerator");
+
+        wasteBox.getItems().add("Plastic");
+        wasteBox.getItems().add("Electronic");
+
+        waterBox.getItems().add("Drinking");
+        waterBox.getItems().add("Bathing");
+        waterBox.getItems().add("Washing");
+        
     }
 
 }

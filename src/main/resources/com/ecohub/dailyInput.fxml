@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -40,7 +39,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Electricity Consumption: ">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Electricity Consumption: " translateY="15.0">
                <StackPane.margin>
                   <Insets bottom="50.0" right="375.0" />
                </StackPane.margin>
@@ -48,7 +47,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight of Waste:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight of Waste:" translateY="30.0">
                <StackPane.margin>
                   <Insets right="320.0" top="40.0" />
                </StackPane.margin>
@@ -56,7 +55,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of Water: ">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of Water: " translateY="45.0">
                <StackPane.margin>
                   <Insets right="320.0" top="130.0" />
                </StackPane.margin>
@@ -64,17 +63,17 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg: 281.3">
+            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg: 281.3" translateY="15.0">
                <StackPane.margin>
                   <Insets bottom="50.0" left="222.0" right="229.0" top="5.0" />
                </StackPane.margin>
             </TextField>
-            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg 6.3">
+            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg 6.3" translateY="30.0">
                <StackPane.margin>
                   <Insets left="222.0" right="229.0" top="40.0" />
                </StackPane.margin>
             </TextField>
-            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg: 29">
+            <TextField maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="eg: 29" translateY="45.0">
                <StackPane.margin>
                   <Insets left="222.0" right="229.0" top="130.0" />
                </StackPane.margin>
@@ -87,7 +86,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="kWh">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="kWh" translateY="15.0">
                <StackPane.margin>
                   <Insets bottom="50.0" left="195.0" />
                </StackPane.margin>
@@ -95,7 +94,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="kg" translateY="30.0">
                <StackPane.margin>
                   <Insets left="180.0" top="40.0" />
                </StackPane.margin>
@@ -103,7 +102,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="L">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="L" translateY="45.0">
                <StackPane.margin>
                   <Insets left="170.0" top="130.0" />
                </StackPane.margin>
@@ -111,17 +110,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Usage">
-               <items>
-                  <MenuItem id="Drinking" fx:id="Drinking" mnemonicParsing="false" onAction="#Drinking" text="Drinking" />
-                  <MenuItem id="Washing" fx:id="Washing" mnemonicParsing="false" onAction="#Washing" text="Washing" />
-                  <MenuItem id="Bathing" fx:id="Bathing" mnemonicParsing="false" onAction="#Bathing" text="Bathing" />
-               </items>
-               <StackPane.margin>
-                  <Insets left="340.0" top="130.0" />
-               </StackPane.margin>
-            </MenuButton>
-            <JFXButton fx:id="submitButton" onAction="#handleSubmit" text="SUBMIT">
+            <JFXButton fx:id="submitButton" onAction="#handleSubmit" text="SUBMIT" translateY="45.0">
                <StackPane.margin>
                   <Insets top="260.0" />
                </StackPane.margin>
@@ -129,58 +118,31 @@
                   <Font size="18.0" />
                </font>
             </JFXButton>
-            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Mode">
-              <items>
-                <MenuItem id="Walking" fx:id="Walking" mnemonicParsing="false" onAction="#Walking" text="Walking" />
-                <MenuItem id="Car" fx:id="Car" mnemonicParsing="false" onAction="#Car" text="Car" />
-              </items>
-               <StackPane.margin>
-                  <Insets bottom="130.0" left="340.0" />
-               </StackPane.margin>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Appliances">
-               <items>
-                  <MenuItem id="AC" fx:id="AC" mnemonicParsing="false" onAction="#AC" text="AC" />
-                  <MenuItem id="Refrigerator" fx:id="Refrigerator" mnemonicParsing="false" onAction="#Refrigerator" text="Refrigerator" />
-               </items>
-               <StackPane.margin>
-                  <Insets bottom="50.0" left="340.0" />
-               </StackPane.margin>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" text="Waste Type">
-               <items>
-                  <MenuItem id="AC" fx:id="Plastic" mnemonicParsing="false" onAction="#Plastic" text="Plastic" />
-                  <MenuItem id="Electronic" fx:id="Electronic" mnemonicParsing="false" onAction="#Electronic" text="Electronic" />
-               </items>
-               <StackPane.margin>
-                  <Insets left="340.0" top="40.0" />
-               </StackPane.margin>
-            </MenuButton>
-            <Label fx:id="distanceLabel" textFill="WHITE">
-               <StackPane.margin>
-                  <Insets bottom="130.0" left="500.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="electricLabel" textFill="WHITE">
-               <StackPane.margin>
-                  <Insets bottom="45.0" left="500.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="wasteLabel" textFill="WHITE">
-               <StackPane.margin>
-                  <Insets left="500.0" top="40.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="waterLabel" textFill="WHITE">
-               <StackPane.margin>
-                  <Insets left="500.0" top="130.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="submitLabel" text="" textFill="WHITE">
+            <Label fx:id="submitLabel" text="" textFill="WHITE" translateY="45.0">
                <StackPane.margin>
                   <Insets top="350.0" />
                </StackPane.margin>
             </Label>
+            <JFXComboBox fx:id="elecBox" focusColor="#aac1ff" maxWidth="130.0" minWidth="130.0" prefHeight="38.0" prefWidth="130.0" promptText="Appliances" style="-jfx-label-float: true;" translateY="15.0" unFocusColor="WHITE">
+               <StackPane.margin>
+                  <Insets bottom="50.0" left="380.0" />
+               </StackPane.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="modeBox" focusColor="#aac1ff" maxWidth="130.0" minWidth="130.0" prefHeight="38.0" prefWidth="130.0" promptText="Mode" style="-jfx-label-float: true;" unFocusColor="WHITE">
+               <StackPane.margin>
+                  <Insets bottom="130.0" left="380.0" />
+               </StackPane.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="wasteBox" focusColor="#aac1ff" maxWidth="130.0" minWidth="130.0" prefHeight="38.0" prefWidth="130.0" promptText="Waste" style="-jfx-label-float: true;" unFocusColor="WHITE">
+               <StackPane.margin>
+                  <Insets left="380.0" top="85.0" />
+               </StackPane.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="waterBox" focusColor="#aac1ff" maxWidth="130.0" minWidth="130.0" prefHeight="38.0" prefWidth="130.0" promptText="Usage" style="-jfx-label-float: true;" unFocusColor="WHITE">
+               <StackPane.margin>
+                  <Insets left="380.0" top="200.0" />
+               </StackPane.margin>
+            </JFXComboBox>
          </children>
       </StackPane>
    </children>

@@ -50,3 +50,16 @@
     -fx-text-fill: white;
 }
 
+.combo-box .list-cell {
+    -fx-text-fill: white;
+  }
+  .combo-box .list-view .list-cell {
+    -fx-text-fill: rgb(0, 0, 0);
+  }
+  .combo-box .list-view .list-cell:hover {
+    -fx-background-color : rgb(80, 161, 255);  /* Cadet Blue */
+    -fx-text-fill: white;
+  }
+  .combo-box {
+    -fx-font-size: 12px;
+}
