@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CalculationController {
@@ -40,7 +43,7 @@ public class CalculationController {
     private JFXCheckBox excludeElectricity;
 
     @FXML
-    private JFXCheckBox excludeTravel1;
+    private JFXCheckBox excludeTravel;
 
     @FXML
     private JFXCheckBox excludeWaste;
@@ -57,9 +60,75 @@ public class CalculationController {
     @FXML
     private JFXCheckBox selectAll;
 
+    List<String> excludedCategories = new ArrayList<>();
+
+    @FXML
+    void selectAll(ActionEvent event) {
+        excludedCategories.clear();
+    }
+
+    // Maintain flags for each category
+    boolean isElectricityExcluded = false;
+    boolean isTravelExcluded = false;
+    boolean isWasteExcluded = false;
+    boolean isWaterExcluded = false;
+
+    @FXML
+    void exclElectricity(ActionEvent event) {
+        isElectricityExcluded = !isElectricityExcluded;
+        updateExcludedCategories("Electricity", isElectricityExcluded);
+    }
+
+    @FXML
+    void exclTravel(ActionEvent event) {
+        isTravelExcluded = !isTravelExcluded;
+        updateExcludedCategories("Travel", isTravelExcluded);
+    }
+
+    @FXML
+    void exclWaste(ActionEvent event) {
+        isWasteExcluded = !isWasteExcluded;
+        updateExcludedCategories("Waste", isWasteExcluded);
+    }
+
+    @FXML
+    void exclWater(ActionEvent event) {
+        isWaterExcluded = !isWaterExcluded;
+        updateExcludedCategories("Water", isWaterExcluded);
+    }
+
+    private void updateExcludedCategories(String category, boolean isExcluded) {
+        if (isExcluded && !excludedCategories.contains(category)) {
+            excludedCategories.add(category);
+        } else if (!isExcluded) {
+            excludedCategories.remove(category);
+        }
+    }
+
     public void initialize() {
-        // refresh table
+
         refreshBtn.fire();
+
+        List<CheckBox> otherCheckboxes = Arrays.asList(excludeElectricity, excludeTravel, excludeWaste, excludeWaste);
+
+        // Add a listener to the "Select All" checkbox
+        selectAll.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // If "Select All" is selected, uncheck all other checkboxes
+                otherCheckboxes.forEach(checkbox -> checkbox.setSelected(false));
+            }
+        });
+
+        // Add listeners to the other checkboxes
+        for (CheckBox checkbox : otherCheckboxes) {
+            checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    // If any other checkbox is selected, uncheck the "Select All" checkbox
+                    selectAll.setSelected(false);
+                }
+            });
+        }
+
         // set up the category column
         col_category.setCellValueFactory(new PropertyValueFactory<result, String>("category"));
 
@@ -70,24 +139,63 @@ public class CalculationController {
         col_input.setCellValueFactory(new PropertyValueFactory<result, BigDecimal>("input"));
 
         col_calculation.setCellValueFactory(cellData -> {
-            BigDecimal value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.66));
-            value = value.setScale(2, RoundingMode.HALF_UP);
+
+            BigDecimal value;
+            String activity = cellData.getValue().getActivity();
+
+            if ("Car".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
+                        .multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
+            }
+            value = value.setScale(8, RoundingMode.HALF_UP);
             return new SimpleObjectProperty<BigDecimal>(value);
         });
 
-        // Set up the 'percentage' column so that it calculates the percentage of the
-        // input
+        // set up the function to calculate percentage of each activity to total
+
         col_percentage.setCellValueFactory(cellData -> {
+            BigDecimal value;
+            String activity = cellData.getValue().getActivity();
+            BigDecimal total;
+
             try {
-                BigDecimal calculation = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.66));
-                BigDecimal total = getTotal();
-                BigDecimal percentage = calculation.multiply(BigDecimal.valueOf(100)).divide(total, 2,
-                        RoundingMode.HALF_UP);
-                return new SimpleObjectProperty<BigDecimal>(percentage);
+                total = getTotal();
             } catch (SQLException e) {
                 e.printStackTrace();
+                return null;
             }
-            return null;
+
+            if ("Car".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
+                        .multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
+            }
+
+            BigDecimal percentage = value.divide(total, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+            return new SimpleObjectProperty<BigDecimal>(percentage);
         });
 
     }
@@ -95,7 +203,8 @@ public class CalculationController {
     @FXML
     void refresh(ActionEvent event) throws SQLException {
         resultdb jdbcDao = new resultdb();
-        List<result> records = jdbcDao.getAllRecords();
+        // Pass the excludedCategories to the getAllRecords method
+        List<result> records = jdbcDao.getAllRecords(excludedCategories);
 
         // clear all record before adding new ones
         table_result.getItems().clear();
@@ -115,13 +224,31 @@ public class CalculationController {
 
     private BigDecimal getTotal() throws SQLException {
         resultdb jdbcDao = new resultdb();
-
-        List<result> records = jdbcDao.getAllRecords();
+        List<result> records = jdbcDao.getAllRecords(excludedCategories);
 
         BigDecimal total = BigDecimal.ZERO;
         for (result record : records) {
-            BigDecimal calculation = record.getInput().multiply(BigDecimal.valueOf(0.66));
-            total = total.add(calculation);
+            BigDecimal value;
+            String activity = record.getActivity();
+
+            if ("Car".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.07)).multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = record.getInput().multiply(BigDecimal.valueOf(0));
+            }
+
+            value = value.setScale(8, RoundingMode.HALF_UP);
+            total = total.add(value);
         }
         return total;
     }

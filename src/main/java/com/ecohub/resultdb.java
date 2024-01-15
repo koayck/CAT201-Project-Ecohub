@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class resultdb {
@@ -37,11 +38,21 @@ public class resultdb {
         }
     }
 
-    public List<result> getAllRecords() throws SQLException {
+    public List<result> getAllRecords(List<String> excludedCategories) throws SQLException {
         List<result> results = new ArrayList<>();
 
+        String query = "SELECT * FROM ecohub.result";
+        if (!excludedCategories.isEmpty()) {
+            query += " WHERE category NOT IN (" + String.join(", ", Collections.nCopies(excludedCategories.size(), "?"))
+                    + ")";
+        }
+
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ecohub.result")) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (int i = 0; i < excludedCategories.size(); i++) {
+                preparedStatement.setString(i + 1, excludedCategories.get(i));
+            }
 
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
