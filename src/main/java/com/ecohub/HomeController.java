@@ -134,7 +134,7 @@ public class HomeController implements Initializable {
     private void onTitle3() {
         styleBox(3);
         try {
-            ItemPane = FXMLLoader.load(getClass().getResource("sectionview.fxml"));
+            ItemPane = FXMLLoader.load(getClass().getResource("test.fxml"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -145,7 +145,7 @@ public class HomeController implements Initializable {
     private void onTitle4() {
         styleBox(4);
         try {
-            ItemPane = FXMLLoader.load(getClass().getResource("calculation.fxml"));
+            ItemPane = FXMLLoader.load(getClass().getResource("testcalc.fxml"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

@@ -12,21 +12,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="690.0" prefWidth="1242.0" style="-fx-alignment: #0F0;" styleClass="parent" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.HomeController">
+<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+  prefHeight="690.0" prefWidth="1242.0" style="-fx-alignment: #0F0;" styleClass="parent"
+  stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/21"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.HomeController">
   <children>
-    <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
+    <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
       <children>
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#expandSidebar" prefHeight="50.0" spacing="10.0" styleClass="sidebar-options">
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#expandSidebar"
+          prefHeight="50.0" spacing="10.0" styleClass="sidebar-options">
           <children>
             <FontAwesomeIconView glyphName="NAVICON" size="24" />
           </children>
         </HBox>
         <VBox VBox.vgrow="ALWAYS">
           <children>
-            <HBox fx:id="navHome" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onHome" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <HBox fx:id="navHome" alignment="CENTER_LEFT" maxHeight="-Infinity"
+              maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+              onMouseClicked="#onHome" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
               <children>
                 <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Home" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Home"
+                  HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -36,10 +45,15 @@
                 </Label>
               </children>
             </HBox>
-            <HBox fx:id="navTitle1" alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle1" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <HBox fx:id="navTitle1" alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0"
+              maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+              minWidth="-Infinity" onMouseClicked="#onTitle1" prefHeight="50.0" spacing="15.0"
+              styleClass="sidebar-options">
               <children>
                 <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 1" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 1"
+                  HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -49,10 +63,15 @@
                 </Label>
               </children>
             </HBox>
-            <HBox fx:id="navTitle2" alignment="CENTER_LEFT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle2" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <HBox fx:id="navTitle2" alignment="CENTER_LEFT" layoutX="10.0" layoutY="210.0"
+              maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+              minWidth="-Infinity" onMouseClicked="#onTitle2" prefHeight="50.0" spacing="15.0"
+              styleClass="sidebar-options">
               <children>
                 <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title2" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title2"
+                  HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -62,10 +81,15 @@
                 </Label>
               </children>
             </HBox>
-            <HBox fx:id="navTitle3" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle3" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <HBox fx:id="navTitle3" alignment="CENTER_LEFT" maxHeight="-Infinity"
+              maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+              onMouseClicked="#onTitle3" prefHeight="50.0" spacing="15.0"
+              styleClass="sidebar-options">
               <children>
                 <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 3" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 3"
+                  HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -75,10 +99,15 @@
                 </Label>
               </children>
             </HBox>
-            <HBox fx:id="navTitle4" alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle4" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <HBox fx:id="navTitle4" alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0"
+              maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+              minWidth="-Infinity" onMouseClicked="#onTitle4" prefHeight="50.0" spacing="15.0"
+              styleClass="sidebar-options">
               <children>
                 <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 4" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title 4"
+                  HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -90,10 +119,13 @@
             </HBox>
           </children>
         </VBox>
-        <HBox fx:id="navAbout" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onAbout" styleClass="sidebar-options">
+        <HBox fx:id="navAbout" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
+          minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onAbout"
+          styleClass="sidebar-options">
           <children>
             <!-- <MaterialDesignIconView glyphName="INFORMATION_OUTLINE" size="27" /> -->
-            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text="  About">
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text="  About">
               <font>
                 <Font size="14.0" />
               </font>
@@ -107,12 +139,21 @@
     </VBox>
     <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">
       <children>
-        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" />
-        <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" styleClass="white-pane">
+        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" />
+        <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
+          styleClass="white-pane">
           <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="1193.0" style="-fx-background-color: #F2F2F2;" VBox.vgrow="NEVER">
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+              prefHeight="323.0" prefWidth="1193.0" style="-fx-background-color: #F2F2F2;"
+              VBox.vgrow="NEVER">
               <children>
-                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
+                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308"
+                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="323.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
                   <HBox.margin>
                     <Insets />
                   </HBox.margin>
@@ -147,11 +188,15 @@
                 </Pane>
               </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="200.0" spacing="10.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0"
+              prefWidth="200.0" spacing="10.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
               <children>
-                <VBox alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle1" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                <VBox alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity"
+                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  onMouseClicked="#onTitle1" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                       <!-- <children>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
                           preserveRatio="true">
@@ -167,12 +212,17 @@
                         </ImageView>
                       </children> -->
                     </Pane>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Title 1" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Title 1" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="You can replace this sub title by ant other sub title" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="You can replace this sub title by ant other sub title"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -185,9 +235,12 @@
                     <Insets left="10.0" top="10.0" />
                   </padding>
                 </VBox>
-                <VBox alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle2" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                <VBox alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity"
+                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  onMouseClicked="#onTitle2" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                       <!-- <children>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
                           preserveRatio="true">
@@ -203,12 +256,17 @@
                         </ImageView>
                       </children> -->
                     </Pane>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Title 2" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Title 2" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="You can replace this sub title by ant other sub title" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="You can replace this sub title by ant other sub title"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -221,9 +279,12 @@
                     <Insets left="10.0" top="10.0" />
                   </padding>
                 </VBox>
-                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle3" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle3"
+                  prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                       <!-- <children>
                         <ImageView fitHeight="85.0" fitWidth="88.0" layoutX="10.0" layoutY="1.0"
                           pickOnBounds="true" preserveRatio="true">
@@ -239,7 +300,8 @@
                         </ImageView>
                       </children> -->
                     </Pane>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Title 3" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Title 3" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -247,7 +309,11 @@
                         <Insets />
                       </VBox.margin>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="You can replace this sub title by ant other sub title" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="You can replace this sub title by ant other sub title"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -260,9 +326,12 @@
                     <Insets left="10.0" top="10.0" />
                   </padding>
                 </VBox>
-                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle4" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle4"
+                  prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                       <!-- <children>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
                           preserveRatio="true">
@@ -272,12 +341,17 @@
                         </ImageView>
                       </children> -->
                     </Pane>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Title 4" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Title 4" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="You can replace this sub title by ant other sub title" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="You can replace this sub title by ant other sub title"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -291,9 +365,9 @@
                   </padding>
                 </VBox>
               </children>
-                     <padding>
-                        <Insets top="50.0" />
-                     </padding>
+              <padding>
+                <Insets top="50.0" />
+              </padding>
             </HBox>
           </children>
         </VBox>

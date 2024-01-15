@@ -1,5 +1,6 @@
 package com.ecohub;
 
+//Johnas's part
 import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
@@ -30,10 +31,10 @@ public class testController {
     @FXML
     public void initialize() {
         inText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                inText.setText(newValue.replaceAll("[^\\d]", ""));
+            if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                inText.setText(oldValue);
             }
         });
-    }
 
+    }
 }

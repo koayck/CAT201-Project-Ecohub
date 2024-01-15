@@ -1,10 +1,13 @@
 package com.ecohub;
 
+import java.sql.ResultSet;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class testdb {
 
@@ -17,21 +20,43 @@ public class testdb {
 
     // public static void main(String[] args) throws SQLException {
     public void insertRecord(String activity, String input) throws SQLException {
-        // Step 1: Establishing a Connection and
-        // try-with-resource statement will auto close the connection.
+        // Convert the input string to a BigDecimal
+        BigDecimal bdInput = new BigDecimal(input);
+
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-                // Step 2:Create a statement using connection object
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
             preparedStatement.setString(1, activity);
-            preparedStatement.setString(2, input);
+            // Set the BigDecimal value
+            preparedStatement.setBigDecimal(2, bdInput);
 
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            // print SQL exception information
             printSQLException(e);
         }
+    }
+
+    public List<result> getAllRecords() throws SQLException {
+        List<result> results = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ecohub.result")) {
+
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String activity = rs.getString("activity");
+                // Get the input as a BigDecimal
+                BigDecimal input = rs.getBigDecimal("input");
+                result res = new result(activity, input);
+                results.add(res);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return results;
     }
 
     public static void printSQLException(SQLException ex) {
