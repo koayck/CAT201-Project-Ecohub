@@ -58,8 +58,9 @@ public class CalculationController {
     private JFXCheckBox selectAll;
 
     public void initialize() {
-        // refresh table
+
         refreshBtn.fire();
+
         // set up the category column
         col_category.setCellValueFactory(new PropertyValueFactory<result, String>("category"));
 
@@ -70,24 +71,63 @@ public class CalculationController {
         col_input.setCellValueFactory(new PropertyValueFactory<result, BigDecimal>("input"));
 
         col_calculation.setCellValueFactory(cellData -> {
-            BigDecimal value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.66));
-            value = value.setScale(2, RoundingMode.HALF_UP);
+
+            BigDecimal value;
+            String activity = cellData.getValue().getActivity();
+
+            if ("Car".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
+                        .multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
+            }
+            value = value.setScale(8, RoundingMode.HALF_UP);
             return new SimpleObjectProperty<BigDecimal>(value);
         });
 
-        // Set up the 'percentage' column so that it calculates the percentage of the
-        // input
+        // set up the function to calculate percentage of each activity to total
+
         col_percentage.setCellValueFactory(cellData -> {
+            BigDecimal value;
+            String activity = cellData.getValue().getActivity();
+            BigDecimal total;
+
             try {
-                BigDecimal calculation = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.66));
-                BigDecimal total = getTotal();
-                BigDecimal percentage = calculation.multiply(BigDecimal.valueOf(100)).divide(total, 2,
-                        RoundingMode.HALF_UP);
-                return new SimpleObjectProperty<BigDecimal>(percentage);
+                total = getTotal();
             } catch (SQLException e) {
                 e.printStackTrace();
+                return null;
             }
-            return null;
+
+            if ("Car".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
+                        .multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
+            }
+
+            BigDecimal percentage = value.divide(total, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+            return new SimpleObjectProperty<BigDecimal>(percentage);
         });
 
     }
@@ -115,13 +155,31 @@ public class CalculationController {
 
     private BigDecimal getTotal() throws SQLException {
         resultdb jdbcDao = new resultdb();
-
         List<result> records = jdbcDao.getAllRecords();
 
         BigDecimal total = BigDecimal.ZERO;
         for (result record : records) {
-            BigDecimal calculation = record.getInput().multiply(BigDecimal.valueOf(0.66));
-            total = total.add(calculation);
+            BigDecimal value;
+            String activity = record.getActivity();
+
+            if ("Car".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.07)).multiply(BigDecimal.valueOf(2.349));
+            } else if ("Walking".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.039));
+            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.39));
+            } else if ("Plastic".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(6));
+            } else if ("Electronic".equals(activity)) {
+                value = record.getInput().multiply(BigDecimal.valueOf(2));
+            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
+                value = record.getInput().multiply(BigDecimal.valueOf(0.298));
+            } else {
+                value = record.getInput().multiply(BigDecimal.valueOf(0));
+            }
+
+            value = value.setScale(8, RoundingMode.HALF_UP);
+            total = total.add(value);
         }
         return total;
     }
