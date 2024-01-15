@@ -109,7 +109,7 @@ public class CalculationController {
 
         refreshBtn.fire();
 
-        List<CheckBox> otherCheckboxes = Arrays.asList(excludeElectricity, excludeTravel, excludeWaste, excludeWaste);
+        List<CheckBox> otherCheckboxes = Arrays.asList(excludeElectricity, excludeTravel, excludeWater, excludeWaste);
 
         // Add a listener to the "Select All" checkbox
         selectAll.selectedProperty().addListener((observable, oldValue, newValue) -> {
