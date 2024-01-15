@@ -68,7 +68,7 @@
               minWidth="-Infinity" onMouseClicked="#onTitle2" prefHeight="50.0" spacing="15.0"
               styleClass="sidebar-options">
               <children>
-                <FontAwesomeIconView fill="#4a4949" glyphName="HOME" size="26" />
+                <FontAwesomeIconView fill="#4a4949" glyphName="CHART" size="26" />
                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
                   minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Title2"
                   HBox.hgrow="ALWAYS">
