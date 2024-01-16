@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="690.0" prefWidth="1192.0" style="-fx-alignment: #0F0;" styleClass="parent" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.DashboardController">
+<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="690.0" prefWidth="1192.0" style="-fx-alignment: #0F0;" styleClass="parent" stylesheets="@./styles/dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.DashboardController">
   <children>
     <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">
       <children>

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.ecohub.dao.RecordDAO;
+import com.ecohub.models.User;
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.event.ActionEvent;
@@ -14,6 +16,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 public class dailyInputController {
+
+    private User user;
+
+    public void initUser(User user) {
+        this.user = user;
+        // You can now use this user object in your DailyInputController
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -84,37 +93,37 @@ public class dailyInputController {
         // For distanceText and distanceLabel
         if (!distanceText.getText().isEmpty()) {
             String category = "Travel";
-            String activity = modeBox.getValue();
+            String activity = recordText.getText();
             String input = distanceText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input, user.getUser_id());
         }
 
         // For elecText and electricLabel
         if (!elecText.getText().isEmpty()) {
             String category = "Electricity";
-            String activity = elecBox.getValue();
+            String activity = recordText.getText();
             String input = elecText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input, user.getUser_id());
         }
 
         // For wasteText and wasteLabel
         if (!wasteText.getText().isEmpty()) {
             String category = "Waste";
-            String activity = wasteBox.getValue();
+            String activity = recordText.getText();
             String input = wasteText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input, user.getUser_id());
         }
 
         // For waterText and waterLabel
         if (!waterText.getText().isEmpty()) {
             String category = "Water";
-            String activity = waterBox.getValue();
+            String activity = recordText.getText();
             String input = waterText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input, user.getUser_id());
         }
 
         modeBox.valueProperty().set(null);

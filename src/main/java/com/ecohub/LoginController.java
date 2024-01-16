@@ -1,8 +1,9 @@
 package com.ecohub;
 
+import com.ecohub.models.User;
+import com.ecohub.dao.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +28,7 @@ public class LoginController {
 
   @FXML
   private Button submitButton;
-  
+
   @FXML
   void login() throws SQLException {
     Window owner = submitButton.getScene().getWindow();
@@ -35,11 +36,11 @@ public class LoginController {
     String username = usernameField.getText();
     String password = passwordField.getText();
 
-    DatabaseConnection jdbcDao = new DatabaseConnection();
-    
-    // checkLogin return true or false
-    // check if true, proceed to next page, if false, show error
-    if (!jdbcDao.checkLogin(username, password)) {
+    UserDAO userDao = new UserDAO();
+
+    User user = userDao.checkLogin(username, password);
+        
+    if (user == null) {
       showAlert(
         Alert.AlertType.ERROR,
         owner,
@@ -57,9 +58,15 @@ public class LoginController {
     );
 
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+      Parent root = loader.load();
+      
+      HomeController homeController = loader.getController();
+      homeController.initUser(user);
+
       Scene scene = usernameField.getScene();
       scene.setRoot(root);
+
     } catch (IOException e) {
       e.printStackTrace();
     }
