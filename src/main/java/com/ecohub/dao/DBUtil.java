@@ -8,7 +8,7 @@ public class DBUtil {
 
   private static final String DATABASE_NAME = "ecohub";
   private static final String DATABASE_USERNAME = "root";
-  private static final String DATABASE_PASSWORD = "73812";
+  private static final String DATABASE_PASSWORD = "admin";
   private static final String DATABASE_URL =
     "jdbc:mysql://localhost:3306/" +
     DATABASE_NAME +
