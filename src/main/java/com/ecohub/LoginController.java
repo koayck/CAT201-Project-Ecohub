@@ -67,7 +67,6 @@ public class LoginController {
       Scene scene = usernameField.getScene();
       scene.setRoot(root);
 
-      
     } catch (IOException e) {
       e.printStackTrace();
     }

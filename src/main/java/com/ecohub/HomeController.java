@@ -1,5 +1,6 @@
 package com.ecohub;
 
+import com.ecohub.dao.UserDAO;
 import com.ecohub.models.User;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -77,10 +78,15 @@ public class HomeController implements Initializable {
     ft.play();
   }
 
+  private User user;
+
   public void initUser(User user) {
     title.setText("Welcome Back, " + user.getUser_name());
+    this.user = user;
     // You can now use this user object in your HomeController
   }
+
+  
 
   // private void sliderAutoChangePictures() {
   // // Make auto change the slider in duration
@@ -146,7 +152,15 @@ public class HomeController implements Initializable {
   private void onTitle3() {
     styleBox(3);
     try {
-      ItemPane = FXMLLoader.load(getClass().getResource("dailyInput.fxml"));
+      FXMLLoader loader = new FXMLLoader(
+        getClass().getResource("dailyInput.fxml")
+      );
+      Parent root = loader.load();
+
+      dailyInputController dailyInputController = loader.getController();
+      dailyInputController.initUser(user);
+
+      ItemPane = root;
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }

@@ -12,18 +12,18 @@ import java.util.List;
 public class RecordDAO {
 
   private static final String INSERT_QUERY =
-    "INSERT INTO ECOHUB.RECORD (R.CATEGORY, R.TITLE, R.VALUE) VALUES (?,?,?)";
+    "INSERT INTO ECOHUB.RECORD (R_CATEGORY, R_TITLE, R_VALUE, U_ID) VALUES (?,?,?,?)";
   private static final String DELETE_QUERY =
     "DELETE FROM ECOHUB.RECORD WHERE R_ID = ?";
   private static final String SELECT_ALL_QUERY =
     "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
   private static final String UPDATE_QUERY =
-    "UPDATE ECOHUB.RECORD SET R.CATEGORY = ?, R.TITLE = ?, R.VALUE = ? WHERE R_ID = ?";
+    "UPDATE ECOHUB.RECORD SET R_CATEGORY = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
 
 
   // function for adding record based on this query private static final String INSERT_QUERY =
   // "INSERT INTO ECOHUB.RECORD (R.CATEGORY, R.TITLE, R.VALUE) VALUES (?,?,?)";
-  public void addRecord(String category, String title, String value)
+  public void addRecord(String category, String title, String value, int uid)
     throws SQLException {
     // Convert the value string to a BigDecimal
     BigDecimal bdValue = new BigDecimal(value);
@@ -37,6 +37,7 @@ public class RecordDAO {
       preparedStatement.setString(1, category);
       preparedStatement.setString(2, title);
       preparedStatement.setBigDecimal(3, bdValue);
+      preparedStatement.setInt(4, uid);
 
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
