@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.ecohub.dao.RecordDAO;
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.event.ActionEvent;
@@ -86,8 +87,8 @@ public class dailyInputController {
             String category = "Travel";
             String activity = modeBox.getValue();
             String input = distanceText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input);
         }
 
         // For elecText and electricLabel
@@ -95,8 +96,8 @@ public class dailyInputController {
             String category = "Electricity";
             String activity = elecBox.getValue();
             String input = elecText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input);
         }
 
         // For wasteText and wasteLabel
@@ -104,8 +105,8 @@ public class dailyInputController {
             String category = "Waste";
             String activity = wasteBox.getValue();
             String input = wasteText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input);
         }
 
         // For waterText and waterLabel
@@ -113,8 +114,8 @@ public class dailyInputController {
             String category = "Water";
             String activity = waterBox.getValue();
             String input = waterText.getText();
-            resultdb jdbcDao = new resultdb();
-            jdbcDao.insertRecord(category, activity, input);
+            RecordDAO recordDao = new RecordDAO();
+            recordDao.addRecord(category, activity, input);
         }
 
         modeBox.valueProperty().set(null);
