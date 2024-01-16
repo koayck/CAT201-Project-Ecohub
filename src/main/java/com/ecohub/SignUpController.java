@@ -2,6 +2,9 @@ package com.ecohub;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import com.ecohub.dao.UserDAO;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,8 +96,8 @@ public class SignUpController {
     String email = emailField.getText();
     String password = passwordField.getText();
 
-    DatabaseConnection jdbcDao = new DatabaseConnection();
-    jdbcDao.insertRecord(username, email, password);
+    UserDAO userDao = new UserDAO();
+    userDao.addRecord(username, email, password);
 
     showAlert(
       Alert.AlertType.CONFIRMATION,

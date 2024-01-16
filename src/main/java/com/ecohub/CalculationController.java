@@ -1,5 +1,7 @@
 package com.ecohub;
 
+import com.ecohub.dao.RecordDAO;
+import com.ecohub.models.Record;
 import com.jfoenix.controls.JFXCheckBox;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,22 +24,22 @@ import java.util.List;
 public class CalculationController {
 
     @FXML
-    private TableView<result> table_result;
+    private TableView<Record> table_result;
 
     @FXML
-    private TableColumn<result, String> col_category;
+    private TableColumn<Record, String> col_category;
 
     @FXML
-    private TableColumn<result, String> col_activity;
+    private TableColumn<Record, String> col_activity;
 
     @FXML
-    private TableColumn<result, BigDecimal> col_input;
+    private TableColumn<Record, BigDecimal> col_input;
 
     @FXML
-    private TableColumn<result, BigDecimal> col_calculation;
+    private TableColumn<Record, BigDecimal> col_calculation;
 
     @FXML
-    private TableColumn<result, BigDecimal> col_percentage;
+    private TableColumn<Record, BigDecimal> col_percentage;
 
     @FXML
     private JFXCheckBox excludeElectricity;
@@ -130,13 +132,13 @@ public class CalculationController {
         }
 
         // set up the category column
-        col_category.setCellValueFactory(new PropertyValueFactory<result, String>("category"));
+        col_category.setCellValueFactory(new PropertyValueFactory<Record, String>("category"));
 
         // Set up the 'activity' column
-        col_activity.setCellValueFactory(new PropertyValueFactory<result, String>("activity"));
+        col_activity.setCellValueFactory(new PropertyValueFactory<Record, String>("activity"));
 
         // Set up the 'input' column
-        col_input.setCellValueFactory(new PropertyValueFactory<result, BigDecimal>("input"));
+        col_input.setCellValueFactory(new PropertyValueFactory<Record, BigDecimal>("input"));
 
         col_calculation.setCellValueFactory(cellData -> {
 
@@ -202,9 +204,9 @@ public class CalculationController {
 
     @FXML
     void refresh(ActionEvent event) throws SQLException {
-        resultdb jdbcDao = new resultdb();
-        // Pass the excludedCategories to the getAllRecords method
-        List<result> records = jdbcDao.getAllRecords(excludedCategories);
+        RecordDAO recordDao = new RecordDAO();
+        // pass user id to get all records
+        List<Record> records = recordDao.getAllRecords(1);
 
         // clear all record before adding new ones
         table_result.getItems().clear();
@@ -216,39 +218,21 @@ public class CalculationController {
         labelTotal.setText(total.toString());
 
         // Add all records to the table
-        for (result record : records) {
+        for (Record record : records) {
             table_result.getItems().add(record);
         }
 
     }
 
     private BigDecimal getTotal() throws SQLException {
-        resultdb jdbcDao = new resultdb();
-        List<result> records = jdbcDao.getAllRecords(excludedCategories);
+        RecordDAO recordDao = new RecordDAO();
+
+        List<Record> records = recordDao.getAllRecords(1);
 
         BigDecimal total = BigDecimal.ZERO;
-        for (result record : records) {
-            BigDecimal value;
-            String activity = record.getActivity();
-
-            if ("Car".equals(activity)) {
-                value = record.getInput().multiply(BigDecimal.valueOf(0.07)).multiply(BigDecimal.valueOf(2.349));
-            } else if ("Walking".equals(activity)) {
-                value = record.getInput().multiply(BigDecimal.valueOf(0.039));
-            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
-                value = record.getInput().multiply(BigDecimal.valueOf(0.39));
-            } else if ("Plastic".equals(activity)) {
-                value = record.getInput().multiply(BigDecimal.valueOf(6));
-            } else if ("Electronic".equals(activity)) {
-                value = record.getInput().multiply(BigDecimal.valueOf(2));
-            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
-                value = record.getInput().multiply(BigDecimal.valueOf(0.298));
-            } else {
-                value = record.getInput().multiply(BigDecimal.valueOf(0));
-            }
-
-            value = value.setScale(8, RoundingMode.HALF_UP);
-            total = total.add(value);
+        for (Record record : records) {
+            BigDecimal calculation = record.getInput().multiply(BigDecimal.valueOf(0.66));
+            total = total.add(calculation);
         }
         return total;
     }
