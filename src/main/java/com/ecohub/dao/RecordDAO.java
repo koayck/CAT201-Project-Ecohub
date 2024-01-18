@@ -41,7 +41,7 @@ public class RecordDAO {
     BigDecimal value;
 
     if ("Car".equals(title)) {
-      value = input.multiply(BigDecimal.valueOf(0.07)).multiply(BigDecimal.valueOf(2.349));
+      value = input.multiply(BigDecimal.valueOf(0.16443));
     } else if ("Walking".equals(title)) {
       value = input.multiply(BigDecimal.valueOf(0.039));
     } else if (("AC".equals(title) || "Refrigerator".equals(title))) {
