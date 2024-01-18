@@ -7,5 +7,7 @@ module com.ecohub {
   requires java.sql;
 
   opens com.ecohub to javafx.fxml;
+  opens com.ecohub.models to javafx.base;
+
   exports com.ecohub ;
 }
