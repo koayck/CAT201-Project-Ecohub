@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="199.0" prefWidth="460.0" spacing="30.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.dialog.AlertInfoController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="199.0" prefWidth="460.0" spacing="30.0"  xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.dialog.AlertInfoController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
    </padding>

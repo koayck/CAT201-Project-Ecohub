@@ -6,8 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;"
-  stylesheets="@./styles/dashboard.css" xmlns:fx="http://javafx.com1"
-  xmlns="http://javafx.com/javafx/8.0.171">
+  stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
   <children>
     <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="14.0" maxHeight="-Infinity"
       maxWidth="-Infinity" prefHeight="60.0" prefWidth="700.0" spacing="20.0">

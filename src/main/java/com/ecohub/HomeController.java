@@ -2,14 +2,10 @@ package com.ecohub;
 
 import com.ecohub.dao.UserDAO;
 import com.ecohub.models.User;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,10 +16,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.util.Duration;
+import javafx.scene.shape.SVGPath;
+
 
 public class HomeController implements Initializable {
 
@@ -46,39 +44,41 @@ public class HomeController implements Initializable {
   private VBox homePane;
 
   @FXML // Image of Slider
-  private ImageView imgSlider;
-
-  // counter Number of image using in slider
-  private final byte NUMBER_IMAGE_SLIDER = 3;
-  private int counter = 1;
+  private ImageView imageView;
 
   // Example of right pane
+  @FXML
   private Parent ItemPane;
+
+  @FXML
+  private Label label1;
+
+  @FXML
+  private Label label2;
+
+  @FXML
+  private Label label3;
+
+  @FXML
+  private Label label4;
+
+  @FXML
+  private Label label5;
 
   // @Override
   public void initialize(URL url, ResourceBundle rb) {
     styleBox(0); // for changing the color of Home Icon
-    // Initialize the image of slider (to fill parent)
-    // imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
-    // imgSlider.fitHeightProperty().bind(holderPane.heightProperty());
-    // sliderAutoChangePictures(); // For auto change picture of slider
+    Image image = new Image(
+      getClass().getResource("img/home-banner.png").toExternalForm()
+    );
+    imageView.setImage(image);
   }
 
   private void setNode(Node node) {
     homePane.setVisible(false);
     holderPane.getChildren().clear();
     holderPane.getChildren().add((Node) node);
-    sidebar.setPrefWidth(50);
-    FadeTransition ft = new FadeTransition(Duration.millis(1000));
-    ft.setNode(node);
-    ft.setFromValue(0.1);
-    ft.setToValue(1);
-    ft.setCycleCount(1);
-    ft.setAutoReverse(false);
-    ft.play();
   }
-
-  private User user;
 
   public void initUser(User user) {
     title.setText("Welcome Back, " + user.getUser_name());
@@ -113,6 +113,7 @@ public class HomeController implements Initializable {
   // sliderTimer.play();
 
   // }
+  }
 
   @FXML
   private void expandSidebar() {
@@ -121,9 +122,13 @@ public class HomeController implements Initializable {
 
   @FXML
   private void onHome() {
-    styleBox(0);
     homePane.setVisible(true);
-    sidebar.setPrefWidth(50);
+    styleBox(0);
+
+    // If ItemPane already exists, remove it from its parent
+    if (ItemPane != null && ItemPane.getParent() != null) {
+      ((Pane) ItemPane.getParent()).getChildren().remove(ItemPane);
+    }
   }
 
   @FXML
@@ -149,7 +154,7 @@ public class HomeController implements Initializable {
   private void onTitle2() {
     styleBox(2);
     try {
-      ItemPane = FXMLLoader.load(getClass().getResource("record.fxml"));
+      ItemPane = FXMLLoader.load(getClass().getResource("Record.fxml"));
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
@@ -189,23 +194,25 @@ public class HomeController implements Initializable {
   @FXML
   private void onAbout() {
     System.out.println("About Clicked !");
+
+    
   }
 
   private void styleBox(int index) {
     // This function change the style+color of the menu (Menu Item Selected)
-    ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(
+    ((SVGPath) navHome.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
-    ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(
+    ((SVGPath) navTitle1.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
-    ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(
+    ((SVGPath) navTitle2.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
-    ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(
+    ((SVGPath) navTitle3.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
-    ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(
+    ((SVGPath) navTitle4.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
 
@@ -218,42 +225,42 @@ public class HomeController implements Initializable {
     switch (index) {
       case 0:
         navHome.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
+          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
-        ((FontAwesomeIconView) navHome.getChildren().get(0)).setFill(
-            Paint.valueOf("#2196f3")
+        ((SVGPath) navHome.getChildren().get(0)).setFill(
+            Paint.valueOf("#00daa0")
           );
         break;
       case 1:
         navTitle1.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
+          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
-        ((FontAwesomeIconView) navTitle1.getChildren().get(0)).setFill(
-            Paint.valueOf("#2196f3")
+        ((SVGPath) navTitle1.getChildren().get(0)).setFill(
+            Paint.valueOf("#00daa0")
           );
         break;
       case 2:
         navTitle2.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
+          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
-        ((FontAwesomeIconView) navTitle2.getChildren().get(0)).setFill(
-            Paint.valueOf("#2196f3")
+        ((SVGPath) navTitle2.getChildren().get(0)).setFill(
+            Paint.valueOf("#00daa0")
           );
         break;
       case 3:
         navTitle3.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
+          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
-        ((FontAwesomeIconView) navTitle3.getChildren().get(0)).setFill(
-            Paint.valueOf("#2196f3")
+        ((SVGPath) navTitle3.getChildren().get(0)).setFill(
+            Paint.valueOf("#00daa0")
           );
         break;
       case 4:
         navTitle4.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
+          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
-        ((FontAwesomeIconView) navTitle4.getChildren().get(0)).setFill(
-            Paint.valueOf("#2196f3")
+        ((SVGPath) navTitle4.getChildren().get(0)).setFill(
+            Paint.valueOf("#00daa0")
           );
         break;
     }

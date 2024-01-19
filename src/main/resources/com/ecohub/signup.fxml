@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" stylesheets="@./styles/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.SignUpController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.SignUpController" stylesheets="@./styles/theme.css">
    <children>
       <ImageView fitHeight="43.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@ecohub-logo.png" />
+            <Image url="@img/ecohub-logo.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" prefHeight="81.0" prefWidth="283.0" text="Your one and only sustainability tracker." textAlignment="CENTER" wrapText="true">
