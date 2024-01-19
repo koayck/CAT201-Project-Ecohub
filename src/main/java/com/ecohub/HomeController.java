@@ -80,40 +80,14 @@ public class HomeController implements Initializable {
     holderPane.getChildren().add((Node) node);
   }
 
+  private User user;
+
   public void initUser(User user) {
     title.setText("Welcome Back, " + user.getUser_name());
     this.user = user;
     // You can now use this user object in your HomeController
   }
 
-  
-
-  // private void sliderAutoChangePictures() {
-  // // Make auto change the slider in duration
-
-  // Timeline sliderTimer = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-  // FadeTransition ft = new FadeTransition();
-  // ft.setNode(imgSlider);
-  // ft.setDuration(new Duration(4000));
-  // ft.setFromValue(1.0);
-  // ft.setToValue(0.3);
-  // ft.setCycleCount(0);
-  // ft.setAutoReverse(true);
-  // ft.play();
-  // imgSlider.setImage(new
-  // Image("com/houarizegai/fxtools/dashboard/model1/img/slider/" + counter +
-  // ".png"));
-  // if (++counter > NUMBER_IMAGE_SLIDER) {
-  // counter = 1;
-  // }
-  // }),
-  // new KeyFrame(Duration.seconds(4))
-  // );
-  // sliderTimer.setCycleCount(Animation.INDEFINITE);
-  // sliderTimer.play();
-
-  // }
-  }
 
   @FXML
   private void expandSidebar() {

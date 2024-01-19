@@ -120,7 +120,7 @@
         </VBox>
         <VBox>
           <children>
-            <Button fx:id="refreshBtn" mnemonicParsing="false" onAction="#refresh" prefHeight="50.0" prefWidth="102.0" text="Refresh" />
+            <Button fx:id="refreshBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="102.0" text="Refresh" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL (kgCO₂E):">
               <font>
                 <Font size="26.0" />

@@ -15,168 +15,163 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-  prefHeight="690.0" prefWidth="1192.0" styleClass="parent"
-  stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx"
-  xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.DashboardController">
+<HBox fx:id="parent" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" style="-fx-alignment: #0F0;" styleClass="bg-default" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.DashboardController">
   <children>
-    <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">
+    <StackPane fx:id="rightPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" HBox.hgrow="ALWAYS">
       <children>
-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
-          style="-fx-background-color: #FFF;" />
-        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
-          styleClass="white-pane">
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" style="-fx-background-color: #FFF;" />
+        <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0">
           <children>
-            <VBox fx:id="chartView" alignment="CENTER" prefHeight="490.0" prefWidth="1186.0"
-              style="-fx-background-color: #F2F2F2;">
+            <VBox prefHeight="720.0" prefWidth="1139.0" spacing="10.0" style="-fx-background-color: lightgreen;">
               <children>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true"
-                  preserveRatio="true" rotate="-90.0">
-                  <image>
-                    <Image url="@img/point.png" />
-                  </image>
-                  <VBox.margin>
-                    <Insets bottom="25.0" />
-                  </VBox.margin>
-                </ImageView>
-                <Label text="Choose A Chart To View">
+                <Label text="Your Milestone">
                   <font>
-                    <Font name="Calibri" size="24.0" />
+                    <Font size="36.0" />
                   </font>
                 </Label>
+                <HBox alignment="CENTER" prefHeight="187.0" prefWidth="1153.0" style="-fx-background-color: white;">
+                  <children>
+                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                      <children>
+                        <ImageView fitHeight="69.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@img/carbon-footprint.png" />
+                          </image>
+                        </ImageView>
+                        <HBox alignment="CENTER" spacing="5.0">
+                          <children>
+                            <Label fx:id="carbonData" style="-fx-font-weight: bold;" text="Data">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                            <Label fx:id="carbonData1" style="-fx-font-weight: bold;" text="kgCO₂e">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                          </children>
+                        </HBox>
+                        <Label text="Total Carbon Foorprint">
+                          <font>
+                            <Font size="18.0" />
+                          </font>
+                        </Label>
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER">
+                      <children>
+                        <Pane prefHeight="150.0" prefWidth="1.0" style="-fx-background-color: green;" />
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" layoutX="463.0" layoutY="10.0" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                      <children>
+                        <ImageView fitHeight="85.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@img/renewable-energy.png" />
+                          </image>
+                        </ImageView>
+                        <HBox alignment="CENTER" spacing="5.0">
+                          <children>
+                            <Label fx:id="electricData" style="-fx-font-weight: bold;" text="Data">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                            <Label fx:id="electricData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="kW/h">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                          </children>
+                        </HBox>
+                        <Label text="Total Electricity Usage">
+                          <font>
+                            <Font size="18.0" />
+                          </font>
+                        </Label>
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" layoutX="749.0" layoutY="10.0">
+                      <children>
+                        <Pane prefHeight="150.0" prefWidth="1.0" style="-fx-background-color: green;" />
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" layoutX="606.0" layoutY="10.0" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                      <children>
+                        <ImageView fitHeight="83.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@img/road-map.png" />
+                          </image>
+                        </ImageView>
+                        <HBox alignment="CENTER" spacing="5.0">
+                          <children>
+                            <Label fx:id="distanceData" style="-fx-font-weight: bold;" text="Data">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                            <Label fx:id="distanceData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="km">
+                              <font>
+                                <Font size="18.0" />
+                              </font>
+                            </Label>
+                          </children>
+                        </HBox>
+                        <Label text="Total Distance Traveled">
+                          <font>
+                            <Font size="18.0" />
+                          </font>
+                        </Label>
+                      </children>
+                    </VBox>
+                  </children>
+                </HBox>
+                <HBox prefHeight="397.0" prefWidth="1153.0" spacing="20.0">
+                  <children>
+                    <VBox prefHeight="359.0" prefWidth="566.0" style="-fx-background-color: white;">
+                      <children>
+                        <Label text="Daily Carbon Foorprint">
+                          <font>
+                            <Font size="18.0" />
+                          </font>
+                        </Label>
+                        <LineChart fx:id="carbonChart" prefHeight="348.0" prefWidth="546.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                      </children>
+                      <padding>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                      </padding>
+                    </VBox>
+                    <VBox layoutX="30.0" layoutY="30.0" prefHeight="329.0" prefWidth="566.0" style="-fx-background-color: white;">
+                      <children>
+                        <Label text="Carbon Foorprint Breakdown">
+                          <font>
+                            <Font size="18.0" />
+                          </font>
+                        </Label>
+                        <PieChart fx:id="breakChart" prefHeight="348.0" prefWidth="546.0" />
+                      </children>
+                      <padding>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                      </padding>
+                    </VBox>
+                  </children>
+                </HBox>
               </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
               <padding>
-                <Insets left="50.0" right="50.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
               </padding>
             </VBox>
-            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
-              prefWidth="200.0" spacing="25.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
-              <children>
-                <VBox fx:id="show1" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0"
-                  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                  minWidth="-Infinity" onMouseClicked="#showCarbon" prefHeight="130.0"
-                  prefWidth="201.0" styleClass="cards">
-                  <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" styleClass="title-smaller" text="Carbon Footprint"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                    </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
-                      styleClass="content-little"
-                      text="Find out your daily carbon footprint in graphical way"
-                      textFill="#747474" wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                      <VBox.margin>
-                        <Insets top="10.0" />
-                      </VBox.margin>
-                    </Label>
-                  </children>
-                  <padding>
-                    <Insets left="10.0" top="10.0" />
-                  </padding>
-                </VBox>
-                <VBox fx:id="show2" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0"
-                  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                  minWidth="-Infinity" onMouseClicked="#showBreak" prefHeight="130.0"
-                  prefWidth="201.0" styleClass="cards">
-                  <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" styleClass="title-smaller" text="Carbon Breakdown"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                    </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
-                      styleClass="content-little"
-                      text="Proportion of activities in your carbon footprint" textFill="#747474"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                      <VBox.margin>
-                        <Insets top="10.0" />
-                      </VBox.margin>
-                    </Label>
-                  </children>
-                  <padding>
-                    <Insets left="10.0" top="10.0" />
-                  </padding>
-                </VBox>
-                <VBox fx:id="show3" alignment="TOP_CENTER" maxHeight="-Infinity"
-                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#showTravel" prefHeight="130.0" prefWidth="201.0"
-                  styleClass="cards">
-                  <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" styleClass="title-smaller" text="Traveled Distance"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
-                      styleClass="content-little" text="Look at how far you have traveled everyday"
-                      textFill="#747474" wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                      <VBox.margin>
-                        <Insets top="10.0" />
-                      </VBox.margin>
-                    </Label>
-                  </children>
-                  <padding>
-                    <Insets left="10.0" top="10.0" />
-                  </padding>
-                </VBox>
-                <VBox fx:id="show4" alignment="TOP_CENTER" maxHeight="-Infinity"
-                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#showElectric" prefHeight="130.0" prefWidth="201.0"
-                  styleClass="cards">
-                  <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" styleClass="title-smaller" text="Electricity Usage"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                    </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
-                      styleClass="content-little"
-                      text="Check out and control your daily electricity usage" textFill="#747474"
-                      wrapText="true">
-                      <font>
-                        <Font name="Calibri Light" size="20.0" />
-                      </font>
-                      <VBox.margin>
-                        <Insets top="10.0" />
-                      </VBox.margin>
-                    </Label>
-                  </children>
-                  <padding>
-                    <Insets left="10.0" top="10.0" />
-                  </padding>
-                </VBox>
-              </children>
-              <padding>
-                <Insets top="35.0" />
-              </padding>
-            </HBox>
           </children>
         </VBox>
       </children>

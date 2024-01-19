@@ -145,9 +145,9 @@
             <DropShadow />
          </effect>
     </VBox>
-    <StackPane fx:id="rightPane" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1110.0" HBox.hgrow="ALWAYS">
+    <StackPane fx:id="rightPane" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" HBox.hgrow="ALWAYS">
       <children>
-        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1128.0" style="-fx-background-color: #FFF;" />
+        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" style="-fx-background-color: #FFF;" />
         <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" styleClass="white-pane">
           <children>
             <Pane VBox.vgrow="NEVER">
@@ -190,7 +190,7 @@
               </VBox>
               </children>
             </Pane>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="1139.0" spacing="10.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="1099.0" spacing="10.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
               <children>
                 <VBox alignment="CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onTitle1" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                   <children>
