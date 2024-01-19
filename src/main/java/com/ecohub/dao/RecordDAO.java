@@ -22,8 +22,10 @@ public class RecordDAO {
     "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
   private static final String UPDATE_QUERY =
     "UPDATE ECOHUB.RECORD SET R_CATEGORY = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
-  private static final String GET_RECECNT = 
+  private static final String GET_RECENT = 
     "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
+  private static final String GET_TOTAL =
+    "SELECT SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ?";
 
 
 
@@ -140,7 +142,7 @@ public class RecordDAO {
     try (
       Connection connection = DBUtil.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(
-        GET_RECECNT
+        GET_RECENT
       )
     ) {
       // assuming you're setting the id somewhere
@@ -157,5 +159,27 @@ public class RecordDAO {
       e.printStackTrace();
     }
     return recordList.toArray(new String[0][]);
+  }
+
+  public BigDecimal getTotal(int id) throws SQLException {
+    BigDecimal total = null;
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_TOTAL
+      )
+    ) {
+      // assuming you're setting the id somewhere
+      preparedStatement.setInt(1, id);
+      
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        BigDecimal bd = resultSet.getBigDecimal("Total");
+        total = bd.setScale(2, RoundingMode.HALF_UP);
+      }    
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return total;
   }
 }
