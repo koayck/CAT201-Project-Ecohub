@@ -1,6 +1,5 @@
 package com.ecohub.dao;
 
-import com.ecohub.models.Record;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -11,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.ecohub.models.Record;
 
 public class RecordDAO {
 
@@ -26,6 +27,8 @@ public class RecordDAO {
     "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
   private static final String GET_TOTAL =
     "SELECT SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ?";
+  private static final String GET_PERCENTAGE = 
+    "SELECT c.C_NAME AS Category, SUM(r.R_CARBON) AS TotalCarbon, (SUM(r.R_CARBON) / (SELECT SUM(R_CARBON) FROM record)) * 100 AS Percentage FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID GROUP BY c.C_NAME;";
 
 
 
@@ -181,5 +184,26 @@ public class RecordDAO {
       e.printStackTrace();
     }
     return total;
+  }
+
+  public List<String[]> getPercentage() throws SQLException {
+    List<String[]> percentages = new ArrayList<>();
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_PERCENTAGE
+      )
+    ) {
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        String[] result = new String[2];
+        result[0] = resultSet.getString("Category");
+        result[1] = resultSet.getString("Percentage");
+        percentages.add(result);
+      }    
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return percentages;
   }
 }
