@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="1000.0" styleClass="root"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.controller.AddViewController">
+<ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="1000.0" styleClass="root"  xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.controller.AddViewController">
    <content>
       <VBox fx:id="parent" alignment="TOP_CENTER" spacing="10.0" styleClass="root">
          <children>

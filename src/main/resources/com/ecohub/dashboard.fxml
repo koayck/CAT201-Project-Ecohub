@@ -10,43 +10,62 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="690.0" prefWidth="1192.0" style="-fx-alignment: #0F0;" styleClass="parent" stylesheets="@./styles/dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.DashboardController">
+<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+  prefHeight="690.0" prefWidth="1192.0" styleClass="parent"
+  stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx"
+  xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.DashboardController">
   <children>
     <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">
       <children>
-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" />
-        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" styleClass="white-pane">
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
+          style="-fx-background-color: #FFF;" />
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
+          styleClass="white-pane">
           <children>
-                  <VBox fx:id="chartView" alignment="CENTER" prefHeight="490.0" prefWidth="1186.0" style="-fx-background-color: #F2F2F2;">
-                     <children>
-                        <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
-                           <image>
-                              <Image url="@point.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label text="Choose A Chart To View">
-                           <font>
-                              <Font name="Calibri" size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets left="50.0" right="50.0" />
-                     </padding>
-                  </VBox>
-            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" spacing="25.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
+            <VBox fx:id="chartView" alignment="CENTER" prefHeight="490.0" prefWidth="1186.0"
+              style="-fx-background-color: #F2F2F2;">
               <children>
-                <VBox fx:id="show1" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showCarbon" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true"
+                  preserveRatio="true" rotate="-90.0">
+                  <image>
+                    <Image url="@img/point.png" />
+                  </image>
+                  <VBox.margin>
+                    <Insets bottom="25.0" />
+                  </VBox.margin>
+                </ImageView>
+                <Label text="Choose A Chart To View">
+                  <font>
+                    <Font name="Calibri" size="24.0" />
+                  </font>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="50.0" right="50.0" />
+              </padding>
+            </VBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
+              prefWidth="200.0" spacing="25.0" styleClass="white-pane" VBox.vgrow="ALWAYS">
+              <children>
+                <VBox fx:id="show1" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0"
+                  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" onMouseClicked="#showCarbon" prefHeight="130.0"
+                  prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Carbon Footprint" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Carbon Footprint"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="Find out your daily carbon footprint in graphical way" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="Find out your daily carbon footprint in graphical way"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -59,14 +78,23 @@
                     <Insets left="10.0" top="10.0" />
                   </padding>
                 </VBox>
-                <VBox fx:id="show2" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showBreak" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
+                <VBox fx:id="show2" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0"
+                  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" onMouseClicked="#showBreak" prefHeight="130.0"
+                  prefWidth="201.0" styleClass="cards">
                   <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Carbon Breakdown" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Carbon Breakdown"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="Proportion of activities in your carbon footprint" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="Proportion of activities in your carbon footprint" textFill="#747474"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -75,13 +103,18 @@
                       </VBox.margin>
                     </Label>
                   </children>
-                           <padding>
-                              <Insets left="10.0" top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets left="10.0" top="10.0" />
+                  </padding>
                 </VBox>
-                <VBox fx:id="show3" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showTravel" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
+                <VBox fx:id="show3" alignment="TOP_CENTER" maxHeight="-Infinity"
+                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  onMouseClicked="#showTravel" prefHeight="130.0" prefWidth="201.0"
+                  styleClass="cards">
                   <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Traveled Distance" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Traveled Distance"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -89,7 +122,10 @@
                         <Insets />
                       </VBox.margin>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="Look at how far you have traveled everyday" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little" text="Look at how far you have traveled everyday"
+                      textFill="#747474" wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -98,18 +134,27 @@
                       </VBox.margin>
                     </Label>
                   </children>
-                           <padding>
-                              <Insets left="10.0" top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets left="10.0" top="10.0" />
+                  </padding>
                 </VBox>
-                <VBox fx:id="show4" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showElectric" prefHeight="130.0" prefWidth="201.0" styleClass="cards">
+                <VBox fx:id="show4" alignment="TOP_CENTER" maxHeight="-Infinity"
+                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  onMouseClicked="#showElectric" prefHeight="130.0" prefWidth="201.0"
+                  styleClass="cards">
                   <children>
-                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="title-smaller" text="Electricity Usage" wrapText="true">
+                    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="title-smaller" text="Electricity Usage"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" styleClass="content-little" text="Check out and control your daily electricity usage" textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0"
+                      styleClass="content-little"
+                      text="Check out and control your daily electricity usage" textFill="#747474"
+                      wrapText="true">
                       <font>
                         <Font name="Calibri Light" size="20.0" />
                       </font>
@@ -118,14 +163,14 @@
                       </VBox.margin>
                     </Label>
                   </children>
-                           <padding>
-                              <Insets left="10.0" top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets left="10.0" top="10.0" />
+                  </padding>
                 </VBox>
               </children>
-                     <padding>
-                        <Insets top="35.0" />
-                     </padding>
+              <padding>
+                <Insets top="35.0" />
+              </padding>
             </HBox>
           </children>
         </VBox>

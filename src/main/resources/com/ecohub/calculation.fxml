@@ -14,8 +14,8 @@
 <?import javafx.scene.text.Text?>
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-   minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21"
-   xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.CalculationController">
+   minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx"
+   xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.CalculationController">
    <children>
       <SplitPane dividerPositions="0.7" prefHeight="400.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
          <items>
@@ -48,12 +48,14 @@
                      AnchorPane.bottomAnchor="402.6666666666667" AnchorPane.leftAnchor="14.0"
                      AnchorPane.rightAnchor="43.33333333333334" AnchorPane.topAnchor="124.0">
                      <children>
-                        <JFXCheckBox fx:id="selectAll" selected="true" text="Select All">
+                        <JFXCheckBox fx:id="selectAll" onAction="#selectAll" selected="true"
+                           text="Select All">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="excludeElectricity" text="Exclude Electricity">
+                        <JFXCheckBox fx:id="excludeElectricity" onAction="#exclElectricity"
+                           text="Exclude Electricity">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
@@ -68,7 +70,8 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="excludeTravel1" text="Exclude Travel">
+                        <JFXCheckBox fx:id="excludeTravel" onAction="#exclTravel"
+                           text="Exclude Travel">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>

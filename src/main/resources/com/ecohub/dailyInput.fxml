@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="480.0" prefWidth="640.0" stylesheets="@./styles/dailyInput.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com1" fx:controller="com.ecohub.dailyInputController">
+<AnchorPane prefHeight="480.0" prefWidth="640.0" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.dailyInputController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,7 +23,7 @@
                   <Point3D />
                </rotationAxis>
             </TextField>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EcoHub">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EcoHub">
                <font>
                   <Font size="34.0" />
                </font>
@@ -31,7 +31,7 @@
                   <Insets bottom="400.0" />
                </StackPane.margin>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance Travelled: ">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distance Travelled: ">
                <StackPane.margin>
                   <Insets bottom="130.0" right="330.0" />
                </StackPane.margin>
@@ -39,7 +39,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Electricity Consumption: " translateY="15.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Electricity Consumption: " translateY="15.0">
                <StackPane.margin>
                   <Insets bottom="50.0" right="375.0" />
                </StackPane.margin>
@@ -47,7 +47,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight of Waste:" translateY="30.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight of Waste:" translateY="30.0">
                <StackPane.margin>
                   <Insets right="320.0" top="40.0" />
                </StackPane.margin>
@@ -55,7 +55,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of Water: " translateY="45.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of Water: " translateY="45.0">
                <StackPane.margin>
                   <Insets right="320.0" top="130.0" />
                </StackPane.margin>
@@ -148,7 +148,7 @@
                   <Insets bottom="230.0" left="222.0" right="229.0" />
                </StackPane.margin>
             </TextField>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Record Name:">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Record Name:">
                <font>
                   <Font size="20.0" />
                </font>
