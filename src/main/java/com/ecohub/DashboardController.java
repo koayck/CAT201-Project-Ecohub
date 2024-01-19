@@ -1,5 +1,6 @@
 package com.ecohub;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -24,23 +25,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
 public class DashboardController {
-
+    
     @FXML
     private LineChart<String, Number> carbonChart;
-
+    
     @FXML
     private PieChart breakChart;
-
+    
     @FXML
     private HBox parent;
-
+    
     @FXML
     private StackPane rightPane;
-
+    
+    @FXML
+    private Label carbonData, electricData, distanceData;
+    
     @FXML
     void updateChart() {
         carbonChart.getData().clear(); // clear the old data
         showCarbon(); // add the new data
+    }
+    
+    @FXML
+    void updateLabel() {
+        RecordDAO recordDAO = new RecordDAO();
+        try {
+            BigDecimal total = recordDAO.getTotal(1);
+            carbonData.setText(String.valueOf(total));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -92,6 +107,7 @@ public class DashboardController {
 
     @FXML
     void initialize() {
+        updateLabel();
         updateChart();
     }
 }

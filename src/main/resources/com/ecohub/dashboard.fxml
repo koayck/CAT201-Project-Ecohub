@@ -38,11 +38,20 @@
                                           <Image url="@img/carbon-footprint.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="carbonData" style="-fx-font-weight: bold;" text="Data">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Label fx:id="carbonData" style="-fx-font-weight: bold;" text="Data">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="carbonData1" style="-fx-font-weight: bold;" text="kgCO₂e">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
                                     <Label text="Total Carbon Foorprint">
                                        <font>
                                           <Font size="18.0" />
@@ -62,11 +71,20 @@
                                           <Image url="@img/renewable-energy.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="electricData" style="-fx-font-weight: bold;" text="Data">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Label fx:id="electricData" style="-fx-font-weight: bold;" text="Data">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="electricData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="kW/h">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
                                     <Label text="Total Electricity Usage">
                                        <font>
                                           <Font size="18.0" />
@@ -86,11 +104,20 @@
                                           <Image url="@img/road-map.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="distanceData" style="-fx-font-weight: bold;" text="Data">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Label fx:id="distanceData" style="-fx-font-weight: bold;" text="Data">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="distanceData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="km">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
                                     <Label text="Total Distance Traveled">
                                        <font>
                                           <Font size="18.0" />
