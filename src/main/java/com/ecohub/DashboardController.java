@@ -1,11 +1,22 @@
 package com.ecohub;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+
+import com.ecohub.dao.RecordDAO;
+import com.ecohub.models.User;
+import com.ecohub.dailyInputController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -21,196 +32,135 @@ import javafx.scene.paint.Paint;
 
 public class DashboardController {
 
-    @FXML
-    private VBox chartView, show1, show2, show3, show4;
+    private User user;
 
-    @FXML
-    private HBox parent;
+    private boolean isUserInitialized = false;
 
-    @FXML
-    private StackPane rightPane;
-
+    public void initUser(User user) {
+        this.user = user;
+        this.isUserInitialized = true;
+        updateLabel();
+        updateChart();
+    }
     
     @FXML
-    void showCarbon(MouseEvent event) {
-        styleBox(0);
+    private LineChart<String, Number> carbonChart;
+    
+    @FXML
+    private PieChart breakChart;
+    
+    @FXML
+    private HBox parent;
+    
+    @FXML
+    private StackPane rightPane;
+    
+    @FXML
+    private Label carbonData, electricData, distanceData;
+    
+    @FXML
+    void updateChart() {
+        carbonChart.getData().clear(); // clear the old data
+        showCarbon(); // add the new data
+        showBreak();
+    }
+    
+    @FXML
+    void updateLabel() {
+        RecordDAO recordDAO = new RecordDAO();
+        try {
+            BigDecimal total = recordDAO.getTotal(user.getUser_id());
+            if (total == null) {
+                carbonData.setText("0");
+            }
+            else {
+                carbonData.setText(String.valueOf(total));
+            }
+            total = recordDAO.getCategory(user.getUser_id(), 2);
+            if (total == null) {
+                electricData.setText("0");
+            }
+            else {
+                electricData.setText(String.valueOf(total));
+            }
+            total = recordDAO.getCategory(user.getUser_id(), 1);
+            if (total == null) {
+                distanceData.setText("0");
+            }
+            else {
+                distanceData.setText(String.valueOf(total));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    void showCarbon() {
+        RecordDAO recordDAO = new RecordDAO();
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Carbon Footprint");
-        
-        LineChart<String, Number> carbonFoorprint = new LineChart<String, Number>(xAxis, yAxis);
-        carbonFoorprint.setTitle("Daily Carbon Footprint");
-        
-        XYChart.Series<String, Number> data = new XYChart.Series<String, Number>();
-        data.setName("Total Carbon Footprint");
-        
-        data.getData().add(new XYChart.Data<String, Number>("14/1", 200));
-        data.getData().add(new XYChart.Data<String, Number>("15/1", 400));
-        data.getData().add(new XYChart.Data<String, Number>("16/1", 100));
-        
-        carbonFoorprint.getData().add(data);
-        carbonFoorprint.setLegendVisible(false);
-        
-        chartView.getChildren().clear();
-        chartView.getChildren().add(carbonFoorprint);
+
+        try {
+            String[][] data = recordDAO.getRecent(user.getUser_id()); 
+
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            series.setName("Total Carbon Footprint");
+            
+            for (String[] point : data) {
+                String dateAsString = point[0];
+                double total = Double.parseDouble(point[1]);
+
+                series.getData().add(new XYChart.Data<String, Number>(dateAsString, total));
+            }
+            
+            carbonChart.getData().add(series);
+            carbonChart.setLegendVisible(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
-    void showBreak(MouseEvent event) {
-        styleBox(1);
+    void showBreak() {
+        RecordDAO recordDAO = new RecordDAO();
+        List<String[]> data = null;
 
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Fuel", 3000),
-            new PieChart.Data("Electricity", 1500),
-            new PieChart.Data("Water", 1020),
-            new PieChart.Data("Waste", 2030)
-        );
+        try {
+            data = recordDAO.getPercentage(user.getUser_id());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately for your application
+        }
 
-        PieChart pieChart = new PieChart(pieChartData);
-        pieChart.setTitle("Carbon Footprint Break Down");
-        pieChart.setClockwise(true);
-        pieChart.setLabelLineLength(50);
-        pieChart.setLabelsVisible(true);
-        pieChart.setStartAngle(180);
+        if (data != null) {
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        chartView.getChildren().clear();
-        chartView.getChildren().add(pieChart);
+            for (String[] item : data) {
+                String category = item[0];
+                double percentage = Double.parseDouble(item[1]);
+                pieChartData.add(new PieChart.Data(category, percentage));
+            }
+
+            breakChart.setData(pieChartData);
+            breakChart.setClockwise(true);
+            breakChart.setLabelLineLength(50);
+            breakChart.setStartAngle(180);
+        }
     }
+    
 
     @FXML
-    void showTravel(MouseEvent event) {
-        styleBox(2);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Date");
-        
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Traveled Distance");
-        
-        LineChart<String, Number> distanceTravel = new LineChart<String, Number>(xAxis, yAxis);
-        distanceTravel.setTitle("Daily Traveled Distance");
-        
-        XYChart.Series<String, Number> data = new XYChart.Series<String, Number>();
-        data.setName("Total Traveled Distance");
-        
-        data.getData().add(new XYChart.Data<String, Number>("14/1", 1200));
-        data.getData().add(new XYChart.Data<String, Number>("15/1", 403));
-        data.getData().add(new XYChart.Data<String, Number>("16/1", 830));
-        
-        distanceTravel.getData().add(data);
-        distanceTravel.setLegendVisible(false);
-        
-        chartView.getChildren().clear();
-        chartView.getChildren().add(distanceTravel);
-    }
-
-    @FXML
-    void showElectric(MouseEvent event) {
-        styleBox(3);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Date");
-        
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Electric Usage");
-        
-        BarChart<String, Number> electricUsage = new BarChart<String, Number>(xAxis, yAxis);
-        electricUsage.setTitle("Daily Electric Usage");
-        
-        XYChart.Series<String, Number> data = new XYChart.Series<String, Number>();
-        data.setName("Total Carbon Footprint");
-        
-        data.getData().add(new XYChart.Data<String, Number>("14/1", 200));
-        data.getData().add(new XYChart.Data<String, Number>("15/1", 400));
-        data.getData().add(new XYChart.Data<String, Number>("16/1", 100));
-        
-        electricUsage.getData().add(data);
-        electricUsage.setLegendVisible(false);
-        
-        chartView.getChildren().clear();
-        chartView.getChildren().add(electricUsage);
-    }
-
-
-    private void styleBox(int index) {
-        // This function change the style+color of the menu (Menu Item Selected)
-        show1.setStyle("-fx-background-color: white;");
-        for (javafx.scene.Node node : show1.getChildren()) {
-            if (node instanceof Label) {
-                // Modify the style of the label here
-                Label label = (Label) node;
-                label.setStyle("-fx-text-fill: black;");
-            }
-        }
-        show2.setStyle("-fx-background-color: white;");
-        for (javafx.scene.Node node : show2.getChildren()) {
-            if (node instanceof Label) {
-                // Modify the style of the label here
-                Label label = (Label) node;
-                label.setStyle("-fx-text-fill: black;");
-            }
-        }
-        show3.setStyle("-fx-background-color: white;");
-        for (javafx.scene.Node node : show3.getChildren()) {
-            if (node instanceof Label) {
-                // Modify the style of the label here
-                Label label = (Label) node;
-                label.setStyle("-fx-text-fill: black;");
-            }
-        }
-        show4.setStyle("-fx-background-color: white;");
-        for (javafx.scene.Node node : show4.getChildren()) {
-            if (node instanceof Label) {
-                // Modify the style of the label here
-                Label label = (Label) node;
-                label.setStyle("-fx-text-fill: black;");
-            }
-        }
-
-        switch (index) {
-            case 0:
-                show1.setStyle("-fx-background-color: #10c474;");
-                for (javafx.scene.Node node : show1.getChildren()) {
-                    if (node instanceof Label) {
-                        // Modify the style of the label here
-                        Label label = (Label) node;
-                        label.setStyle("-fx-text-fill: white;");
-                    }
-                }
-                break;
-            case 1:
-                show2.setStyle("-fx-background-color: #10c474;");
-                for (javafx.scene.Node node : show2.getChildren()) {
-                    if (node instanceof Label) {
-                        // Modify the style of the label here
-                        Label label = (Label) node;
-                        label.setStyle("-fx-text-fill: white;");
-                    }
-                }
-                break;
-            case 2:
-                show3.setStyle("-fx-background-color: #10c474;");
-                for (javafx.scene.Node node : show3.getChildren()) {
-                    if (node instanceof Label) {
-                        // Modify the style of the label here
-                        Label label = (Label) node;
-                        label.setStyle("-fx-text-fill: white;");
-                    }
-                }
-                break;
-            case 3:
-                show4.setStyle("-fx-background-color: #10c474;");
-                for (javafx.scene.Node node : show4.getChildren()) {
-                    if (node instanceof Label) {
-                        // Modify the style of the label here
-                        Label label = (Label) node;
-                        label.setStyle("-fx-text-fill: white;");
-                    }
-                }
-                break;
+    void initialize() {
+        if (isUserInitialized) {
+            updateLabel();
+            updateChart();
         }
     }
-
 }

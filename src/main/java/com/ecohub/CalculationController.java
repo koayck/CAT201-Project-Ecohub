@@ -110,6 +110,7 @@ public class CalculationController {
     public void initialize() {
 
         refreshBtn.fire();
+        RecordDAO recordDAO = new RecordDAO();
 
         List<CheckBox> otherCheckboxes = Arrays.asList(excludeElectricity, excludeTravel, excludeWater, excludeWaste);
 
@@ -141,26 +142,12 @@ public class CalculationController {
         col_input.setCellValueFactory(new PropertyValueFactory<Record, BigDecimal>("input"));
 
         col_calculation.setCellValueFactory(cellData -> {
-
-            BigDecimal value;
             String activity = cellData.getValue().getActivity();
+            BigDecimal input = cellData.getValue().getInput();
 
-            if ("Car".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
-                        .multiply(BigDecimal.valueOf(2.349));
-            } else if ("Walking".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
-            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
-            } else if ("Plastic".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
-            } else if ("Electronic".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
-            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
-            } else {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
-            }
+            // Use the calculateValue function to calculate the value based on the activity
+            BigDecimal value = recordDAO.calculateValue(activity, input);
+
             value = value.setScale(8, RoundingMode.HALF_UP);
             return new SimpleObjectProperty<BigDecimal>(value);
         });
@@ -168,7 +155,6 @@ public class CalculationController {
         // set up the function to calculate percentage of each activity to total
 
         col_percentage.setCellValueFactory(cellData -> {
-            BigDecimal value;
             String activity = cellData.getValue().getActivity();
             BigDecimal total;
 
@@ -179,26 +165,10 @@ public class CalculationController {
                 return null;
             }
 
-            if ("Car".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.07))
-                        .multiply(BigDecimal.valueOf(2.349));
-            } else if ("Walking".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.039));
-            } else if (("AC".equals(activity) || "Refrigerator".equals(activity))) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.39));
-            } else if ("Plastic".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(6));
-            } else if ("Electronic".equals(activity)) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(2));
-            } else if (("Drinking".equals(activity) || "Bathing".equals(activity) || "Washing".equals(activity))) {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0.298));
-            } else {
-                value = cellData.getValue().getInput().multiply(BigDecimal.valueOf(0));
-            }
-
-            BigDecimal percentage = value.divide(total, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+            BigDecimal percentage = recordDAO.calculatePercentage(activity, cellData.getValue().getInput(), total);
             return new SimpleObjectProperty<BigDecimal>(percentage);
         });
+        ;
 
     }
 
@@ -231,7 +201,12 @@ public class CalculationController {
 
         BigDecimal total = BigDecimal.ZERO;
         for (Record record : records) {
-            BigDecimal calculation = record.getInput().multiply(BigDecimal.valueOf(0.66));
+            String activity = record.getActivity();
+            BigDecimal input = record.getInput();
+
+            // Use the calculateValue function to calculate the value based on the activity
+            BigDecimal calculation = recordDao.calculateValue(activity, input);
+
             total = total.add(calculation);
         }
         return total;

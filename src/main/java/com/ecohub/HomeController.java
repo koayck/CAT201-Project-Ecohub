@@ -130,7 +130,15 @@ public class HomeController implements Initializable {
   private void onTitle1() {
     styleBox(1);
     try {
-      ItemPane = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+      FXMLLoader loader = new FXMLLoader(
+        getClass().getResource("dashboard.fxml")
+      );
+      Parent root = loader.load();
+
+      DashboardController DashboardController = loader.getController();
+      DashboardController.initUser(user);
+
+      ItemPane = root;
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
