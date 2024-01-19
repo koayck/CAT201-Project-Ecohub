@@ -37,6 +37,11 @@ public class DashboardController {
     @FXML
     private StackPane rightPane;
 
+    @FXML
+    void updateChart() {
+        carbonChart.getData().clear(); // clear the old data
+        showCarbon(); // add the new data
+    }
     
     @FXML
     void showCarbon() {
@@ -87,7 +92,6 @@ public class DashboardController {
 
     @FXML
     void initialize() {
-        showCarbon();
-        showBreak();
+        updateChart();
     }
 }
