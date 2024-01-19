@@ -4767,3 +4767,12 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 }
 
 /* End Home Part */ 
+
+/* Start Box with border */
+
+.border-box {
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+}
+
+/* End Box with border */
