@@ -7,15 +7,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecordDAO {
 
-  private static final String INSERT_QUERY = "INSERT INTO ECOHUB.RECORD (R_CATEGORY, R_TITLE, R_VALUE, U_ID) VALUES (?,?,?,?)";
-  private static final String DELETE_QUERY = "DELETE FROM ECOHUB.RECORD WHERE R_ID = ?";
-  private static final String SELECT_ALL_QUERY = "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
-  private static final String UPDATE_QUERY = "UPDATE ECOHUB.RECORD SET R_CATEGORY = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
+  private static final String INSERT_QUERY =
+    "INSERT INTO ECOHUB.RECORD (R_CATEGORY, R_TITLE, R_VALUE, U_ID) VALUES (?,?,?,?)";
+  private static final String DELETE_QUERY =
+    "DELETE FROM ECOHUB.RECORD WHERE R_ID = ?";
+  private static final String SELECT_ALL_QUERY =
+    "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
+  private static final String UPDATE_QUERY =
+    "UPDATE ECOHUB.RECORD SET R_CATEGORY = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
+  private static final String GET_RECECNT = 
+    "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
+
+
 
   // function for adding record based on this query private static final String
   // INSERT_QUERY =
@@ -122,5 +132,30 @@ public class RecordDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public String[][] getRecent(int id) throws SQLException {
+    List<String[]> recordList = new ArrayList<>();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_RECECNT
+      )
+    ) {
+      // assuming you're setting the id somewhere
+      preparedStatement.setInt(1, id);
+      
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        Date date = resultSet.getDate("Date");
+        String dateString = formatter.format(date);
+        double total = resultSet.getDouble("Total");
+        recordList.add(new String[]{dateString, Double.toString(total)});
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return recordList.toArray(new String[0][]);
   }
 }

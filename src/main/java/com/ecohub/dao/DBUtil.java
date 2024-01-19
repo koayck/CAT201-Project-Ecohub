@@ -8,9 +8,11 @@ public class DBUtil {
 
   private static final String DATABASE_NAME = "ecohub";
   private static final String DATABASE_USERNAME = "root";
-  private static final String DATABASE_PASSWORD = "454545";
-  private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME
-      + "?useSSL=false&serverTimezone=UTC";
+  private static final String DATABASE_PASSWORD = "oracle999";
+  private static final String DATABASE_URL =
+    "jdbc:mysql://localhost:3306/" +
+    DATABASE_NAME +
+    "?useSSL=false&serverTimezone=UTC";
 
   public static Connection getConnection() throws SQLException {
     return DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
