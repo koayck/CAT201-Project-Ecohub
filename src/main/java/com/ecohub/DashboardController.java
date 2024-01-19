@@ -3,6 +3,7 @@ package com.ecohub;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.ecohub.dao.RecordDAO;
 
@@ -45,6 +46,7 @@ public class DashboardController {
     void updateChart() {
         carbonChart.getData().clear(); // clear the old data
         showCarbon(); // add the new data
+        showBreak();
     }
     
     @FXML
@@ -91,19 +93,33 @@ public class DashboardController {
 
     @FXML
     void showBreak() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Fuel", 3000),
-            new PieChart.Data("Electricity", 1500),
-            new PieChart.Data("Water", 1020),
-            new PieChart.Data("Waste", 2030)
-        );
+        RecordDAO recordDAO = new RecordDAO();
+        List<String[]> data = null;
 
-        breakChart.setData(pieChartData);;
-        breakChart.setClockwise(true);
-        breakChart.setLabelLineLength(50);
-        breakChart.setLabelsVisible(true);
-        breakChart.setStartAngle(180);
+        try {
+            data = recordDAO.getPercentage();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately for your application
+        }
+
+        if (data != null) {
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            for (String[] item : data) {
+                String category = item[0];
+                double percentage = Double.parseDouble(item[1]);
+                pieChartData.add(new PieChart.Data(category, percentage));
+            }
+
+            breakChart.setData(pieChartData);
+            breakChart.setClockwise(true);
+            breakChart.setLabelLineLength(50);
+            breakChart.setLabelsVisible(true);
+            breakChart.setStartAngle(180);
+        }
     }
+    
 
     @FXML
     void initialize() {
