@@ -28,7 +28,10 @@ public class RecordDAO {
   private static final String GET_TOTAL =
     "SELECT SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ?";
   private static final String GET_PERCENTAGE = 
-    "SELECT c.C_NAME AS Category, SUM(r.R_CARBON) AS TotalCarbon, (SUM(r.R_CARBON) / (SELECT SUM(R_CARBON) FROM record)) * 100 AS Percentage FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID GROUP BY c.C_NAME;";
+    "SELECT c.C_NAME AS Category, SUM(r.R_CARBON) AS TotalCarbon, (SUM(r.R_CARBON) / (SELECT SUM(R_CARBON) FROM record WHERE U_ID = ?)) * 100 AS Percentage FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID WHERE r.U_ID = ? GROUP BY c.C_NAME;";
+  private static final String GET_CATEGORY = 
+    "SELECT c.C_NAME AS Category, SUM(r.R_VALUE) AS Total FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID WHERE r.U_ID = ? AND c.C_ID = ? GROUP BY c.C_NAME;";
+
 
 
 
@@ -186,7 +189,30 @@ public class RecordDAO {
     return total;
   }
 
-  public List<String[]> getPercentage() throws SQLException {
+  public BigDecimal getCategory(int userId, int categoryId) throws SQLException {
+    BigDecimal total = null;
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_CATEGORY
+      )
+    ) {
+      // assuming you're setting the id somewhere
+      preparedStatement.setInt(1, userId);
+      preparedStatement.setInt(2, categoryId);
+      
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        BigDecimal bd = resultSet.getBigDecimal("Total");
+        total = bd.setScale(2, RoundingMode.HALF_UP);
+      }    
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return total;
+  }
+
+  public List<String[]> getPercentage(int id) throws SQLException {
     List<String[]> percentages = new ArrayList<>();
     try (
       Connection connection = DBUtil.getConnection();
@@ -194,6 +220,9 @@ public class RecordDAO {
         GET_PERCENTAGE
       )
     ) {
+      preparedStatement.setInt(1, id);
+      preparedStatement.setInt(2, id);
+
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
         String[] result = new String[2];
