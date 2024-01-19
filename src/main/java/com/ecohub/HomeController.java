@@ -29,7 +29,7 @@ public class HomeController implements Initializable {
   private VBox sidebar;
 
   @FXML // Menu items
-  private HBox navHome, navTitle1, navTitle2, navTitle3, navTitle4;
+  private HBox navHome, navTitle1, navTitle2;
 
   @FXML
   private Label title;
@@ -106,7 +106,7 @@ public class HomeController implements Initializable {
   }
 
   @FXML
-  private void onTitle1() {
+  private void onDashboard() {
     styleBox(1);
     try {
       FXMLLoader loader = new FXMLLoader(
@@ -125,27 +125,16 @@ public class HomeController implements Initializable {
   }
 
   @FXML
-  private void onTitle2() {
+  private void onRecord() {
     styleBox(2);
     try {
-      ItemPane = FXMLLoader.load(getClass().getResource("Record.fxml"));
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-    setNode(ItemPane);
-  }
-
-  @FXML
-  private void onTitle3() {
-    styleBox(3);
-    try {
       FXMLLoader loader = new FXMLLoader(
-        getClass().getResource("dailyInput.fxml")
+        getClass().getResource("Record.fxml")
       );
       Parent root = loader.load();
 
-      dailyInputController dailyInputController = loader.getController();
-      dailyInputController.initUser(user);
+      RecordController RecordController = loader.getController();
+      RecordController.initUser(user);
 
       ItemPane = root;
     } catch (IOException ioe) {
@@ -155,21 +144,8 @@ public class HomeController implements Initializable {
   }
 
   @FXML
-  private void onTitle4() {
-    styleBox(4);
-    try {
-      ItemPane = FXMLLoader.load(getClass().getResource("calculation.fxml"));
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-    setNode(ItemPane);
-  }
-
-  @FXML
   private void onAbout() {
     System.out.println("About Clicked !");
-
-    
   }
 
   private void styleBox(int index) {
@@ -183,18 +159,10 @@ public class HomeController implements Initializable {
     ((SVGPath) navTitle2.getChildren().get(0)).setFill(
         Paint.valueOf("#4a4949")
       );
-    ((SVGPath) navTitle3.getChildren().get(0)).setFill(
-        Paint.valueOf("#4a4949")
-      );
-    ((SVGPath) navTitle4.getChildren().get(0)).setFill(
-        Paint.valueOf("#4a4949")
-      );
 
     navHome.setStyle("-fx-border: 0");
     navTitle1.setStyle("-fx-border: 0");
     navTitle2.setStyle("-fx-border: 0");
-    navTitle3.setStyle("-fx-border: 0");
-    navTitle4.setStyle("-fx-border: 0");
 
     switch (index) {
       case 0:
@@ -218,22 +186,6 @@ public class HomeController implements Initializable {
           "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
         );
         ((SVGPath) navTitle2.getChildren().get(0)).setFill(
-            Paint.valueOf("#00daa0")
-          );
-        break;
-      case 3:
-        navTitle3.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
-        );
-        ((SVGPath) navTitle3.getChildren().get(0)).setFill(
-            Paint.valueOf("#00daa0")
-          );
-        break;
-      case 4:
-        navTitle4.setStyle(
-          "-fx-background-color: #f2f2f2;-fx-border-color: #00daa0;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;"
-        );
-        ((SVGPath) navTitle4.getChildren().get(0)).setFill(
             Paint.valueOf("#00daa0")
           );
         break;

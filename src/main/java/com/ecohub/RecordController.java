@@ -2,6 +2,8 @@ package com.ecohub;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.Record;
+import com.ecohub.models.User;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -18,14 +20,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RecordController implements Initializable {
+
+  private User user;
+
+  public void initUser(User user) {
+    this.user = user;
+  }
 
   @FXML
   private VBox pnItems;
@@ -58,7 +69,7 @@ public class RecordController implements Initializable {
   private JFXCheckBox excludeTravel;
 
   @FXML
-  private Button refreshBtn;
+  private JFXButton refreshBtn;
 
   @FXML
   private Label labelTotal;
@@ -145,6 +156,20 @@ public class RecordController implements Initializable {
     });
 
     new Thread(task).start();
+  }
+
+  @FXML
+  private Button addButton;
+
+  @FXML
+  private void showAddPopup() throws IOException {
+    FXMLLoader loader = new FXMLLoader(
+      getClass().getResource("dailyInput.fxml")
+    );
+    Parent root = loader.load();
+    Stage stage = new Stage();
+    stage.setScene(new Scene(root));
+    stage.show();
   }
 
   // // @FXML
