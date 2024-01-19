@@ -25,7 +25,9 @@ public class RecordDAO {
     "UPDATE ECOHUB.RECORD SET R_CATEGORY = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
   private static final String GET_RECENT = 
     "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
-  private static final String GET_TOTAL =
+    private static final String GET_RECENT_YEAR = 
+    "SELECT YEAR(`R_DATE`) AS `Year`, MONTH(`R_DATE`) AS `Month`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH) GROUP BY YEAR(`R_DATE`), MONTH(`R_DATE`)";
+    private static final String GET_TOTAL =
     "SELECT SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ?";
   private static final String GET_PERCENTAGE = 
     "SELECT c.C_NAME AS Category, SUM(r.R_CARBON) AS TotalCarbon, (SUM(r.R_CARBON) / (SELECT SUM(R_CARBON) FROM record WHERE U_ID = ?)) * 100 AS Percentage FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID WHERE r.U_ID = ? GROUP BY c.C_NAME;";
@@ -166,6 +168,30 @@ public class RecordDAO {
     }
     return recordList.toArray(new String[0][]);
   }
+
+  public String[][] getRecentYear(int id) throws SQLException {
+    List<String[]> recordList = new ArrayList<>();
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_RECENT_YEAR
+      )
+    ) {
+      preparedStatement.setInt(1, id);
+      
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        int year = resultSet.getInt("Year");
+        int month = resultSet.getInt("Month");
+        double total = resultSet.getDouble("Total");
+        recordList.add(new String[]{year + "-" + month, Double.toString(total)});
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return recordList.toArray(new String[0][]);
+  }
+
 
   public BigDecimal getTotal(int id) throws SQLException {
     BigDecimal total = null;

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.User;
@@ -23,6 +25,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -42,6 +45,21 @@ public class DashboardController {
         updateLabel();
         updateChart();
     }
+
+    public void initBox() {
+        lineBox.getItems().addAll("Daily Carbon Footprint (Recent 7 days)", "Monthly Carbon Footprint (Recent 12 months)");
+        lineBox.getSelectionModel().selectFirst();
+        lineBox.setOnAction(event -> {
+            String selectedChoice = lineBox.getValue();
+            switch (selectedChoice) {
+                case "Daily Carbon Footprint (Recent 7 days)":
+                    showCarbon();
+                    break;
+                case "Monthly Carbon Footprint (Recent 12 months)":
+                    showCarbonYear();
+            }
+        });
+    }
     
     @FXML
     private LineChart<String, Number> carbonChart;
@@ -51,17 +69,22 @@ public class DashboardController {
     
     @FXML
     private HBox parent;
+
+    @FXML
+    private VBox linePane;
     
     @FXML
     private StackPane rightPane;
     
     @FXML
     private Label carbonData, electricData, distanceData;
+
+    @FXML
+    private ComboBox<String> lineBox;
     
     @FXML
     void updateChart() {
-        carbonChart.getData().clear(); // clear the old data
-        showCarbon(); // add the new data
+        showCarbon();
         showBreak();
     }
     
@@ -100,11 +123,15 @@ public class DashboardController {
     void showCarbon() {
         RecordDAO recordDAO = new RecordDAO();
 
+        // Create a new CategoryAxis each time the data changes
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Carbon Footprint");
+
+        // Create a new LineChart each time the data changes
+        LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
 
         try {
             String[][] data = recordDAO.getRecent(user.getUser_id()); 
@@ -121,6 +148,55 @@ public class DashboardController {
             
             carbonChart.getData().add(series);
             carbonChart.setLegendVisible(false);
+
+            // Remove only LineChart instances from linePane
+            linePane.getChildren().removeIf(node -> node instanceof LineChart);
+
+            // Add the chart back to its parent container
+            linePane.getChildren().add(carbonChart);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void showCarbonYear() {
+        RecordDAO recordDAO = new RecordDAO();
+
+        // Create a new CategoryAxis each time the data changes
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Month");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Carbon Footprint");
+
+        // Create a new LineChart each time the data changes
+        LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
+
+        try {
+            String[][] data = recordDAO.getRecentYear(user.getUser_id()); 
+
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            series.setName("Total Carbon Footprint");
+            
+            // Sort the data array in ascending order
+            Arrays.sort(data, (a, b) -> a[0].compareTo(b[0]));
+
+            for (String[] point : data) {
+                String monthAsString = point[0];
+                double total = Double.parseDouble(point[1]);
+
+                series.getData().add(new XYChart.Data<String, Number>(monthAsString, total));
+            }
+            
+            carbonChart.getData().add(series);
+            carbonChart.setLegendVisible(false);
+
+            // Remove only LineChart instances from linePane
+            linePane.getChildren().removeIf(node -> node instanceof LineChart);
+
+            // Add the chart back to its parent container
+            linePane.getChildren().add(carbonChart);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -155,9 +231,9 @@ public class DashboardController {
         }
     }
     
-
     @FXML
     void initialize() {
+        initBox();
         if (isUserInitialized) {
             updateLabel();
             updateChart();
