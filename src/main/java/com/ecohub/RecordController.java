@@ -104,7 +104,7 @@ public class RecordController implements Initializable {
     categoryBox.setItems(categories);
     categoryBox.getSelectionModel().selectFirst();
 
-    ObservableList<String> activities = FXCollections.observableArrayList("All Activities", "Walking", "Car", "AC",
+    ObservableList<String> activities = FXCollections.observableArrayList("All Subcategories", "Walking", "Car", "AC",
         "Refrigerator", "Plastic", "Electronic", "Drinking", "Bathing", "Washing");
     activityBox.setItems(activities);
     activityBox.getSelectionModel().selectFirst();
@@ -114,24 +114,24 @@ public class RecordController implements Initializable {
       if (newValue == null || newValue.equals("All Categories")) {
         // If no category is selected or "All Categories" is selected, show all
         // activities
-        activityBox.getItems().addAll("All Activities", "Walking", "Car", "AC", "Refrigerator", "Plastic", "Electronic",
-            "Drinking", "Bathing", "Washing");
+        activityBox.getItems().addAll("All Subcategories", "Walking", "Car", "AC", "Refrigerator", "Plastic",
+            "Electronic", "Drinking", "Bathing", "Washing");
         activityBox.getSelectionModel().selectFirst();
         loadDataToTable();
       } else if (newValue.equals("Travel")) {
-        activityBox.getItems().addAll("All Activities", "Walking", "Car");
+        activityBox.getItems().addAll("All Subcategories", "Walking", "Car");
         activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Electricity")) {
-        activityBox.getItems().addAll("All Activities", "AC", "Refrigerator");
+        activityBox.getItems().addAll("All Subcategories", "AC", "Refrigerator");
         activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Waste")) {
-        activityBox.getItems().addAll("All Activities", "Plastic", "Electronic");
+        activityBox.getItems().addAll("All Subcategories", "Plastic", "Electronic");
         activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Water")) {
-        activityBox.getItems().addAll("All Activities", "Drinking", "Bathing", "Washing");
+        activityBox.getItems().addAll("All Subcategories", "Drinking", "Bathing", "Washing");
         activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       }
@@ -143,7 +143,7 @@ public class RecordController implements Initializable {
       if (newValue != null) {
         // If an activity is selected, select the related category
         categoryBox.getSelectionModel().selectedItemProperty().removeListener(categoryListener);
-        if (newValue.equals("All Activities")) {
+        if (newValue.equals("All Subcategories")) {
           loadFilterDataToTable(categoryBox.getSelectionModel().getSelectedItem(), 1);
           // categoryBox.getSelectionModel().select("All Categories");
           // loadDataToTable();
