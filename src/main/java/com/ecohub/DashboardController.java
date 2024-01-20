@@ -17,6 +17,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -37,6 +39,27 @@ public class DashboardController {
     private User user;
 
     private boolean isUserInitialized = false;
+    
+    @FXML
+    private LineChart<String, Number> carbonChart;
+    
+    @FXML
+    private PieChart breakChart;
+    
+    @FXML
+    private HBox parent;
+    
+    @FXML
+    private VBox linePane, piePane;
+    
+    @FXML
+    private StackPane rightPane;
+    
+    @FXML
+    private Label carbonData, electricData, distanceData;
+    
+    @FXML
+    private ComboBox<String> lineBox;
 
     public void initUser(User user) {
         this.user = user;
@@ -59,27 +82,6 @@ public class DashboardController {
             }
         });
     }
-    
-    @FXML
-    private LineChart<String, Number> carbonChart;
-    
-    @FXML
-    private PieChart breakChart;
-    
-    @FXML
-    private HBox parent;
-
-    @FXML
-    private VBox linePane;
-    
-    @FXML
-    private StackPane rightPane;
-    
-    @FXML
-    private Label carbonData, electricData, distanceData;
-
-    @FXML
-    private ComboBox<String> lineBox;
     
     @FXML
     void updateChart() {
@@ -121,38 +123,60 @@ public class DashboardController {
     @FXML
     void showCarbon() {
         RecordDAO recordDAO = new RecordDAO();
-
+        
         // Create a new CategoryAxis each time the data changes
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Carbon Footprint");
-
+        
         // Create a new LineChart each time the data changes
         LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
-
+        
         try {
             String[][] data = recordDAO.getRecent(user.getUser_id()); 
-
+            
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             series.setName("Total Carbon Footprint");
             
-            for (String[] point : data) {
-                String dateAsString = point[0];
-                double total = Double.parseDouble(point[1]);
+            if (data == null) {
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
 
-                series.getData().add(new XYChart.Data<String, Number>(dateAsString, total));
+                boolean stackPaneExists = linePane.getChildren().stream()
+                    .filter(StackPane.class::isInstance)
+                    .anyMatch(stackPane -> {
+                            Node node = ((StackPane) stackPane).getChildren().get(0);
+                            return node instanceof Label && "You have no data yet".equals(((Label) node).getText());
+                        }
+                    );
+
+                if (!stackPaneExists) {
+                    Label errorLabel = new Label("You have no data yet");
+                    errorLabel.getStyleClass().add("error-label");
+                    StackPane stackPane = new StackPane(errorLabel); // Create a new StackPane for the label.
+                    stackPane.setAlignment(Pos.BOTTOM_CENTER); // Set the alignment of the StackPane to CENTER.
+                    linePane.getChildren().add(stackPane);
+                }
             }
-            
-            carbonChart.getData().add(series);
-            carbonChart.setLegendVisible(false);
+            else {
+                for (String[] point : data) {
+                    String dateAsString = point[0];
+                    double total = Double.parseDouble(point[1]);
 
-            // Remove only LineChart instances from linePane
-            linePane.getChildren().removeIf(node -> node instanceof LineChart);
+                    series.getData().add(new XYChart.Data<String, Number>(dateAsString, total));
+                }
 
-            // Add the chart back to its parent container
-            linePane.getChildren().add(carbonChart);
+                carbonChart.getData().add(series);
+                carbonChart.setLegendVisible(false);
+    
+                // Remove only LineChart instances from linePane
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
+
+    
+                // Add the chart back to its parent container
+                linePane.getChildren().add(carbonChart);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -178,24 +202,44 @@ public class DashboardController {
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             series.setName("Total Carbon Footprint");
             
-            // Sort the data array in ascending order
-            Arrays.sort(data, (a, b) -> a[0].compareTo(b[0]));
+            if (data == null) {
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
 
-            for (String[] point : data) {
-                String monthAsString = point[0];
-                double total = Double.parseDouble(point[1]);
+                boolean stackPaneExists = linePane.getChildren().stream()
+                    .filter(StackPane.class::isInstance)
+                    .anyMatch(stackPane -> {
+                            Node node = ((StackPane) stackPane).getChildren().get(0);
+                            return node instanceof Label && "You have no data yet".equals(((Label) node).getText());
+                        }
+                    );
 
-                series.getData().add(new XYChart.Data<String, Number>(monthAsString, total));
+                if (!stackPaneExists) {
+                    Label errorLabel = new Label("You have no data yet");
+                    errorLabel.getStyleClass().add("error-label");
+                    StackPane stackPane = new StackPane(errorLabel); // Create a new StackPane for the label.
+                    stackPane.setAlignment(Pos.BOTTOM_CENTER); // Set the alignment of the StackPane to CENTER.
+                    linePane.getChildren().add(stackPane);
+                }
             }
-            
-            carbonChart.getData().add(series);
-            carbonChart.setLegendVisible(false);
+            else {// Sort the data array in ascending order
+                Arrays.sort(data, (a, b) -> a[0].compareTo(b[0]));
 
-            // Remove only LineChart instances from linePane
-            linePane.getChildren().removeIf(node -> node instanceof LineChart);
+                for (String[] point : data) {
+                    String monthAsString = point[0];
+                    double total = Double.parseDouble(point[1]);
 
-            // Add the chart back to its parent container
-            linePane.getChildren().add(carbonChart);
+                    series.getData().add(new XYChart.Data<String, Number>(monthAsString, total));
+                }
+                
+                carbonChart.getData().add(series);
+                carbonChart.setLegendVisible(false);
+
+                // Remove only LineChart instances from linePane
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
+
+                // Add the chart back to its parent container
+                linePane.getChildren().add(carbonChart);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -206,6 +250,7 @@ public class DashboardController {
     void showBreak() {
         RecordDAO recordDAO = new RecordDAO();
         List<String[]> data = null;
+        PieChart breakChart = new PieChart();
 
         try {
             data = recordDAO.getPercentage(user.getUser_id());
@@ -227,6 +272,26 @@ public class DashboardController {
             breakChart.setClockwise(true);
             breakChart.setLabelLineLength(50);
             breakChart.setStartAngle(180);
+
+            // Add the chart back to its parent container
+            piePane.getChildren().add(breakChart);
+        } 
+        else {
+            boolean stackPaneExists = piePane.getChildren().stream()
+                .filter(StackPane.class::isInstance)
+                .anyMatch(stackPane -> {
+                        Node node = ((StackPane) stackPane).getChildren().get(0);
+                        return node instanceof Label && "You have no data yet".equals(((Label) node).getText());
+                    }
+                );
+
+            if (!stackPaneExists) {
+                Label errorLabel = new Label("You have no data yet");
+                errorLabel.getStyleClass().add("error-label");
+                StackPane stackPane = new StackPane(errorLabel); // Create a new StackPane for the label.
+                stackPane.setAlignment(Pos.BOTTOM_CENTER); // Set the alignment of the StackPane to BOTTOM_CENTER.
+                piePane.getChildren().add(stackPane);
+            }
         }
     }
     

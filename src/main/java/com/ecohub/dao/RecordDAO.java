@@ -198,8 +198,8 @@ public class RecordDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return recordList.toArray(new String[0][]);
-  }
+    return recordList.isEmpty() ? null : recordList.toArray(new String[0][]);
+}
 
   public String[][] getRecentYear(int id) throws SQLException {
     List<String[]> recordList = new ArrayList<>();
@@ -208,6 +208,7 @@ public class RecordDAO {
       preparedStatement.setInt(1, id);
 
       ResultSet resultSet = preparedStatement.executeQuery();
+
       while (resultSet.next()) {
         int year = resultSet.getInt("Year");
         int month = resultSet.getInt("Month");
@@ -217,7 +218,7 @@ public class RecordDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return recordList.toArray(new String[0][]);
+    return recordList.isEmpty() ? null : recordList.toArray(new String[0][]);
   }
 
   public BigDecimal getTotal(int id) throws SQLException {
@@ -226,11 +227,13 @@ public class RecordDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(GET_TOTAL)) {
       // assuming you're setting the id somewhere
       preparedStatement.setInt(1, id);
-
+      
       ResultSet resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
         BigDecimal bd = resultSet.getBigDecimal("Total");
-        total = bd.setScale(2, RoundingMode.HALF_UP);
+        if (bd != null) {
+          total = bd.setScale(2, RoundingMode.HALF_UP);
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -249,7 +252,9 @@ public class RecordDAO {
       ResultSet resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
         BigDecimal bd = resultSet.getBigDecimal("Total");
-        total = bd.setScale(2, RoundingMode.HALF_UP);
+        if (bd != null) {
+          total = bd.setScale(2, RoundingMode.HALF_UP);
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -265,6 +270,7 @@ public class RecordDAO {
       preparedStatement.setInt(2, id);
 
       ResultSet resultSet = preparedStatement.executeQuery();
+
       while (resultSet.next()) {
         String[] result = new String[2];
         result[0] = resultSet.getString("Category");
@@ -274,6 +280,6 @@ public class RecordDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return percentages;
+    return percentages.isEmpty() ? null : percentages;
   }
 }
