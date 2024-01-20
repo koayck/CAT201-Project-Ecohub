@@ -116,57 +116,45 @@ public class AddRecordController {
     subCategoryIds.put("Car", 2);
     subCategoryIds.put("AC", 3);
     subCategoryIds.put("Refrigerator", 4);
-    subCategoryIds.put("Drinking", 5);
-    subCategoryIds.put("Bathing", 6);
-    subCategoryIds.put("Washing", 7);
-    subCategoryIds.put("Plastic", 8);
-    subCategoryIds.put("Electronic", 9);
+    subCategoryIds.put("Plastic", 5);
+    subCategoryIds.put("Electronic", 6);
+    subCategoryIds.put("Drinking", 7);
+    subCategoryIds.put("Bathing", 8);
+    subCategoryIds.put("Washing", 9);
 
     // Add a listener to handle category selection
-    categoryField
-      .getSelectionModel()
-      .selectedItemProperty()
-      .addListener((options, oldValue, newValue) -> {
-        // Clear the subcategory field
-        subCategoryField.getItems().clear();
+    categoryField.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+      // Clear the subcategory field
+      subCategoryField.getItems().clear();
 
-        // Get the selected category
-        String selectedCategory = categoryField
-          .getSelectionModel()
-          .getSelectedItem();
+      // Get the selected category
+      String selectedCategory = categoryField.getSelectionModel().getSelectedItem();
 
-        // Get the subcategories for the selected category
-        List<String> subcategories = categories.get(selectedCategory);
+      // Get the subcategories for the selected category
+      List<String> subcategories = categories.get(selectedCategory);
 
-        // Update the subcategory field with the relevant subcategories
-        if (subcategories != null) {
-          subCategoryField.getItems().addAll(subcategories);
-        }
-      });
+      // Update the subcategory field with the relevant subcategories
+      if (subcategories != null) {
+        subCategoryField.getItems().addAll(subcategories);
+      }
+    });
 
     // Add a listener to handle subcategory selection
-    subCategoryField
-      .getSelectionModel()
-      .selectedItemProperty()
-      .addListener((options, oldValue, newValue) -> {
-        // Get the selected subcategory
-        String selectedSubCategory = subCategoryField
-          .getSelectionModel()
-          .getSelectedItem();
+    subCategoryField.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+      // Get the selected subcategory
+      String selectedSubCategory = subCategoryField.getSelectionModel().getSelectedItem();
 
-        // Get the ID for the selected subcategory
-        subCategoryId = subCategoryIds.get(selectedSubCategory);
-        // Now you can use subCategoryId in your SQL statement
-      });
+      // Get the ID for the selected subcategory
+      subCategoryId = subCategoryIds.get(selectedSubCategory);
+      // Now you can use subCategoryId in your SQL statement
+    });
   }
 
   private void showSuccessDialog() {
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(
-        getClass().getResource("AlertInfo.fxml")
-      ); // Make sure to replace with your actual path
+      loader.setLocation(getClass().getResource("AlertInfo.fxml")); // Make sure to replace with your actual path
       VBox alertInfoRoot = loader.load();
 
       // Create a new stage for the alert

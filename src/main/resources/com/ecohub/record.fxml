@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" styleClass="bg-default" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordController">
+<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" styleClass="bg-default" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordController">
   <children>
     <Pane fx:id="pnlOverview" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="938.0">
       <children>
@@ -108,17 +109,19 @@
     </Pane>
     <VBox alignment="CENTER" fillWidth="false" minHeight="-Infinity" prefHeight="720.0" prefWidth="313.0" spacing="40.0">
       <children>
-        <VBox prefHeight="160.0" prefWidth="162.0" spacing="15.0" styleClass="text-lighter">
-          <children>
-            <JFXCheckBox fx:id="selectAll" onAction="#selectAll" selected="true" text="Select All" />
-            <JFXCheckBox fx:id="excludeElectricity" onAction="#exclElectricity" text="Exclude Electricity" />
-            <JFXCheckBox fx:id="excludeWaste" onAction="#exclWaste" text="Exclude Waste" />
-            <JFXCheckBox fx:id="excludeWater" onAction="#exclWater" text="Exclude Water" />
-            <JFXCheckBox fx:id="excludeTravel" onAction="#exclTravel" text="Exclude Travel" />
-          </children>
-        </VBox>
         <VBox />
             <Button fx:id="addPopupBtn" mnemonicParsing="false" onAction="#showAddPopup" styleClass="forward-button" text="add" />
+            <JFXComboBox fx:id="categoryBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="162.0" promptText="Filter by Category" unFocusColor="WHITE">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </JFXComboBox>
+            <JFXComboBox fx:id="activityBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="162.0" promptText="Filter by Activities" unFocusColor="WHITE">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </JFXComboBox>
+            <JFXButton fx:id="clearFilter" onAction="#clearFilter" text="Clear Filter" />
       </children>
       <HBox.margin>
         <Insets />
