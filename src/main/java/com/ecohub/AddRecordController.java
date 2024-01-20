@@ -2,8 +2,6 @@ package com.ecohub;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.User;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -100,6 +98,7 @@ public class AddRecordController {
   }
 
   public void initialize() {
+  
     // Define your categories and subcategories
     Map<String, List<String>> categories = new HashMap<>();
     categories.put("Travel", Arrays.asList("Walking", "Car"));
@@ -158,7 +157,7 @@ public class AddRecordController {
         subCategoryId = subCategoryIds.get(selectedSubCategory);
         // Now you can use subCategoryId in your SQL statement
       });
-  }
+  } 
 
   private void showSuccessDialog() {
     try {
