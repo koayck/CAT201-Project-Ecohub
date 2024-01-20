@@ -142,7 +142,7 @@ public class HomeController implements Initializable {
 
   @FXML
   private void onAbout() {
-    System.out.println("About Clicked !");
+    
   }
 
   private void styleBox(int index) {

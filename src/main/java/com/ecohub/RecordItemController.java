@@ -1,14 +1,13 @@
 package com.ecohub;
 
-import com.ecohub.session.UserSession;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -21,13 +20,16 @@ public class RecordItemController {
   }
 
   @FXML
+  public SVGPath categoryIcon;
+
+  @FXML
   public Label recordId;
 
   @FXML
   public Label title;
 
   @FXML
-  public Label category;
+  public Label subcategory;
 
   @FXML
   public Label date;
@@ -55,7 +57,7 @@ public class RecordItemController {
   }
 
   private void showEditDialog() {
-    System.out.print("in edit" + recordId.getText());
+    
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();

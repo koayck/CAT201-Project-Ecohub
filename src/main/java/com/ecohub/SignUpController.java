@@ -41,10 +41,10 @@ public class SignUpController {
   public void register(ActionEvent event) throws SQLException {
     Window owner = submitButton.getScene().getWindow();
 
-    System.out.println(usernameField.getText());
-    System.out.println(emailField.getText());
-    System.out.println(passwordField.getText());
-    System.out.println(confirmPasswordField.getText());
+    
+    
+    
+    
     if (usernameField.getText().isEmpty()) {
       showAlert(
         Alert.AlertType.ERROR,

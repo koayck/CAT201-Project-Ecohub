@@ -5,45 +5,50 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="866.0" spacing="40.0" style="-fx-border-radius: 5; -fx-background-insets: 0; -fx-border-color: gray;" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordItemController">
-<children>
-   <Label fx:id="title" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" text="KeepToo" />
-   <Label fx:id="category" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Electricity">
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-   </Label>
-   <Label fx:id="date" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" text="99/99/9999">
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-   </Label>
-   <Label fx:id="value" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" text="200">
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-   </Label>
-   <Label fx:id="footprint" alignment="CENTER" minWidth="-Infinity" prefWidth="80.0" text="200">
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-   </Label>
+<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="882.0" spacing="40.0" style="-fx-border-radius: 14; -fx-background-insets: 0; -fx-border-color: #00d9a0;" stylesheets="@styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordItemController">
+   <children>
+      <Label fx:id="title" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" styleClass="text-normal" text="KeepToo" />
+      <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" spacing="5.0">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <children>
+            <SVGPath fx:id="categoryIcon" content="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10c0 0 2.5 1.5 5 .5s5-.5 5-.5c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z" />
+            <Label fx:id="subcategory" alignment="CENTER" minWidth="-Infinity" text="Electricity" />
+         </children>
+      </HBox>
+      <Label fx:id="date" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" text="99/99/9999">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="value" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" text="200">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="footprint" alignment="CENTER" minWidth="-Infinity" prefWidth="80.0" text="200">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
       <HBox alignment="CENTER_LEFT" prefWidth="185.0" spacing="10.0">
          <HBox.margin>
             <Insets />
          </HBox.margin>
          <children>
-            <Button fx:id="editButton" onAction="#onEdit" mnemonicParsing="false" prefHeight="34.0" prefWidth="87.0" text="Edit" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" prefHeight="34.0" prefWidth="87.0" text="Edit" />
             <Button fx:id="deleteButton" layoutX="10.0" layoutY="10.0" minWidth="34.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="32.0" prefWidth="103.0" styleClass="warning-btn" text="Delete" />
          </children>
       </HBox>
       <Label fx:id="recordId" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="1.0" text="1" visible="false" />
-</children>
-<effect>
-   <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />
-</effect>
-<padding>
-   <Insets left="30.0" right="30.0" />
-</padding>
+   </children>
+   <effect>
+      <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />
+   </effect>
+   <padding>
+      <Insets left="30.0" right="30.0" />
+   </padding>
 </HBox>

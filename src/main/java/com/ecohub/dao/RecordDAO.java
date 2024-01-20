@@ -38,8 +38,9 @@ public class RecordDAO {
     "SELECT * FROM ECOHUB.RECORD JOIN SUBCATEGORY ON ECOHUB.RECORD.S_ID = SUBCATEGORY.S_ID WHERE U_ID = ? AND S_NAME = ?";
   private static final String SELECT_FILTER_CAT_QUERY =
     "SELECT * FROM ECOHUB.RECORD JOIN SUBCATEGORY ON ECOHUB.RECORD.S_ID = SUBCATEGORY.S_ID  JOIN CATEGORY ON SUBCATEGORY.C_ID = CATEGORY.C_ID WHERE U_ID = ? AND C_NAME = ?";
+    private static final String SELECT_KEYWORD = "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND R_TITLE LIKE ?";
 
-  // function for adding record based on this query private static final String
+    // function for adding record based on this query private static final String
   // INSERT_QUERY =
   // "INSERT INTO ECOHUB.RECORD (R.CATEGORY, R.TITLE, R.VALUE) VALUES (?,?,?)";
   public void addRecord(String title, String value, int subCategoryId, int uid)
@@ -126,15 +127,19 @@ public class RecordDAO {
   // function for selecting all record based on this query private static final
   // String SELECT_QUERY =
   // "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
-  public List<Record> getAllRecords(int id) throws SQLException {
+  public List<Record> getAllRecords(int id, String keyword) throws SQLException {
+    String query = (keyword == null || keyword.isEmpty()) ? SELECT_ALL_QUERY : SELECT_KEYWORD;
+
     List<Record> recordList = new ArrayList<>();
     try (
       Connection connection = DBUtil.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(
-        SELECT_ALL_QUERY
+        query
       )
     ) {
       preparedStatement.setInt(1, id);
+      if (keyword != null && !keyword.isEmpty())
+        preparedStatement.setString(2, keyword + "%");
 
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -149,7 +154,7 @@ public class RecordDAO {
           resultSet.getBigDecimal("R_CARBON"),
           resultSet.getInt("R_ID")
         );
-        System.out.print(record);
+        
         recordList.add(record);
       }
     } catch (SQLException e) {
@@ -184,7 +189,7 @@ public class RecordDAO {
             resultSet.getBigDecimal("R_CARBON"),
             resultSet.getInt("R_ID")
           );
-          System.out.print(record);
+          
           recordList.add(record);
         }
       } catch (SQLException e) {
@@ -214,7 +219,7 @@ public class RecordDAO {
             resultSet.getBigDecimal("R_CARBON"),
             resultSet.getInt("R_ID")
           );
-          System.out.print(record);
+          
           recordList.add(record);
         }
       } catch (SQLException e) {

@@ -21,16 +21,17 @@ public class DeleteRecordController {
     this.recordItemController = recordItemController;
   }
 
+  // regex to detech every sentence starting weith 
+  // private static final String REGEX = "
   private Integer recordIdToDelete;
 
   @FXML
   private void handleDelete(ActionEvent event) {
-    System.out.print("hello");
     try {
       // Delete the record
       RecordDAO recordDao = new RecordDAO();
       recordIdToDelete = Integer.parseInt(recordItemController.recordId.getText());
-      System.out.print(recordIdToDelete);
+      
       recordDao.deleteRecord(recordIdToDelete);
 
       // Get the current stage
