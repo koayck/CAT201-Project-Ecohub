@@ -21,12 +21,6 @@ public class DeleteRecordController {
     this.recordItemController = recordItemController;
   }
 
-  private User user;
-
-  public void initUser(User user) {
-    this.user = user;
-  }
-
   private Integer recordIdToDelete;
 
   @FXML

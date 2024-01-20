@@ -1,5 +1,6 @@
 package com.ecohub;
 
+import com.ecohub.session.UserSession;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 public class RecordItemController {
 
   private RecordController recordController;
-  
+
   public void getRecordController(RecordController recordController) {
     this.recordController = recordController;
   }
@@ -26,7 +27,7 @@ public class RecordItemController {
   public Label title;
 
   @FXML
-  public Label subcategory;
+  public Label category;
 
   @FXML
   public Label date;
@@ -49,33 +50,46 @@ public class RecordItemController {
   }
 
   // function for handleEdit
-  public void onEdit() {}
+  public void onEdit() {
+    showEditDialog();
+  }
 
-  // private void showEditDialog() {
-  //   try {
-  //     // Load the AlertInfo.fxml content
-  //     FXMLLoader loader = new FXMLLoader();
-  //     loader.setLocation(
-  //       getClass().getResource("EditRecord.fxml")
-  //     ); // Make sure to replace with your actual path
-  //     VBox alertInfoRoot = loader.load();
+  private void showEditDialog() {
+    System.out.print("in edit" + recordId.getText());
+    try {
+      // Load the AlertInfo.fxml content
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("AddRecord.fxml")); // Make sure to replace with your actual path
 
-  //     // Create a new stage for the alert
-  //     Stage alertStage = new Stage();
-  //     alertStage.setTitle("Alert Information");
-  //     alertStage.initModality(Modality.APPLICATION_MODAL); // Block events to other windows
-  //     alertStage.setResizable(false);
+      VBox alertInfoRoot = loader.load();
 
-  //     // Set the loaded content as the scene
-  //     Scene alertScene = new Scene(alertInfoRoot);
-  //     alertStage.setScene(alertScene);
+      // Get the controller
+      AddRecordController controller = loader.getController();
 
-  //     // Show the alert stage
-  //     alertStage.showAndWait();
-  //   } catch (IOException e) {
-  //     e.printStackTrace();
-  //   }
-  // }
+      controller.initDialogTitle("Update record");
+
+      controller.getRecordController(recordController);
+
+      // Call the method to initialize the recordId
+      controller.initRecordId(Integer.parseInt(recordId.getText()));
+      controller.initSubmitBtn("Update");
+
+      // Create a new stage for the alert
+      Stage alertStage = new Stage();
+      alertStage.setTitle("Edit Record");
+      alertStage.initModality(Modality.APPLICATION_MODAL); // Block events to other windows
+      alertStage.setResizable(false);
+
+      // Set the loaded content as the scene
+      Scene alertScene = new Scene(alertInfoRoot);
+      alertStage.setScene(alertScene);
+
+      // Show the alert stage
+      alertStage.showAndWait();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void showDeleteDialog() {
     try {
@@ -86,7 +100,7 @@ public class RecordItemController {
 
       // Create a new stage for the alert
       Stage alertStage = new Stage();
-      alertStage.setTitle("Alert Information");
+      alertStage.setTitle("Delete Record");
       alertStage.initModality(Modality.APPLICATION_MODAL); // Block events to other windows
       alertStage.setResizable(false);
 

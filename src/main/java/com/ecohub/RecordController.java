@@ -2,16 +2,13 @@ package com.ecohub;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.Record;
-import com.ecohub.models.User;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URL;
-import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,10 +21,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -35,19 +28,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RecordController implements Initializable {
-
-  private User user;
-
-  public void initUser(User user) {
-    this.user = user;
-  }
 
   @FXML
   private VBox pnItems;
@@ -82,11 +66,11 @@ public class RecordController implements Initializable {
 
     // Access the controller of the popup
     AddRecordController controller = loader.getController();
-
+    
+    // Pass the current controller to the popup controller
     controller.getRecordController(this);
 
-    // Pass the user object to the popup controller
-    controller.initUser(user);
+    controller.initDialogTitle("Add a new record");
 
     clearFilter.fire();
     Stage stage = new Stage();
@@ -173,6 +157,8 @@ public class RecordController implements Initializable {
 
       pnItems.getChildren().clear(); // Clear existing items
 
+      DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
       for (Record record : records) {
         try {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordItem.fxml"));
@@ -180,11 +166,11 @@ public class RecordController implements Initializable {
           RecordItemController controller = loader.getController();
           controller.getRecordController(this);
 
-          controller.subcategory.setText(record.getSubcategory());
-          controller.title.setText(record.getActivity());
+          controller.category.setText(record.getSubcategory());
+          controller.title.setText(record.getTitle());
           controller.date.setText(record.getDate().toString());
           controller.value.setText(record.getInput().toString());
-          controller.footprint.setText(record.getFootprint().toString());
+          controller.footprint.setText(decimalFormat.format(record.getFootprint()));
           controller.recordId.setText(String.valueOf(record.getRecord_id()));
 
           pnItems.getChildren().add(node);
@@ -217,16 +203,20 @@ public class RecordController implements Initializable {
 
       for (Record record : records) {
         try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordItem.fxml"));
+          FXMLLoader loader = new FXMLLoader(
+            getClass().getResource("RecordItem.fxml")
+          );
           Node node = loader.load();
           RecordItemController controller = loader.getController();
           controller.getRecordController(this);
 
-          controller.subcategory.setText(record.getSubcategory());
-          controller.title.setText(record.getActivity());
+          DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+          controller.category.setText(record.getCategory() + "/" + record.getSubcategory());  
+          controller.title.setText(record.getTitle());
           controller.date.setText(record.getDate().toString());
           controller.value.setText(record.getInput().toString());
-          controller.footprint.setText(record.getFootprint().toString());
+          controller.footprint.setText(decimalFormat.format(record.getFootprint()));
           controller.recordId.setText(String.valueOf(record.getRecord_id()));
 
           pnItems.getChildren().add(node);

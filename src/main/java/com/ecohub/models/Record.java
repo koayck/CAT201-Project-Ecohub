@@ -22,7 +22,8 @@ public class Record {
   private JFXButton editButton;
   private JFXButton deleteButton;
 
-  public Record(String title, String subcategory, BigDecimal value, Date date, BigDecimal footprint, int recordId) {
+  public Record(String title, String category, String subcategory, BigDecimal value, Date date, BigDecimal footprint, int recordId) {
+    this.category = category;
     this.subcategory = subcategory;
     this.title = title;
     this.value = value;
@@ -40,14 +41,16 @@ public class Record {
     this.value = value;
   }
 
-  public String getActivity() {
+  // geter and setter for title
+  public String getTitle() {
     return title;
   }
 
-  public void setActivity(String title) {
+  // setter for title
+  public void setTitle(String title) {
     this.title = title;
   }
-
+  
   // getter and setter for category
   public String getCategory() {
     return category;

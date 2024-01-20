@@ -14,7 +14,7 @@
       <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
    </padding>
    <children>
-      <Label styleClass="title-2" text="Adding new record">
+      <Label fx:id="dialogTitle" styleClass="title-2">
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin></Label>
@@ -23,7 +23,7 @@
             <VBox spacing="10.0">
                <children>
                   <Label styleClass="label-container" text="Record Title" />
-                  <TextField fx:id="titleField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. Travel to school" style="-fx-border-width: 0;" styleClass="text-input-dialog">
+                  <TextField fx:id="titleField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. Travel to school" style="-fx-border-width: 0;">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -49,7 +49,7 @@
             <VBox spacing="10.0">
                <children>
                   <Label styleClass="label-container" text="Value (without unit)" />
-                  <TextField fx:id="inputField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. 4" style="-fx-border-width: 0;" styleClass="text-field-normal">
+                  <TextField fx:id="inputField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. 4" style="-fx-border-width: 0;">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

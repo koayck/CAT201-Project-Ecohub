@@ -1,9 +1,9 @@
 package com.ecohub;
 
 import com.ecohub.dao.RecordDAO;
-import com.ecohub.models.User;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+import com.ecohub.dialog.AlertInfoController;
+import com.ecohub.models.Record;
+import com.ecohub.session.UserSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,14 +31,22 @@ public class AddRecordController {
     this.recordController = recordController;
   }
 
-  private User user;
+  private int recordId;
 
-  public void initUser(User user) {
-    this.user = user;
+  public void initRecordId(int recordId) {
+    this.recordId = recordId;
+    initFields();
   }
 
   // Declare subCategoryId as an instance variable
   private Integer subCategoryId;
+
+  @FXML
+  private Label dialogTitle;
+
+  public void initDialogTitle(String title) {
+    dialogTitle.setText(title);
+  }
 
   @FXML
   private TextField titleField;
@@ -55,6 +64,11 @@ public class AddRecordController {
   private Button submitBtn;
 
   @FXML
+  public void initSubmitBtn(String title) {
+    submitBtn.setText(title);
+  }
+
+  @FXML
   Button cancelBtn;
 
   @FXML
@@ -65,7 +79,16 @@ public class AddRecordController {
         String title = titleField.getText();
         String value = inputField.getText();
         RecordDAO recordDao = new RecordDAO();
-        recordDao.addRecord(title, value, subCategoryId, user.getUser_id());
+        if (recordId != 0) {
+          recordDao.updateRecord(title, value, subCategoryId, recordId);
+        } else {
+          recordDao.addRecord(
+            title,
+            value,
+            subCategoryId,
+            UserSession.getInstance().getUserId()
+          );
+        }
       }
 
       // Clear the fields
@@ -82,11 +105,34 @@ public class AddRecordController {
       // Close the current stage
       stage.close();
 
-      showSuccessDialog();
+      if (recordId != 0) {
+        showSuccessDialog("Record updated successfully!");
+      } else {
+        showSuccessDialog("Record added successfully!");
+      }
     } catch (SQLException e) {
       // Handle the SQLException here
       e.printStackTrace();
       // You can show an error message or perform any other error handling logic
+    }
+  }
+
+  public void initFields() {
+    if (recordId != 0) {
+      try {
+        // Get the record
+        RecordDAO recordDao = new RecordDAO();
+        Record record = recordDao.getRecord(recordId);
+
+        titleField.setText(record.getTitle());
+        // how to restrict changes on the titlefield
+
+        inputField.setText(record.getInput().toString());
+        categoryField.setValue(record.getCategory());
+        subCategoryField.setValue(record.getSubcategory());
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -144,13 +190,14 @@ public class AddRecordController {
       // Get the selected subcategory
       String selectedSubCategory = subCategoryField.getSelectionModel().getSelectedItem();
 
-      // Get the ID for the selected subcategory
-      subCategoryId = subCategoryIds.get(selectedSubCategory);
-      // Now you can use subCategoryId in your SQL statement
-    });
+        // Get the ID for the selected subcategory
+        subCategoryId = subCategoryIds.get(selectedSubCategory);
+        // Now you can use subCategoryId in your SQL statement
+      });
+      initFields();
   }
 
-  private void showSuccessDialog() {
+  private void showSuccessDialog(String message) {
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
@@ -162,6 +209,10 @@ public class AddRecordController {
       alertStage.setTitle("Alert Information");
       alertStage.initModality(Modality.APPLICATION_MODAL); // Block events to other windows
       alertStage.setResizable(false);
+
+      // Get the controller
+      AlertInfoController controller = loader.getController();
+      controller.Msg_Label.setText(message);
 
       // Set the loaded content as the scene
       Scene alertScene = new Scene(alertInfoRoot);

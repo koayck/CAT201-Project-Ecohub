@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.User;
+import com.ecohub.session.UserSession;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
@@ -93,21 +94,21 @@ public class DashboardController {
     void updateLabel() {
         RecordDAO recordDAO = new RecordDAO();
         try {
-            BigDecimal total = recordDAO.getTotal(user.getUser_id());
+            BigDecimal total = recordDAO.getTotal(UserSession.getInstance().getUserId());
             if (total == null) {
                 carbonData.setText("0");
             }
             else {
                 carbonData.setText(String.valueOf(total));
             }
-            total = recordDAO.getCategory(user.getUser_id(), 2);
+            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 2);
             if (total == null) {
                 electricData.setText("0");
             }
             else {
                 electricData.setText(String.valueOf(total));
             }
-            total = recordDAO.getCategory(user.getUser_id(), 1);
+            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 1);
             if (total == null) {
                 distanceData.setText("0");
             }
@@ -135,8 +136,8 @@ public class DashboardController {
         LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
         
         try {
-            String[][] data = recordDAO.getRecent(user.getUser_id()); 
-            
+            String[][] data = recordDAO.getRecent(UserSession.getInstance().getUserId()); 
+
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             series.setName("Total Carbon Footprint");
             
@@ -253,7 +254,7 @@ public class DashboardController {
         PieChart breakChart = new PieChart();
 
         try {
-            data = recordDAO.getPercentage(user.getUser_id());
+            data = recordDAO.getPercentage(UserSession.getInstance().getUserId());
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception appropriately for your application
