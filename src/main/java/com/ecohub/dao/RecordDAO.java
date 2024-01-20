@@ -18,17 +18,22 @@ public class RecordDAO {
     "INSERT INTO ECOHUB.RECORD (R_TITLE, R_VALUE, S_ID, U_ID, R_DATE) VALUES (?,?,?,?,NOW())";
   private static final String DELETE_QUERY =
     "DELETE FROM ECOHUB.RECORD WHERE R_ID = ?";
-  private static final String SELECT_ALL_QUERY = "SELECT * FROM ECOHUB.RECORD JOIN SUBCATEGORY ON ECOHUB.RECORD.S_ID = SUBCATEGORY.S_ID WHERE U_ID = ?";
+  private static final String SELECT_ALL_QUERY =
+    "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ?";
   private static final String UPDATE_QUERY =
-    "UPDATE ECOHUB.RECORD SET S_ID = ?, R_TITLE = ?, R_VALUE = ? WHERE R_ID = ?";
+    "UPDATE ECOHUB.RECORD SET R_TITLE = ?, R_VALUE = ?, S_ID = ?  WHERE R_ID = ?";
   private static final String GET_RECENT =
     "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
+  private static final String GET_RECENT_YEAR =
+    "SELECT YEAR(`R_DATE`) AS `Year`, MONTH(`R_DATE`) AS `Month`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH) GROUP BY YEAR(`R_DATE`), MONTH(`R_DATE`)";
   private static final String GET_TOTAL =
     "SELECT SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ?";
   private static final String GET_PERCENTAGE =
     "SELECT c.C_NAME AS Category, SUM(r.R_CARBON) AS TotalCarbon, (SUM(r.R_CARBON) / (SELECT SUM(R_CARBON) FROM record WHERE U_ID = ?)) * 100 AS Percentage FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID WHERE r.U_ID = ? GROUP BY c.C_NAME;";
   private static final String GET_CATEGORY =
     "SELECT c.C_NAME AS Category, SUM(r.R_VALUE) AS Total FROM record r JOIN subcategory s ON r.S_ID = s.S_ID JOIN ecohub.category c ON s.C_ID = c.C_ID WHERE r.U_ID = ? AND c.C_ID = ? GROUP BY c.C_NAME;";
+  private static final String SELECT_QUERY =
+    "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE R_ID = ?";
 
   // function for adding record based on this query private static final String
   // INSERT_QUERY =
@@ -48,6 +53,32 @@ public class RecordDAO {
       preparedStatement.setBigDecimal(2, bdValue);
       preparedStatement.setInt(3, subCategoryId);
       preparedStatement.setInt(4, uid);
+
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  // function for updating record based on this query private static final String
+  // UPDATE_QUERY =
+  // "UPDATE ECOHUB.RECORD SET R.CATEGORY = ?, R.TITLE = ?, R.VALUE = ? WHERE R_ID
+  // = ?";
+  public void updateRecord(String title, String value, int subCategoryId, int recordId)
+    throws SQLException {
+    // Convert the value string to a BigDecimal
+    BigDecimal bdValue = new BigDecimal(value);
+
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        UPDATE_QUERY
+      )
+    ) {
+      preparedStatement.setString(1, title);
+      preparedStatement.setBigDecimal(2, bdValue);
+      preparedStatement.setInt(3, subCategoryId);
+      preparedStatement.setInt(4, recordId);
 
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
@@ -133,6 +164,7 @@ public class RecordDAO {
 
         Record record = new Record(
           resultSet.getString("R_TITLE"),
+          resultSet.getString("C_NAME"),
           resultSet.getString("S_NAME"),
           resultSet.getBigDecimal("R_VALUE"),
           resultSet.getDate("R_DATE"),
@@ -148,30 +180,34 @@ public class RecordDAO {
     return recordList;
   }
 
-  // function for updating record based on this query private static final String
-  // UPDATE_QUERY =
-  // "UPDATE ECOHUB.RECORD SET R.CATEGORY = ?, R.TITLE = ?, R.VALUE = ? WHERE R_ID
-  // = ?";
-  public void updateRecord(String category, String title, String value, int id)
-    throws SQLException {
-    // Convert the value string to a BigDecimal
-    BigDecimal bdValue = new BigDecimal(value);
-
+  // function to get specific record based on the record id
+  public Record getRecord(int id) throws SQLException {
+    Record record = null;
     try (
       Connection connection = DBUtil.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(
-        UPDATE_QUERY
+        SELECT_QUERY
       )
     ) {
-      preparedStatement.setString(1, category);
-      preparedStatement.setString(2, title);
-      preparedStatement.setBigDecimal(3, bdValue);
-      preparedStatement.setInt(4, id);
+      preparedStatement.setInt(1, id);
 
-      preparedStatement.executeUpdate();
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        record =
+          new Record(
+            resultSet.getString("R_TITLE"),
+            resultSet.getString("C_NAME"),
+            resultSet.getString("S_NAME"),
+            resultSet.getBigDecimal("R_VALUE"),
+            resultSet.getDate("R_DATE"),
+            resultSet.getBigDecimal("R_CARBON"),
+            resultSet.getInt("R_ID")
+          );
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return record;
   }
 
   public String[][] getRecent(int id) throws SQLException {
@@ -192,6 +228,31 @@ public class RecordDAO {
         String dateString = formatter.format(date);
         double total = resultSet.getDouble("Total");
         recordList.add(new String[] { dateString, Double.toString(total) });
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return recordList.toArray(new String[0][]);
+  }
+
+  public String[][] getRecentYear(int id) throws SQLException {
+    List<String[]> recordList = new ArrayList<>();
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_RECENT_YEAR
+      )
+    ) {
+      preparedStatement.setInt(1, id);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        int year = resultSet.getInt("Year");
+        int month = resultSet.getInt("Month");
+        double total = resultSet.getDouble("Total");
+        recordList.add(
+          new String[] { year + "-" + month, Double.toString(total) }
+        );
       }
     } catch (SQLException e) {
       e.printStackTrace();
