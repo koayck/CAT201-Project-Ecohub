@@ -4789,3 +4789,8 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-background-color: #e0b017;
   -fx-text-fill: white;
 }
+
+.border-box {
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+}
