@@ -133,9 +133,6 @@ public class HomeController implements Initializable {
       );
       Parent root = loader.load();
 
-      RecordController RecordController = loader.getController();
-      RecordController.initUser(user);
-
       ItemPane = root;
     } catch (IOException ioe) {
       ioe.printStackTrace();

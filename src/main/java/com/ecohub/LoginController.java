@@ -1,6 +1,7 @@
 package com.ecohub;
 
 import com.ecohub.models.User;
+import com.ecohub.session.UserSession;
 import com.ecohub.dao.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -50,6 +51,9 @@ public class LoginController {
       return;
     }
 
+    // set user session
+    UserSession.getInstance(user.getUser_id());
+
     showAlert(
       Alert.AlertType.CONFIRMATION,
       owner,
@@ -61,9 +65,6 @@ public class LoginController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
       Parent root = loader.load();
       
-      HomeController homeController = loader.getController();
-      homeController.initUser(user);
-
       Scene scene = usernameField.getScene();
       scene.setRoot(root);
 
