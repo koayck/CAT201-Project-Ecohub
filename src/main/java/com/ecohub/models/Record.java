@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.math.BigDecimal;
+import java.sql.Date;
+
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 
@@ -11,19 +13,24 @@ public class Record {
 
   String title;
   String category;
+  String subcategory;
+  Date date;
   BigDecimal value;
-  private Field field;
+  BigDecimal footprint;
+  int recordId;
+
   private JFXButton editButton;
   private JFXButton deleteButton;
 
-  public Record(String category, String title, BigDecimal value) {
-    this.category = category;
+  public Record(String title, String subcategory, BigDecimal value, Date date, BigDecimal footprint, int recordId) {
+    this.subcategory = subcategory;
     this.title = title;
     this.value = value;
-    this.editButton = new JFXButton();
-    this.deleteButton = new JFXButton();
-    btnDecoration();
+    this.date = date;
+    this.footprint = footprint;
+    this.recordId = recordId;
   }
+
 
   public BigDecimal getInput() {
     return value;
@@ -51,14 +58,44 @@ public class Record {
     this.category = category;
   }
 
-  // getter and setter for field
-  public Field getField() {
-    return field;
+  // getter and setter for subcategory
+  public String getSubcategory() {
+    return subcategory;
   }
 
-  // setter for field
-  public void setField(Field field) {
-    this.field = field;
+  // setter for subcategory
+  public void setSubcategory(String subcategory) {
+    this.subcategory = subcategory;
+  }
+
+  // getter and setter for date
+  public Date getDate() {
+    return date;
+  }
+
+  // setter for date
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  // getter and setter for footprint
+  public BigDecimal getFootprint() {
+    return footprint;
+  }
+
+  // setter for footprint
+  public void setFootprint(BigDecimal footprint) {
+    this.footprint = footprint;
+  }
+
+  // getter and setter for recordId
+  public int getRecord_id() {
+    return recordId;
+  }
+
+  // setter for recordId
+  public void setRecord_id(int recordId) {
+    this.recordId = recordId;
   }
 
   // getter and setter for editButton

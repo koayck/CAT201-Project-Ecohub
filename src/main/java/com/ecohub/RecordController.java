@@ -42,18 +42,6 @@ public class RecordController implements Initializable {
   private VBox pnItems;
 
   @FXML
-  private Pane pnlCustomer;
-
-  @FXML
-  private Pane pnlOrders;
-
-  @FXML
-  private Pane pnlOverview;
-
-  @FXML
-  private Pane pnlMenus;
-
-  @FXML
   private JFXCheckBox selectAll;
 
   @FXML
@@ -70,6 +58,9 @@ public class RecordController implements Initializable {
 
   @FXML
   private JFXButton refreshBtn;
+
+  @FXML
+  private Button addPopupBtn;
 
   @FXML
   private Label labelTotal;
@@ -119,8 +110,32 @@ public class RecordController implements Initializable {
     }
   }
 
+  @FXML
+  public void showAddPopup(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(
+      getClass().getResource("AddRecord.fxml")
+    );
+    Parent root = loader.load();
+
+    // Access the controller of the popup
+    AddRecordController controller = loader.getController();
+
+    controller.getRecordController(this);
+
+    // Pass the user object to the popup controller
+    controller.initUser(user);
+
+    Stage stage = new Stage();
+    stage.setScene(new Scene(root));
+    stage.show();
+  }
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    loadDataToTable();
+  }
+  
+  public void loadDataToTable() {
     Task<List<Record>> task = new Task<List<Record>>() {
       @Override
       protected List<Record> call() throws Exception {
@@ -129,10 +144,15 @@ public class RecordController implements Initializable {
       }
     };
 
+    System.out.println("Loading data to table...");
+    System.out.println(pnItems);
+    
     task.setOnSucceeded(e -> {
+      System.out.println("In succedd...");
       List<Record> records = task.getValue();
+      
+      pnItems.getChildren().clear(); // Clear existing items
 
-      System.out.println(records);
       for (Record record : records) {
         try {
           FXMLLoader loader = new FXMLLoader(
@@ -140,13 +160,14 @@ public class RecordController implements Initializable {
           );
           Node node = loader.load();
           RecordItemController controller = loader.getController();
+          controller.getRecordController(this);
 
-          System.out.print(record);
-          controller.category.setText(record.getCategory());
+          controller.subcategory.setText(record.getSubcategory());  
           controller.title.setText(record.getActivity());
-          // controller.date.setText(record.getDate());
+          controller.date.setText(record.getDate().toString());
           controller.value.setText(record.getInput().toString());
-          // controller.footprint.setText(record.getFootprint());
+          controller.footprint.setText(record.getFootprint().toString());
+          controller.recordId.setText(String.valueOf(record.getRecord_id()));
 
           pnItems.getChildren().add(node);
         } catch (Exception ex) {
@@ -157,73 +178,4 @@ public class RecordController implements Initializable {
 
     new Thread(task).start();
   }
-
-  @FXML
-  private Button addButton;
-
-  @FXML
-  private void showAddPopup() throws IOException {
-    FXMLLoader loader = new FXMLLoader(
-      getClass().getResource("dailyInput.fxml")
-    );
-    Parent root = loader.load();
-    Stage stage = new Stage();
-    stage.setScene(new Scene(root));
-    stage.show();
-  }
-
-  // // @FXML
-  // void refresh(ActionEvent event) throws SQLException {
-  //   RecordDAO recordDao = new RecordDAO();
-  //   // pass user id to get all records
-  //   List<Record> records = recordDao.getAllRecords(1);
-
-  //   // clear all record before adding new ones
-  //   // table_result.getItems().clear();
-  //   System.out.println(records);
-
-  //   BigDecimal total = getTotal();
-
-  //   total = total.setScale(2, RoundingMode.HALF_UP);
-  //   // Update the label
-  //   labelTotal.setText(total.toString());
-
-  //   // // Add all records to the table
-  //   // for (Record record : records) {
-  //   //   table_result.getItems().add(record);
-  //   // }
-  // }
-
-  private BigDecimal getTotal() throws SQLException {
-    RecordDAO recordDao = new RecordDAO();
-
-    List<Record> records = recordDao.getAllRecords(1);
-
-    BigDecimal total = BigDecimal.ZERO;
-    for (Record record : records) {
-      BigDecimal calculation = record
-        .getInput()
-        .multiply(BigDecimal.valueOf(0.66));
-      total = total.add(calculation);
-    }
-    return total;
-  }
-  //   public void handleClicks(ActionEvent actionEvent) {
-  //     if (actionEvent.getSource() == btnCustomers) {
-  //       pnlCustomer.setStyle("-fx-background-color : #1620A1");
-  //       pnlCustomer.toFront();
-  //     }
-  //     if (actionEvent.getSource() == btnMenus) {
-  //       pnlMenus.setStyle("-fx-background-color : #53639F");
-  //       pnlMenus.toFront();
-  //     }
-  //     if (actionEvent.getSource() == btnOverview) {
-  //       pnlOverview.setStyle("-fx-background-color : #02030A");
-  //       pnlOverview.toFront();
-  //     }
-  //     if (actionEvent.getSource() == btnOrders) {
-  //       pnlOrders.setStyle("-fx-background-color : #464F67");
-  //       pnlOrders.toFront();
-  //     }
-  //   }
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.models.User;
-import com.ecohub.dailyInputController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;

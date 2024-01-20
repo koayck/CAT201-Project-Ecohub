@@ -4679,7 +4679,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 /* Start Text Field */
 
 .field {
-  -fx-font-size: 18px
+  -fx-font-size: 16px
 }
 
 /* End Text Field */
@@ -4767,3 +4767,25 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 }
 
 /* End Home Part */ 
+
+.warning-btn {
+  -fx-background-color: #cf222e;
+  -fx-text-fill: white;
+}
+
+.warning-btn:hover {
+  -fx-background-color: #b21f2b;
+  -fx-text-fill: white;
+}
+
+.edit-btn {
+  /* yellow color */
+  -fx-background-color: #f5c518;
+  -fx-text-fill: white;
+}
+
+.edit-btn:hover {
+  /* yellow color */
+  -fx-background-color: #e0b017;
+  -fx-text-fill: white;
+}

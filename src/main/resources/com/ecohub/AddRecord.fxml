@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="30.0" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.AddRecordController">
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+   <children>
+      <Label styleClass="title-2" text="Adding new record">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin></Label>
+      <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="336.0" prefWidth="384.0" spacing="40.0">
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <Label styleClass="label-container" text="Record Title" />
+                  <TextField fx:id="titleField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. Travel to school" style="-fx-border-width: 0;" styleClass="text-input-dialog">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="350.0" spacing="20.0">
+               <children>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label styleClass="label-container" text="Category" />
+                        <ComboBox fx:id="categoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a category" style="-fx-border-width: 0;" styleClass="combo-box" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label styleClass="label-container" text="Sub-category" />
+                        <ComboBox fx:id="subCategoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a sub-category" style="-fx-border-width: 0;" styleClass="combo-box" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox spacing="10.0">
+               <children>
+                  <Label styleClass="label-container" text="Value (without unit)" />
+                  <TextField fx:id="inputField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="380.0" promptText="e.g. 4" style="-fx-border-width: 0;" styleClass="text-field-normal">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" spacing="20.0" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="32.0" prefWidth="401.0" spacing="30.0">
+         <children>
+            <Button fx:id="cancelBtn" cancelButton="true" onAction="#handleDiscard" prefHeight="100.0" prefWidth="160.0" styleClass="back-button" text="Discard">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="submitBtn" defaultButton="true" onAction="#handleSubmit" prefWidth="160.0" styleClass="forward-button" text="Confirm">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
