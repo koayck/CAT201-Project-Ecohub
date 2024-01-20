@@ -1,4 +1,4 @@
-package com.ecohub.dao;
+  package com.ecohub.dao;
 
 import com.ecohub.models.User;
 import java.sql.Connection;

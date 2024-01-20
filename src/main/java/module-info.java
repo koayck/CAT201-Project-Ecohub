@@ -9,6 +9,7 @@ module com.ecohub {
 
   opens com.ecohub to javafx.fxml;
   opens com.ecohub.models to javafx.base;
+  opens com.ecohub.dialog to javafx.fxml;
 
   exports com.ecohub ;
 }

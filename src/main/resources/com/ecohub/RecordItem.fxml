@@ -6,10 +6,10 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="749.0" spacing="40.0" style="-fx-border-radius: 5; -fx-background-insets: 0; -fx-border-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordItemController">
+<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="866.0" spacing="40.0" style="-fx-border-radius: 5; -fx-background-insets: 0; -fx-border-color: gray;" stylesheets="@./styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.RecordItemController">
 <children>
    <Label fx:id="title" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" text="KeepToo" />
-   <Label fx:id="category" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Electricity">
+   <Label fx:id="subcategory" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Electricity">
       <HBox.margin>
          <Insets />
       </HBox.margin>
@@ -29,11 +29,16 @@
          <Insets />
       </HBox.margin>
    </Label>
-   <Button minWidth="34.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="20.0" text="Edit">
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-   </Button>
+      <HBox alignment="CENTER_LEFT" prefWidth="185.0" spacing="10.0">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <children>
+            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="34.0" prefWidth="87.0" text="Edit" />
+            <Button fx:id="deleteButton" layoutX="10.0" layoutY="10.0" minWidth="34.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="32.0" prefWidth="103.0" styleClass="warning-btn" text="Delete" />
+         </children>
+      </HBox>
+      <Label fx:id="recordId" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="1.0" text="1" visible="false" />
 </children>
 <effect>
    <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />

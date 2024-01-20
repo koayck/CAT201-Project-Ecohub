@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXCheckBox;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
