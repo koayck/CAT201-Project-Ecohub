@@ -4794,3 +4794,15 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-border-radius: 10;
   -fx-background-radius: 10;
 }
+
+.error-label {
+  -fx-padding: 135px 6px 0.3em 6px;
+  -fx-border-insets: 130px 0 0 0;
+  -fx-background-insets: 130px 0 0 0;
+  -fx-background-color: #b21f2b;
+  -fx-text-fill: white;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+}
