@@ -2,7 +2,6 @@ package com.ecohub;
 
 import com.ecohub.models.Book;
 import com.ecohub.dao.Logger;
-import com.ecohub.dialog.AlertConfirmController;
 import com.ecohub.dialog.AlertInfoController;
 import com.ecohub.dialog.EditBookController;
 import com.ecohub.dialog.EditFieldController;
@@ -131,7 +130,7 @@ public class HomepageController implements Initializable {
 
     public static void AlertConfirm(String txt) {
         try {
-            AlertConfirmController.Msg_Label_static.setText(txt);
+            // AlertConfirmController.Msg_Label_static.setText(txt);
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
             stage_AlertConfirm.setX(bounds.getWidth() / 2 - (460 / 2));
             stage_AlertConfirm.setY(bounds.getHeight() / 2 - (199 / 2));

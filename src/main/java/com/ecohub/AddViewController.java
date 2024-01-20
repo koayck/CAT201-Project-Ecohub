@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.ecohub.models.Book;
 import com.ecohub.models.Field;
-import com.ecohub.dialog.AlertConfirmController;
 import com.ecohub.dialog.EditBookController;
 import com.ecohub.dialog.EditFieldController;
 
@@ -242,11 +241,11 @@ public class AddViewController implements Initializable {
         EventHandler<ActionEvent> ev = (ActionEvent event) -> {
             try {
                 HomepageController.AlertConfirm("Are you sure you want to delete?");
-                if (AlertConfirmController.flag == 1) {
-                    String sqlString = "DELETE FROM Field WHERE  Field_id =" + f.getID();
-                    PreparedStatement prepareStatement = con.prepareStatement(sqlString);
-                    prepareStatement.executeUpdate();
-                }
+                // if (AlertConfirmController.flag == 1) {
+                //     String sqlString = "DELETE FROM Field WHERE  Field_id =" + f.getID();
+                //     PreparedStatement prepareStatement = con.prepareStatement(sqlString);
+                //     prepareStatement.executeUpdate();
+                // }
                 list_Field.clear();
                 list_Field.addAll(selectFields());
                 FieldsTable.requestFocus();
@@ -385,11 +384,11 @@ public class AddViewController implements Initializable {
         EventHandler<ActionEvent> ev = (ActionEvent event) -> {
             try {
                 HomepageController.AlertConfirm("Are you sure you want to delete?");
-                if (AlertConfirmController.flag == 1) {
-                    String sqlString = "DELETE FROM Book WHERE  book_id =" + b.getID();
-                    PreparedStatement prepareStatement = con.prepareStatement(sqlString);
-                    prepareStatement.executeUpdate();
-                }
+                // if (AlertConfirmController.flag == 1) {
+                //     String sqlString = "DELETE FROM Book WHERE  book_id =" + b.getID();
+                //     PreparedStatement prepareStatement = con.prepareStatement(sqlString);
+                //     prepareStatement.executeUpdate();
+                // }
                 list_Books.clear();
                 list_Books.addAll(selectBooks());
                 BooksTable.requestFocus();
