@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class AlertInfoController implements Initializable {
 
     @FXML
-    private Label Msg_Label;
+    public Label Msg_Label;
     public static Label Msg_Label_static;
 
     @Override
