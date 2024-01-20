@@ -49,9 +49,11 @@ public class RecordController implements Initializable {
   @FXML
   void clearFilter(ActionEvent event) {
     activityBox.getSelectionModel().clearSelection();
-    activityBox.setPromptText("Filter by Categories");
     categoryBox.getSelectionModel().clearSelection();
-    categoryBox.setPromptText("Filter by Categories");
+    activityBox.getSelectionModel().selectFirst();
+    categoryBox.getSelectionModel().selectFirst();
+    activityBox.getSelectionModel().selectFirst();
+
   }
 
   @FXML
@@ -99,52 +101,37 @@ public class RecordController implements Initializable {
       "Water"
     );
     categoryBox.setItems(categories);
+    categoryBox.getSelectionModel().selectFirst();
 
-    ObservableList<String> activities = FXCollections.observableArrayList(
-      "All Activities",
-      "Walking",
-      "Car",
-      "AC",
-      "Refrigerator",
-      "Plastic",
-      "Electronic",
-      "Drinking",
-      "Bathing",
-      "Washing"
-    );
+    ObservableList<String> activities = FXCollections.observableArrayList("All Subcategories", "Walking", "Car", "AC",
+        "Refrigerator", "Plastic", "Electronic", "Drinking", "Bathing", "Washing");
     activityBox.setItems(activities);
+    activityBox.getSelectionModel().selectFirst();
 
     ChangeListener<String> categoryListener = (options, oldValue, newValue) -> {
       activityBox.getItems().clear();
       if (newValue == null || newValue.equals("All Categories")) {
         // If no category is selected or "All Categories" is selected, show all
         // activities
-        activityBox
-          .getItems()
-          .addAll(
-            "All Activities",
-            "Walking",
-            "Car",
-            "AC",
-            "Refrigerator",
-            "Plastic",
-            "Electronic",
-            "Drinking",
-            "Bathing",
-            "Washing"
-          );
+        activityBox.getItems().addAll("All Subcategories", "Walking", "Car", "AC", "Refrigerator", "Plastic",
+            "Electronic", "Drinking", "Bathing", "Washing");
+        activityBox.getSelectionModel().selectFirst();
         loadDataToTable();
       } else if (newValue.equals("Travel")) {
-        activityBox.getItems().addAll("Walking", "Car");
+        activityBox.getItems().addAll("All Subcategories", "Walking", "Car");
+        activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Electricity")) {
-        activityBox.getItems().addAll("AC", "Refrigerator");
+        activityBox.getItems().addAll("All Subcategories", "AC", "Refrigerator");
+        activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Waste")) {
-        activityBox.getItems().addAll("Plastic", "Electronic");
+        activityBox.getItems().addAll("All Subcategories", "Plastic", "Electronic");
+        activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       } else if (newValue.equals("Water")) {
-        activityBox.getItems().addAll("Drinking", "Bathing", "Washing");
+        activityBox.getItems().addAll("All Subcategories", "Drinking", "Bathing", "Washing");
+        activityBox.getSelectionModel().selectFirst();
         loadFilterDataToTable(newValue, 1);
       }
     };
@@ -154,92 +141,30 @@ public class RecordController implements Initializable {
       .selectedItemProperty()
       .addListener(categoryListener);
 
-    activityBox
-      .getSelectionModel()
-      .selectedItemProperty()
-      .addListener((options, oldValue, newValue) -> {
-        if (newValue != null) {
-          // If an activity is selected, select the related category
-          categoryBox
-            .getSelectionModel()
-            .selectedItemProperty()
-            .removeListener(categoryListener);
-          if (newValue.equals("All Activities")) {
-            loadDataToTable();
-            categoryBox.getSelectionModel().select("All Categories");
-          } else if (Arrays.asList("Walking", "Car").contains(newValue)) {
-            categoryBox.getSelectionModel().select("Travel");
-            loadFilterDataToTable(newValue, 2);
-          } else if (Arrays.asList("AC", "Refrigerator").contains(newValue)) {
-            loadFilterDataToTable(newValue, 2);
-            categoryBox.getSelectionModel().select("Electricity");
-          } else if (
-            Arrays.asList("Plastic", "Electronic").contains(newValue)
-          ) {
-            loadFilterDataToTable(newValue, 2);
-            categoryBox.getSelectionModel().select("Waste");
-          } else if (
-            Arrays.asList("Drinking", "Bathing", "Washing").contains(newValue)
-          ) {
-            categoryBox.getSelectionModel().select("Water");
-            loadFilterDataToTable(newValue, 2);
-          }
-          categoryBox
-            .getSelectionModel()
-            .selectedItemProperty()
-            .addListener(categoryListener);
+    activityBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+      if (newValue != null) {
+        // If an activity is selected, select the related category
+        categoryBox.getSelectionModel().selectedItemProperty().removeListener(categoryListener);
+        if (newValue.equals("All Subcategories")) {
+          loadFilterDataToTable(categoryBox.getSelectionModel().getSelectedItem(), 1);
+          // categoryBox.getSelectionModel().select("All Categories");
+          // loadDataToTable();
+        } else if (Arrays.asList("Walking", "Car").contains(newValue)) {
+          categoryBox.getSelectionModel().select("Travel");
+          loadFilterDataToTable(newValue, 2);
+        } else if (Arrays.asList("AC", "Refrigerator").contains(newValue)) {
+          loadFilterDataToTable(newValue, 2);
+          categoryBox.getSelectionModel().select("Electricity");
+        } else if (Arrays.asList("Plastic", "Electronic").contains(newValue)) {
+          loadFilterDataToTable(newValue, 2);
+          categoryBox.getSelectionModel().select("Waste");
+        } else if (Arrays.asList("Drinking", "Bathing", "Washing").contains(newValue)) {
+          categoryBox.getSelectionModel().select("Water");
+          loadFilterDataToTable(newValue, 2);
         }
-      });
-  }
-
-  public void loadDataToTableWithSearch() {
-    Task<List<Record>> task = new Task<List<Record>>() {
-      @Override
-      protected List<Record> call() throws Exception {
-        RecordDAO recordDao = new RecordDAO();
-        String keyword = searchBar.getText(); // get the text from the search bar
-        System.out.println(keyword);
-        return recordDao.getAllRecords(1, keyword); // pass the keyword to the getAllRecords method
-      }
-    };
-
-    task.setOnSucceeded(e -> {
-      List<Record> records = task.getValue();
-
-      pnItems.getChildren().clear(); // Clear existing items
-
-      DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
-      for (Record record : records) {
-        try {
-          FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("RecordItem.fxml")
-          );
-          Node node = loader.load();
-          RecordItemController controller = loader.getController();
-          controller.getRecordController(this);
-
-          Pair<String, String> iconInfo = getIcon(record.getCategory());
-          controller.categoryIcon.setContent(iconInfo.getKey());
-          controller.categoryIcon.setFill(Color.web(iconInfo.getValue()));
-
-          controller.subcategory.setText(record.getSubcategory());
-          controller.title.setText(record.getTitle());
-          controller.date.setText(record.getDate().toString());
-          controller.value.setText(record.getInput().toString());
-          controller.footprint.setText(
-            decimalFormat.format(record.getFootprint())
-          );
-          controller.recordId.setText(String.valueOf(record.getRecord_id()));
-
-          pnItems.getChildren().add(node);
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
+        categoryBox.getSelectionModel().selectedItemProperty().addListener(categoryListener);
       }
     });
-
-    new Thread(task).start();
   }
 
   public void loadDataToTable() {
