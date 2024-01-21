@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" style="-fx-alignment: #0F0;" styleClass="bg-default" stylesheets="@../styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.controller.DashboardController">
+<HBox fx:id="parent" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" style="-fx-alignment: #0F0;" styleClass="bg-default" stylesheets="@../styles/theme.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.controller.DashboardController">
   <children>
     <StackPane fx:id="rightPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" HBox.hgrow="ALWAYS">
       <children>
@@ -28,28 +28,28 @@
                 </Label>
                 <HBox alignment="CENTER" prefHeight="187.0" prefWidth="1153.0" style="-fx-background-color: white;" styleClass="border-box" stylesheets="@../styles/theme.css">
                   <children>
-                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                    <VBox alignment="CENTER" layoutX="606.0" layoutY="10.0" prefHeight="200.0" prefWidth="250.0" spacing="5.0">
                       <children>
-                        <ImageView fitHeight="69.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="85.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@../img/carbon-footprint.png" />
+                            <Image url="@../img/road-map.png" />
                           </image>
                         </ImageView>
                         <HBox alignment="CENTER" spacing="5.0">
                           <children>
-                            <Label fx:id="carbonData" style="-fx-font-weight: bold;" styleClass="font-icon" text="Data">
+                            <Label fx:id="distanceData" style="-fx-font-weight: bold;" text="Data">
                               <font>
                                 <Font size="18.0" />
                               </font>
                             </Label>
-                            <Label fx:id="carbonData1" style="-fx-font-weight: bold;" styleClass="font-icon" text="kgCO₂e">
+                            <Label fx:id="distanceData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="km">
                               <font>
                                 <Font size="18.0" />
                               </font>
                             </Label>
                           </children>
                         </HBox>
-                        <Label text="Total Carbon Foorprint">
+                        <Label text="Total Distance Traveled">
                           <font>
                             <Font size="18.0" />
                           </font>
@@ -61,7 +61,7 @@
                         <Pane prefHeight="150.0" prefWidth="1.0" style="-fx-background-color: lightgrey;" />
                       </children>
                     </VBox>
-                    <VBox alignment="CENTER" layoutX="463.0" layoutY="10.0" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                    <VBox alignment="CENTER" layoutX="463.0" layoutY="10.0" prefHeight="200.0" prefWidth="250.0" spacing="5.0">
                       <children>
                         <ImageView fitHeight="85.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                           <image>
@@ -94,34 +94,67 @@
                         <Pane prefHeight="150.0" prefWidth="1.0" style="-fx-background-color: lightgrey;" />
                       </children>
                     </VBox>
-                    <VBox alignment="CENTER" layoutX="606.0" layoutY="10.0" prefHeight="200.0" prefWidth="286.0" spacing="5.0">
+                    <VBox alignment="CENTER" prefHeight="187.0" prefWidth="250.0" spacing="5.0">
                       <children>
-                        <ImageView fitHeight="83.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="85.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@../img/road-map.png" />
+                            <Image url="@../img/recycle-bin.png" />
                           </image>
                         </ImageView>
                         <HBox alignment="CENTER" spacing="5.0">
                           <children>
-                            <Label fx:id="distanceData" style="-fx-font-weight: bold;" text="Data">
+                            <Label fx:id="wasteData" style="-fx-font-weight: bold;" styleClass="font-icon" text="Data">
                               <font>
                                 <Font size="18.0" />
                               </font>
                             </Label>
-                            <Label fx:id="distanceData1" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="km">
+                            <Label fx:id="carbonData1" style="-fx-font-weight: bold;" styleClass="font-icon" text="kg">
                               <font>
                                 <Font size="18.0" />
                               </font>
                             </Label>
                           </children>
                         </HBox>
-                        <Label text="Total Distance Traveled">
+                        <Label text="Total Waste Produced">
                           <font>
                             <Font size="18.0" />
                           </font>
                         </Label>
                       </children>
                     </VBox>
+                              <VBox alignment="CENTER" layoutX="552.0" layoutY="10.0">
+                                 <children>
+                                    <Pane prefHeight="150.0" prefWidth="1.0" style="-fx-background-color: lightgrey;" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="696.0" layoutY="10.0" prefHeight="200.0" prefWidth="250.0" spacing="5.0">
+                                 <children>
+                                    <ImageView fitHeight="85.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/water-tap.png" />
+                                       </image>
+                                    </ImageView>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Label fx:id="waterData" style="-fx-font-weight: bold;" text="Data">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="distanceData11" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="Litre">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Total Water Usage">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                   </children>
                 </HBox>
                 <HBox prefHeight="397.0" prefWidth="1153.0" spacing="20.0">

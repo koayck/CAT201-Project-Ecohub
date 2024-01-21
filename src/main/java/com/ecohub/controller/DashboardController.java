@@ -41,13 +41,13 @@ public class DashboardController {
     private StackPane rightPane;
     
     @FXML
-    private Label carbonData, electricData, distanceData;
+    private Label distanceData, electricData, wasteData, waterData;
     
     @FXML
     private ComboBox<String> lineBox;
 
     public void initBox() {
-        lineBox.getItems().addAll("Daily Carbon Footprint (Recent 7 days)", "Monthly Carbon Footprint (Recent 12 months)");
+        lineBox.getItems().addAll("Daily Carbon Footprint (Recent 7 days)", "Weekly Carbon Footprint (Current Month)", "Monthly Carbon Footprint (Recent 12 months)");
         lineBox.getSelectionModel().selectFirst();
         lineBox.setOnAction(event -> {
             String selectedChoice = lineBox.getValue();
@@ -57,6 +57,9 @@ public class DashboardController {
                     break;
                 case "Monthly Carbon Footprint (Recent 12 months)":
                     showCarbonYear();
+                    break;
+                case "Weekly Carbon Footprint (Current Month)":
+                    showCarbonWeek();
             }
         });
     }
@@ -71,21 +74,7 @@ public class DashboardController {
     void updateLabel() {
         RecordDAO recordDAO = new RecordDAO();
         try {
-            BigDecimal total = recordDAO.getTotal(UserSession.getInstance().getUserId());
-            if (total == null) {
-                carbonData.setText("0");
-            }
-            else {
-                carbonData.setText(String.valueOf(total));
-            }
-            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 2);
-            if (total == null) {
-                electricData.setText("0");
-            }
-            else {
-                electricData.setText(String.valueOf(total));
-            }
-            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 1);
+            BigDecimal total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 1);
             if (total == null) {
                 distanceData.setText("0");
             }
@@ -93,6 +82,29 @@ public class DashboardController {
                 distanceData.setText(String.valueOf(total));
             }
 
+            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 2);
+            if (total == null) {
+                electricData.setText("0");
+            }
+            else {
+                electricData.setText(String.valueOf(total));
+            }
+
+            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 3);
+            if (total == null) {
+                wasteData.setText("0");
+            }
+            else {
+                wasteData.setText(String.valueOf(total));
+            }
+
+            total = recordDAO.getCategory(UserSession.getInstance().getUserId(), 4);
+            if (total == null) {
+                waterData.setText("0");
+            }
+            else {
+                waterData.setText(String.valueOf(total));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -159,6 +171,69 @@ public class DashboardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void showCarbonWeek() {
+        RecordDAO recordDAO = new RecordDAO();
+        
+        // Create a new CategoryAxis each time the data changes
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Week");
+        
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Carbon Footprint");
+        
+        // Create a new LineChart each time the data changes
+        LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
+        
+        try {
+            String[][] data = recordDAO.getRecentWeek(UserSession.getInstance().getUserId()); 
+    
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            series.setName("Total Carbon Footprint");
+            
+            if (data == null) {
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
+    
+                boolean stackPaneExists = linePane.getChildren().stream()
+                    .filter(StackPane.class::isInstance)
+                    .anyMatch(stackPane -> {
+                            Node node = ((StackPane) stackPane).getChildren().get(0);
+                            return node instanceof Label && "You have no data yet".equals(((Label) node).getText());
+                        }
+                    );
+    
+                if (!stackPaneExists) {
+                    Label errorLabel = new Label("You have no data yet");
+                    errorLabel.getStyleClass().add("error-label");
+                    StackPane stackPane = new StackPane(errorLabel); // Create a new StackPane for the label.
+                    stackPane.setAlignment(Pos.BOTTOM_CENTER); // Set the alignment of the StackPane to CENTER.
+                    linePane.getChildren().add(stackPane);
+                }
+            }
+            else {
+                for (String[] point : data) {
+                    String weekAsString = point[0];
+                    double total = Double.parseDouble(point[1]);
+    
+                    series.getData().add(new XYChart.Data<String, Number>(weekAsString, total));
+                }
+    
+                carbonChart.getData().add(series);
+                carbonChart.setLegendVisible(false);
+    
+                // Remove only LineChart instances from linePane
+                linePane.getChildren().removeIf(node -> node instanceof LineChart);
+    
+    
+                // Add the chart back to its parent container
+                linePane.getChildren().add(carbonChart);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     @FXML
     void showCarbonYear() {
