@@ -64,6 +64,9 @@ public class AddRecordController {
   private Button submitBtn;
 
   @FXML
+  private Label inputFieldLabel;
+
+  @FXML
   public void initSubmitBtn(String title) {
     submitBtn.setText(title);
   }
@@ -172,6 +175,17 @@ public class AddRecordController {
     categoryField.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
       // Clear the subcategory field
       subCategoryField.getItems().clear();
+
+      // Add unit to input field label according to the category picked
+      if (newValue.equals("Travel")) {
+        inputFieldLabel.setText("Value (km)");
+      } else if (newValue.equals("Electricity")) {
+        inputFieldLabel.setText("Value (kWh)");
+      } else if (newValue.equals("Water")) {
+        inputFieldLabel.setText("Value (litre)");
+      } else if (newValue.equals("Waste")) {
+        inputFieldLabel.setText("Value (kg)");
+      }
 
       // Get the selected category
       String selectedCategory = categoryField.getSelectionModel().getSelectedItem();
