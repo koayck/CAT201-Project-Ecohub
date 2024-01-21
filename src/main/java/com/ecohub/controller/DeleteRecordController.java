@@ -1,7 +1,6 @@
-package com.ecohub;
+package com.ecohub.controller;
 
 import com.ecohub.dao.RecordDAO;
-import com.ecohub.models.User;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

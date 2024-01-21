@@ -1,4 +1,4 @@
-package com.ecohub;
+package com.ecohub.controller;
 
 import com.ecohub.dao.RecordDAO;
 import com.ecohub.dialog.AlertInfoController;
@@ -201,7 +201,7 @@ public class AddRecordController {
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("AlertInfo.fxml")); // Make sure to replace with your actual path
+      loader.setLocation(getClass().getResource("/com/ecohub/fxml/AlertInfo.fxml")); // Make sure to replace with your actual path
       VBox alertInfoRoot = loader.load();
 
       // Create a new stage for the alert

@@ -1,4 +1,4 @@
-package com.ecohub;
+package com.ecohub.controller;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -61,7 +61,7 @@ public class RecordItemController {
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("AddRecord.fxml")); // Make sure to replace with your actual path
+      loader.setLocation(getClass().getResource("/com/ecohub/fxml/AddRecord.fxml")); // Make sure to replace with your actual path
 
       VBox alertInfoRoot = loader.load();
 
@@ -97,7 +97,7 @@ public class RecordItemController {
     try {
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("DeleteRecord.fxml")); // Make sure to replace with your actual path
+      loader.setLocation(getClass().getResource("/com/ecohub/fxml/DeleteRecord.fxml")); // Make sure to replace with your actual path
       VBox alertInfoRoot = loader.load();
 
       // Create a new stage for the alert

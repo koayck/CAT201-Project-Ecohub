@@ -1,4 +1,4 @@
-package com.ecohub;
+package com.ecohub.controller;
 
 import com.ecohub.models.User;
 import com.ecohub.session.UserSession;
@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
@@ -23,9 +22,6 @@ public class LoginController {
 
   @FXML
   private PasswordField passwordField;
-
-  @FXML
-  private Label errorLabel;
 
   @FXML
   private Button submitButton;
@@ -52,7 +48,7 @@ public class LoginController {
     }
 
     // set user session
-    UserSession.getInstance(user.getUser_id());
+    UserSession.getInstance(user.getUser_id(), user.getUser_name());
 
     showAlert(
       Alert.AlertType.CONFIRMATION,
@@ -62,8 +58,13 @@ public class LoginController {
     );
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ecohub/fxml/Home.fxml"));
       Parent root = loader.load();
+
+      HomeController homeController = loader.getController();
+      homeController.title.setText(
+        "Welcome Back, " + UserSession.getInstance().getUsername()
+      );
       
       Scene scene = usernameField.getScene();
       scene.setRoot(root);
@@ -90,7 +91,7 @@ public class LoginController {
   // transition to signup page instead of new window
   @FXML
   void switchToSignUp() throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/com/ecohub/fxml/SignUp.fxml"));
     Scene scene = usernameField.getScene();
     scene.setRoot(root);
   }

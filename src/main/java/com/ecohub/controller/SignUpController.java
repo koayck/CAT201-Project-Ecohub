@@ -1,4 +1,4 @@
-package com.ecohub;
+package com.ecohub.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
@@ -30,9 +29,6 @@ public class SignUpController {
   
   @FXML
   private PasswordField confirmPasswordField;
-
-  @FXML
-  private Label errorLabel;
 
   @FXML
   private Button submitButton;
@@ -97,6 +93,24 @@ public class SignUpController {
     String password = passwordField.getText();
 
     UserDAO userDao = new UserDAO();
+
+    // check if username already exists, if so, show error
+    if (userDao.checkUsername(username)) {
+      showAlert(
+        Alert.AlertType.ERROR,
+        owner,
+        "Form Error!",
+        "Username already exists"
+      );
+
+      // clear field 
+      usernameField.setText("");
+      emailField.setText("");
+      passwordField.setText("");
+      confirmPasswordField.setText("");
+      return;
+    }
+
     userDao.addRecord(username, email, password);
 
     showAlert(
@@ -105,6 +119,16 @@ public class SignUpController {
       "Registration Successful!",
       "Welcome " + usernameField.getText()
     );
+
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ecohub/fxml/Login.fxml"));
+      Parent root = loader.load();
+
+      Scene scene = submitButton.getScene();
+      scene.setRoot(root);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private static void showAlert(
@@ -123,7 +147,7 @@ public class SignUpController {
 
   @FXML
   void switchToLogin() throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/com/ecohub/fxml/Login.fxml"));
     Scene scene = usernameField.getScene();
     scene.setRoot(root);
   }

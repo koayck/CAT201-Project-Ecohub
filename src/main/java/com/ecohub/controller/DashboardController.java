@@ -1,27 +1,17 @@
-package com.ecohub;
+package com.ecohub.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import com.ecohub.dao.RecordDAO;
-import com.ecohub.models.User;
 import com.ecohub.session.UserSession;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -29,17 +19,11 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 
 public class DashboardController {
-
-    private User user;
-
-    private boolean isUserInitialized = false;
     
     @FXML
     private LineChart<String, Number> carbonChart;
@@ -61,13 +45,6 @@ public class DashboardController {
     
     @FXML
     private ComboBox<String> lineBox;
-
-    public void initUser(User user) {
-        this.user = user;
-        this.isUserInitialized = true;
-        updateLabel();
-        updateChart();
-    }
 
     public void initBox() {
         lineBox.getItems().addAll("Daily Carbon Footprint (Recent 7 days)", "Monthly Carbon Footprint (Recent 12 months)");
@@ -198,7 +175,7 @@ public class DashboardController {
         LineChart<String, Number> carbonChart = new LineChart<>(xAxis, yAxis);
 
         try {
-            String[][] data = recordDAO.getRecentYear(user.getUser_id()); 
+            String[][] data = recordDAO.getRecentYear(UserSession.getInstance().getUserId()); 
 
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             series.setName("Total Carbon Footprint");
@@ -299,7 +276,7 @@ public class DashboardController {
     @FXML
     void initialize() {
         initBox();
-        if (isUserInitialized) {
+        if (UserSession.getInstance().getUsername() != null) {
             updateLabel();
             updateChart();
         }
