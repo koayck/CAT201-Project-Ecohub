@@ -4,14 +4,16 @@ public class UserSession {
   private static UserSession instance;
 
   private int userId;
+  private String username;
 
-  private UserSession(int userId) {
+  private UserSession(int userId, String username) {
     this.userId = userId;
+    this.username = username;
   }
 
-  public static UserSession getInstance(int userId) {
+  public static UserSession getInstance(int userId, String username) {
     if(instance == null) {
-      instance = new UserSession(userId);
+      instance = new UserSession(userId, username);
     }
     return instance;
   }
@@ -25,6 +27,10 @@ public class UserSession {
 
   public int getUserId() {
     return userId;
+  }
+
+  public String getUsername() {
+    return username;
   }
 
   public void cleanUserSession() {
