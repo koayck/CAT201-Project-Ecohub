@@ -7,9 +7,9 @@ module com.ecohub {
   requires de.jensd.fx.glyphs.fontawesome;
   requires java.sql;
 
-  opens com.ecohub to javafx.fxml;
+  opens com.ecohub.controller to javafx.fxml;
   opens com.ecohub.models to javafx.base;
   opens com.ecohub.dialog to javafx.fxml;
 
-  exports com.ecohub ;
+  exports com.ecohub;
 }
