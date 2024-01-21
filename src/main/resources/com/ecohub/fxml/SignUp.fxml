@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.controller.SignUpController" stylesheets="@../styles/theme.css">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" stylesheets="@../styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.controller.SignUpController">
    <children>
       <ImageView fitHeight="43.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -33,8 +34,14 @@
             <TextField fx:id="emailField" prefHeight="50.0" prefWidth="360.0" promptText="Email" styleClass="field" />
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="360.0" promptText="Password" styleClass="field" />
             <PasswordField fx:id="confirmPasswordField" onAction="#switchToLogin" prefHeight="50.0" prefWidth="360.0" promptText="Confirm Password" styleClass="field" />
-            <JFXButton fx:id="submitButton" onAction="#register" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Sign Up" />
-            <JFXButton id="login" alignment="CENTER" onAction="#switchToLogin" prefHeight="58.0" prefWidth="360.0" styleClass="secondaryBtn" text="Already have an account" textAlignment="CENTER" />
+            <JFXButton fx:id="submitButton" onAction="#register" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Sign Up">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <JFXButton id="login" alignment="CENTER" onAction="#switchToLogin" prefHeight="58.0" prefWidth="360.0" styleClass="secondaryBtn" text="Already have an account" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
          </children>
       </VBox>
       <Label styleClass="footer-text" text="© EcoHub 2024">
