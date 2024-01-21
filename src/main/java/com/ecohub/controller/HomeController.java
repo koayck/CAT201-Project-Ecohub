@@ -108,7 +108,6 @@ public class HomeController implements Initializable {
   @FXML
   private void onLogOut() {
     try {
-      System.out.println("Logout");
       // Load the AlertInfo.fxml content
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("/com/ecohub/fxml/Logout.fxml")); // Make sure to replace with your actual path
