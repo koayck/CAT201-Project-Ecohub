@@ -42,40 +42,43 @@ public class RecordDAO {
     "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND R_TITLE LIKE ?";
   // statement to calculate total carbon footprint
   private static final String GET_TOTAL_CARBON =
-    "SELECT SUM(R_CARBON) AS TOTAL FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND ((? IS NULL OR C_NAME = ?) AND (? IS NULL OR S_NAME = ?))";
+  "SELECT SUM(R_CARBON) AS TOTAL FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND ((? IS NULL OR C_NAME = ?) AND (? IS NULL OR S_NAME = ?)) AND (? IS NULL OR R_TITLE LIKE ?)";
 
-  public BigDecimal getTotalCarbon(
-    int uid,
-    String categoryFilter,
-    String subCategoryFilter
-  ) throws SQLException {
-    BigDecimal total = null;
-    try (
-      Connection connection = DBUtil.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(
-        GET_TOTAL_CARBON
-      )
-    ) {
-      preparedStatement.setInt(1, uid);
-      preparedStatement.setString(2, categoryFilter);
-      preparedStatement.setString(3, categoryFilter);
-      preparedStatement.setString(4, subCategoryFilter);
-      preparedStatement.setString(5, subCategoryFilter);
+public BigDecimal getTotalCarbon(
+  int uid,
+  String categoryFilter,
+  String subCategoryFilter,
+  String keyword
+) throws SQLException {
+  BigDecimal total = null;
+  try (
+    Connection connection = DBUtil.getConnection();
+    PreparedStatement preparedStatement = connection.prepareStatement(
+      GET_TOTAL_CARBON
+    )
+  ) {
+    preparedStatement.setInt(1, uid);
+    preparedStatement.setString(2, categoryFilter);
+    preparedStatement.setString(3, categoryFilter);
+    preparedStatement.setString(4, subCategoryFilter);
+    preparedStatement.setString(5, subCategoryFilter);
+    preparedStatement.setString(6, keyword);
+    preparedStatement.setString(7, keyword + "%");
 
-      ResultSet resultSet = preparedStatement.executeQuery();
-      if (resultSet.next()) {
-        BigDecimal bd = resultSet.getBigDecimal("TOTAL");
+    ResultSet resultSet = preparedStatement.executeQuery();
+    if (resultSet.next()) {
+      BigDecimal bd = resultSet.getBigDecimal("TOTAL");
+      
+      if (bd != null) {
+        total = bd.setScale(2, RoundingMode.HALF_UP);
         
-        if (bd != null) {
-          total = bd.setScale(2, RoundingMode.HALF_UP);
-          
-        }
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
-    return total;
+  } catch (SQLException e) {
+    e.printStackTrace();
   }
+  return total;
+}
 
   // function for adding record based on this query private static final String
   // INSERT_QUERY =

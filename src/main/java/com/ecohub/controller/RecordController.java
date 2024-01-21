@@ -91,10 +91,10 @@ public class RecordController implements Initializable {
   }
 
   public void loadDataToTableWithSearch() {
+    String keyword = searchBar.getText() == "" ? null : searchBar.getText();
     Task<List<Record>> task = new Task<List<Record>>() {
-      @Override
+      @Override 
       protected List<Record> call() throws Exception {
-        String keyword = searchBar.getText(); // get the text from the search bar
         RecordDAO recordDao = new RecordDAO();
         return recordDao.getAllRecords(
           UserSession.getInstance().getUserId(),
@@ -106,14 +106,13 @@ public class RecordController implements Initializable {
     task.setOnSucceeded(e -> {
       List<Record> records = task.getValue();
 
-      
-
       RecordDAO recordDao = new RecordDAO();
       try {
         BigDecimal total = recordDao.getTotalCarbon(
           UserSession.getInstance().getUserId(),
           null,
-          null
+          null,
+          keyword
         );
         if (total == null) {
           totalCarbon.setText("0");
@@ -309,6 +308,7 @@ public class RecordController implements Initializable {
         BigDecimal total = recordDao.getTotalCarbon(
           UserSession.getInstance().getUserId(),
           null,
+          null,
           null
         );
         if (total == null) {
@@ -389,7 +389,8 @@ public class RecordController implements Initializable {
         BigDecimal total = recordDao.getTotalCarbon(
           UserSession.getInstance().getUserId(),
           categoryFilter,
-          subCategoryFilter
+          subCategoryFilter,
+          null
         );
         if (total == null) {
           totalCarbon.setText("0");
