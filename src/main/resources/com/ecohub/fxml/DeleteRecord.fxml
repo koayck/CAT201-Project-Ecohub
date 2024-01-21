@@ -42,7 +42,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton onAction="#handleDelete" prefWidth="160.0" style="-fx-background-color: cf222e;" styleClass="warning-btn" text="Confirm">
+            <JFXButton onAction="#handleDelete" prefWidth="160.0" style="-fx-background-color: cf222e;" styleClass="warning-btn" text="Delete">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
