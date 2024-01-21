@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DBUtil {
 
   private static final String DATABASE_NAME = "ecohub";
-  private static final String DATABASE_USERNAME = "root";
-  private static final String DATABASE_PASSWORD = "73812";
-  private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME
+  private static final String DATABASE_USERNAME = "<database username here>";
+  private static final String DATABASE_PASSWORD = "<database password here>";
+  private static final String DATABASE_URL = "<database url here>" + DATABASE_NAME
       + "?useSSL=false&serverTimezone=UTC";
 
   public static Connection getConnection() throws SQLException {
