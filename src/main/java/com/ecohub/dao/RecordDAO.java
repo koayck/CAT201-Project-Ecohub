@@ -35,12 +35,49 @@ public class RecordDAO {
   private static final String SELECT_QUERY =
     "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE R_ID = ?";
   private static final String SELECT_FILTER_ACT_QUERY =
-    "SELECT * FROM ECOHUB.RECORD JOIN SUBCATEGORY ON ECOHUB.RECORD.S_ID = SUBCATEGORY.S_ID WHERE U_ID = ? AND S_NAME = ?";
+    "SELECT * FROM ECOHUB.RECORD NATURAL JOIN SUBCATEGORY NATURAL JOIN CATEGORY WHERE U_ID = ? AND S_NAME = ?";
   private static final String SELECT_FILTER_CAT_QUERY =
-    "SELECT * FROM ECOHUB.RECORD JOIN SUBCATEGORY ON ECOHUB.RECORD.S_ID = SUBCATEGORY.S_ID  JOIN CATEGORY ON SUBCATEGORY.C_ID = CATEGORY.C_ID WHERE U_ID = ? AND C_NAME = ?";
-    private static final String SELECT_KEYWORD = "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND R_TITLE LIKE ?";
+    "SELECT * FROM ECOHUB.RECORD NATURAL JOIN SUBCATEGORY NATURAL JOIN CATEGORY WHERE U_ID = ? AND C_NAME = ?";
+  private static final String SELECT_KEYWORD =
+    "SELECT * FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND R_TITLE LIKE ?";
+  // statement to calculate total carbon footprint
+  private static final String GET_TOTAL_CARBON =
+    "SELECT SUM(R_CARBON) AS TOTAL FROM ECOHUB.RECORD NATURAL JOIN ECOHUB.SUBCATEGORY NATURAL JOIN ECOHUB.CATEGORY WHERE U_ID = ? AND ((? IS NULL OR C_NAME = ?) AND (? IS NULL OR S_NAME = ?))";
 
-    // function for adding record based on this query private static final String
+  public BigDecimal getTotalCarbon(
+    int uid,
+    String categoryFilter,
+    String subCategoryFilter
+  ) throws SQLException {
+    BigDecimal total = null;
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_TOTAL_CARBON
+      )
+    ) {
+      preparedStatement.setInt(1, uid);
+      preparedStatement.setString(2, categoryFilter);
+      preparedStatement.setString(3, categoryFilter);
+      preparedStatement.setString(4, subCategoryFilter);
+      preparedStatement.setString(5, subCategoryFilter);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        BigDecimal bd = resultSet.getBigDecimal("TOTAL");
+        
+        if (bd != null) {
+          total = bd.setScale(2, RoundingMode.HALF_UP);
+          
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return total;
+  }
+
+  // function for adding record based on this query private static final String
   // INSERT_QUERY =
   // "INSERT INTO ECOHUB.RECORD (R.CATEGORY, R.TITLE, R.VALUE) VALUES (?,?,?)";
   public void addRecord(String title, String value, int subCategoryId, int uid)
@@ -127,19 +164,22 @@ public class RecordDAO {
   // function for selecting all record based on this query private static final
   // String SELECT_QUERY =
   // "SELECT * FROM ECOHUB.RECORD WHERE U_ID = ?";
-  public List<Record> getAllRecords(int id, String keyword) throws SQLException {
-    String query = (keyword == null || keyword.isEmpty()) ? SELECT_ALL_QUERY : SELECT_KEYWORD;
+  public List<Record> getAllRecords(int id, String keyword)
+    throws SQLException {
+    String query = (keyword == null || keyword.isEmpty())
+      ? SELECT_ALL_QUERY
+      : SELECT_KEYWORD;
 
     List<Record> recordList = new ArrayList<>();
     try (
       Connection connection = DBUtil.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(
-        query
-      )
+      PreparedStatement preparedStatement = connection.prepareStatement(query)
     ) {
       preparedStatement.setInt(1, id);
-      if (keyword != null && !keyword.isEmpty())
-        preparedStatement.setString(2, keyword + "%");
+      if (keyword != null && !keyword.isEmpty()) preparedStatement.setString(
+        2,
+        keyword + "%"
+      );
 
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -154,7 +194,7 @@ public class RecordDAO {
           resultSet.getBigDecimal("R_CARBON"),
           resultSet.getInt("R_ID")
         );
-        
+
         recordList.add(record);
       }
     } catch (SQLException e) {
@@ -162,6 +202,44 @@ public class RecordDAO {
     }
     return recordList;
   }
+
+  // private static final String SELECT_FILTER_QUERY =
+  //   "SELECT *  FROM ECOHUB.RECORD  NATURAL JOIN SUBCATEGORY  NATURAL JOIN CATEGORY  WHERE U_ID = ? AND (S_NAME = ? OR C_NAME = ?);";
+
+  // public List<Record> getFilteredRecords(int uid, String categoryFilter, String subCategoryFilter)
+  //   throws SQLException {
+  //   List<Record> recordList = new ArrayList<>();
+  //   try (
+  //     Connection connection = DBUtil.getConnection();
+  //     PreparedStatement preparedStatement = connection.prepareStatement(
+  //       SELECT_FILTER_QUERY
+  //     )
+  //   ) {
+  //     preparedStatement.setInt(1, uid);
+  //     preparedStatement.setString(2, categoryFilter);
+  //     preparedStatement.setString(3, subCategoryFilter);
+
+  //     ResultSet resultSet = preparedStatement.executeQuery();
+  //     while (resultSet.next()) {
+  //       // add each record to the list
+
+  //       Record record = new Record(
+  //         resultSet.getString("R_TITLE"),
+  //         resultSet.getString("C_NAME"),
+  //         resultSet.getString("S_NAME"),
+  //         resultSet.getBigDecimal("R_VALUE"),
+  //         resultSet.getDate("R_DATE"),
+  //         resultSet.getBigDecimal("R_CARBON"),
+  //         resultSet.getInt("R_ID")
+  //       );
+
+  //       recordList.add(record);
+  //     }
+  //   } catch (SQLException e) {
+  //     e.printStackTrace();
+  //   }
+  //   return recordList;
+  // }
 
   public List<Record> getFilteredRecords(int id, String filter, int flag)
     throws SQLException {
@@ -189,7 +267,7 @@ public class RecordDAO {
             resultSet.getBigDecimal("R_CARBON"),
             resultSet.getInt("R_ID")
           );
-          
+
           recordList.add(record);
         }
       } catch (SQLException e) {
@@ -219,7 +297,7 @@ public class RecordDAO {
             resultSet.getBigDecimal("R_CARBON"),
             resultSet.getInt("R_ID")
           );
-          
+
           recordList.add(record);
         }
       } catch (SQLException e) {
@@ -263,8 +341,12 @@ public class RecordDAO {
   // UPDATE_QUERY =
   // "UPDATE ECOHUB.RECORD SET R.CATEGORY = ?, R.TITLE = ?, R.VALUE = ? WHERE R_ID
   // = ?";
-  public void updateRecord(String title, String value, int subCategoryId, int recordId)
-    throws SQLException {
+  public void updateRecord(
+    String title,
+    String value,
+    int subCategoryId,
+    int recordId
+  ) throws SQLException {
     // Convert the value string to a BigDecimal
     BigDecimal bdValue = new BigDecimal(value);
 

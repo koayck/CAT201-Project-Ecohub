@@ -46,7 +46,7 @@ public class UserDAO {
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
 
-      System.out.println(preparedStatement);
+      
       // Step 3: Execute the query or update query
       ResultSet resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
@@ -61,5 +61,31 @@ public class UserDAO {
       e.printStackTrace();
     }
     return user;
+  }
+
+  //  check if username already exists in database, return true if exists
+  public boolean checkUsername(String username) throws SQLException {
+    boolean userExists = false;
+    // Step 1: Establishing a Connection and
+    // try-with-resource statement will auto close the connection.
+    try (
+      Connection connection = DBUtil.getConnection();
+      // Step 2:Create a statement using connection object
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        "SELECT * FROM USER WHERE BINARY U_NAME = ?"
+      )
+    ) {
+      preparedStatement.setString(1, username);
+
+      
+      // Step 3: Execute the query or update query
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        userExists = true;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return userExists;
   }
 }
