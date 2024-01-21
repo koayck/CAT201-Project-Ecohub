@@ -21,6 +21,7 @@ public class App extends Application {
     scene = new Scene(loadFXML("/com/ecohub/fxml/login"), 1280, 720);
     stage.setScene(scene);
     stage.show();
+    stage.setTitle("EcoHub");
   }
 
   static void setRoot(String fxml) throws IOException {
