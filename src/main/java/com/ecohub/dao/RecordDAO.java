@@ -24,6 +24,8 @@ public class RecordDAO {
     "UPDATE ECOHUB.RECORD SET R_TITLE = ?, R_VALUE = ?, S_ID = ?  WHERE R_ID = ?";
   private static final String GET_RECENT =
     "SELECT DATE(`R_DATE`) AS `Date`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= CURRENT_DATE - INTERVAL 6 DAY GROUP BY DATE(`R_DATE`)";
+    private static final String GET_RECENT_WEEK =
+    "SELECT WEEK(`R_DATE`) AS `Week`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND MONTH(`R_DATE`) = MONTH(CURRENT_DATE) AND YEAR(`R_DATE`) = YEAR(CURRENT_DATE) GROUP BY WEEK(`R_DATE`)";
   private static final String GET_RECENT_YEAR =
     "SELECT YEAR(`R_DATE`) AS `Year`, MONTH(`R_DATE`) AS `Month`, SUM(`R_CARBON`) AS `Total` FROM `record` WHERE `U_ID` = ? AND `R_DATE` >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH) GROUP BY YEAR(`R_DATE`), MONTH(`R_DATE`)";
   private static final String GET_TOTAL =
@@ -385,6 +387,29 @@ public class RecordDAO {
         String dateString = formatter.format(date);
         double total = resultSet.getDouble("Total");
         recordList.add(new String[] { dateString, Double.toString(total) });
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return recordList.toArray(new String[0][]);
+  }
+
+  public String[][] getRecentWeek(int id) throws SQLException {
+    List<String[]> recordList = new ArrayList<>();
+    try (
+      Connection connection = DBUtil.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(
+        GET_RECENT_WEEK
+      )
+    ) {
+      // assuming you're setting the id somewhere
+      preparedStatement.setInt(1, id);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        int week = resultSet.getInt("Week");
+        double total = resultSet.getDouble("Total");
+        recordList.add(new String[] { Integer.toString(week), Double.toString(total) });
       }
     } catch (SQLException e) {
       e.printStackTrace();
