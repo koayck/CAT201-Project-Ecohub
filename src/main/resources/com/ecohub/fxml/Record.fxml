@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1139.0" styleClass="bg-default" stylesheets="@../styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.controller.RecordController">
+  <children>
+    <Pane fx:id="pnlOverview" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="926.0">
+      <children>
+        <TextField fx:id="searchBar" layoutX="630.0" layoutY="31.0" prefHeight="34.0" prefWidth="272.0" promptText="Search record by title" style=" -fx-border-color: #B7C3D7; " />
+        <Label layoutX="28.0" layoutY="30.0" styleClass="title-1" text="Records">
+          <font>
+            <Font size="24.0" />
+          </font>
+        </Label>
+        <HBox alignment="CENTER" layoutX="28.0" layoutY="84.0" prefHeight="111.0" prefWidth="874.0" spacing="50.0" style="-fx-background-color: white;" styleClass="border-box">
+          <children>
+            <HBox alignment="CENTER" spacing="20.0">
+              <children>
+                <SVGPath content="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1" fill="#00d9a0" style="-fx-scale-x: 2; -fx-scale-y: 2;" />
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                    <Label fx:id="recordCount" styleClass="title-2" text="0">
+                      <font>
+                        <Font name="System Bold" size="26.0" />
+                      </font>
+                    </Label>
+                    <Label text="Total Records" />
+                  </children>
+                </VBox>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="150.0" prefWidth="244.0" spacing="10.0">
+              <children>
+                        <ImageView fitHeight="46.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/carbon.png" />
+                           </image>
+                        </ImageView>
+                <VBox alignment="CENTER" prefHeight="111.0" prefWidth="165.0">
+                  <children>
+                    <Label fx:id="totalCarbon" styleClass="title-2" text="0">
+                      <font>
+                        <Font name="System Bold" size="26.0" />
+                      </font>
+                    </Label>
+                    <Label text="Total Carbon Footprint" />
+                  </children>
+                </VBox>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="209.0" prefHeight="42.0" prefWidth="874.0" spacing="40.0" style="-fx-background-color: white;">
+          <children>
+            <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="100.0" text="Title">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </Label>
+            <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Category">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </Label>
+            <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="85.0" text="Date">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </Label>
+            <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" text="Value">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </Label>
+            <Label minWidth="-Infinity" prefWidth="80.0" text="Carbon Footprint" textAlignment="CENTER" wrapText="true">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </Label>
+          </children>
+          <padding>
+            <Insets left="43.0" right="30.0" />
+          </padding>
+               <styleClass>
+                  <String fx:value="text-oblique" />
+                  <String fx:value="text-bold" />
+                  <String fx:value="border-box" />
+               </styleClass>
+        </HBox>
+        <ScrollPane hbarPolicy="NEVER" layoutX="28.0" layoutY="260.0" prefHeight="429.0" prefWidth="874.0" style="-fx-background-color: white;" styleClass="border-box">
+          <content>
+            <VBox fx:id="pnItems" prefHeight="429.0" prefWidth="874.0" spacing="5.0" styleClass="border-box">
+              <padding>
+                <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
+              </padding>
+            </VBox>
+          </content>
+        </ScrollPane>
+            <SVGPath content="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" fill="#00d9a0" layoutX="870.0" layoutY="40.0" />
+      </children>
+    </Pane>
+    <VBox fillWidth="false" minHeight="-Infinity" prefHeight="720.0" prefWidth="184.0" spacing="20.0">
+      <children>
+            <ImageView fitHeight="154.0" fitWidth="157.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../img/earth.png" />
+               </image>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <SVGPath content="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z" scaleX="1.3" scaleY="1.3" />
+                  <Label prefHeight="34.0" styleClass="title-3" text="Filter">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="68.0" prefWidth="183.0">
+               <children>
+                  <Label prefHeight="34.0" styleClass="text-caption" text="Category">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXComboBox fx:id="categoryBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="177.0" promptText="All Categories" unFocusColor="WHITE">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="combo-box" />
+                        <String fx:value="combo-box-base" />
+                     </styleClass>
+                  </JFXComboBox>
+               </children>
+            </VBox>
+            <VBox spacing="20.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label prefHeight="34.0" styleClass="text-caption" text="Sub-category">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="subCategoryBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="178.0" promptText="All Subcategories" styleClass="combo-box" unFocusColor="WHITE">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </JFXComboBox>
+                     </children>
+                  </VBox>
+                  <JFXButton fx:id="clearFilter" onAction="#clearFilter" prefHeight="34.0" prefWidth="178.0" text="Reset Filter" />
+                  <Button fx:id="addPopupBtn" mnemonicParsing="false" onAction="#showAddPopup" prefHeight="34.0" prefWidth="178.0" style="-fx-background-color: #00d9a0; -fx-text-fill: white;" styleClass="text-bold" text="Add Record">
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+      </children>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+    </VBox>
+  </children>
+</HBox>
