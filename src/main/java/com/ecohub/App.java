@@ -2,12 +2,10 @@ package com.ecohub;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * JavaFX App
@@ -22,6 +20,7 @@ public class App extends Application {
     stage.setScene(scene);
     stage.show();
     stage.setTitle("EcoHub");
+    stage.setResizable(false); 
   }
 
   static void setRoot(String fxml) throws IOException {

@@ -68,7 +68,7 @@ public class RecordItemController {
       // Get the controller
       AddRecordController controller = loader.getController();
 
-      controller.initDialogTitle("Update record");
+      controller.initDialogTitle("Edit record");
 
       controller.getRecordController(recordController);
 

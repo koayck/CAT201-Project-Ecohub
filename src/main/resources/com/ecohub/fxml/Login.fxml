@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -11,25 +12,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ecohub.controller.LoginController" stylesheets="@../styles/theme.css">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="550.0" prefWidth="500.0" spacing="10.0" stylesheets="@../styles/theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecohub.controller.LoginController">
    <children>
       <ImageView fitHeight="43.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/ecohub-logo.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" prefHeight="81.0" prefWidth="283.0" text="Your one and only sustainability tracker." textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Your one and only sustainability tracker." textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
+      </Label>
+      <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="26.0" prefWidth="283.0" styleClass="title-3" text="Log in to your account" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
       </Label>
       <VBox prefHeight="220.0" prefWidth="360.0" spacing="15.0">
          <children>
             <TextField fx:id="usernameField" prefHeight="50.0" prefWidth="360.0" promptText="Username" styleClass="field" />
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="360.0" promptText="Password" styleClass="field" />
-            <JFXCheckBox checkedColor="#007bff" styleClass="checkbox" text="Remember me" />
-            <JFXButton fx:id="submitButton" onAction="#login" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Log in" />
-            <JFXButton onAction="#switchToSignUp" prefHeight="50.0" prefWidth="360.0" styleClass="secondaryBtn" text="Sign up a new account" />
+            <JFXCheckBox checkedColor="#007bff" styleClass="checkbox" text="Remember me">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXCheckBox>
+            <JFXButton fx:id="submitButton" onAction="#login" prefHeight="50.0" prefWidth="360.0" styleClass="btn" text="Log in">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <JFXButton onAction="#switchToSignUp" prefHeight="50.0" prefWidth="360.0" styleClass="secondaryBtn" text="Sign up a new account">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
          </children>
       </VBox>
       <Label styleClass="footer-text" text="© EcoHub 2024">

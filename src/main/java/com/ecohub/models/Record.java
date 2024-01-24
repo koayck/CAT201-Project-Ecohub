@@ -1,13 +1,8 @@
 package com.ecohub.models;
 
 import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.math.BigDecimal;
 import java.sql.Date;
-
-import javafx.scene.Cursor;
-import javafx.scene.control.ContentDisplay;
 
 public class Record {
 
@@ -125,32 +120,5 @@ public class Record {
   @Override
   public String toString() {
     return title;
-  }
-
-  // method to decorate the buttons
-  private void btnDecoration() {
-    deleteButton.setStyle(
-      "-fx-background-color: transparent;-fx-background-radius:0;"
-    );
-    deleteButton.setCursor(Cursor.HAND);
-    FontAwesomeIconView TrashIcon = new FontAwesomeIconView(
-      FontAwesomeIcon.TRASH
-    );
-    TrashIcon.setSize("17");
-    TrashIcon.setStyle("-fx-fill:white; -fx-cursor: hand;");
-    deleteButton.setGraphic(TrashIcon);
-    deleteButton.setContentDisplay(ContentDisplay.TOP);
-
-    editButton.setStyle(
-      "-fx-background-color: transparent;-fx-background-radius:0;"
-    );
-    editButton.setCursor(Cursor.HAND);
-    FontAwesomeIconView EditIcon = new FontAwesomeIconView(
-      FontAwesomeIcon.EDIT
-    );
-    EditIcon.setSize("17");
-    EditIcon.setStyle("-fx-fill:white; -fx-cursor: hand;");
-    editButton.setGraphic(EditIcon);
-    editButton.setContentDisplay(ContentDisplay.TOP);
   }
 }

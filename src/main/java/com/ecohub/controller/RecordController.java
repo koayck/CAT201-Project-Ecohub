@@ -85,6 +85,7 @@ public class RecordController implements Initializable {
     clearFilter.fire();
     Stage stage = new Stage();
     stage.setScene(new Scene(root));
+    stage.setTitle("Add a new record");
     stage.show();
   }
 

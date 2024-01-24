@@ -116,8 +116,8 @@ public class SignUpController {
     showAlert(
       Alert.AlertType.CONFIRMATION,
       owner,
-      "Registration Successful!",
-      "Welcome " + usernameField.getText()
+      "Sign Up Successful!",
+      "Hello " + usernameField.getText() + ", you have successfully signed up."
     );
 
     try {

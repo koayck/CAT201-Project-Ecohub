@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -31,13 +32,19 @@
                   <VBox spacing="10.0">
                      <children>
                         <Label styleClass="label-container" text="Category" />
-                        <ComboBox fx:id="categoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a category" style="-fx-border-width: 0;" styleClass="combo-box" />
+                        <ComboBox fx:id="categoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a category" style="-fx-border-width: 0;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
                      </children>
                   </VBox>
                   <VBox spacing="10.0">
                      <children>
                         <Label styleClass="label-container" text="Sub-category" />
-                        <ComboBox fx:id="subCategoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a sub-category" style="-fx-border-width: 0;" styleClass="combo-box" />
+                        <ComboBox fx:id="subCategoryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="180.0" promptText="Pick a sub-category" style="-fx-border-width: 0;" styleClass="combo-box">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
                      </children>
                   </VBox>
                </children>
@@ -57,11 +64,17 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="submitBtn" defaultButton="true" onAction="#handleSubmit" prefWidth="160.0" styleClass="forward-button" text="Confirm">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </HBox>
