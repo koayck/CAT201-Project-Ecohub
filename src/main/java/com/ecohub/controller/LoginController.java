@@ -5,6 +5,8 @@ import com.ecohub.session.UserSession;
 import com.ecohub.dao.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

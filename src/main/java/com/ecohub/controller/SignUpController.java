@@ -1,10 +1,8 @@
 package com.ecohub.controller;
 
+import com.ecohub.dao.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import com.ecohub.dao.UserDAO;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +24,7 @@ public class SignUpController {
 
   @FXML
   private PasswordField passwordField;
-  
+
   @FXML
   private PasswordField confirmPasswordField;
 
@@ -37,10 +35,6 @@ public class SignUpController {
   public void register(ActionEvent event) throws SQLException {
     Window owner = submitButton.getScene().getWindow();
 
-    
-    
-    
-    
     if (usernameField.getText().isEmpty()) {
       showAlert(
         Alert.AlertType.ERROR,
@@ -60,12 +54,40 @@ public class SignUpController {
       );
       return;
     }
+    // check if email is valid
+    // explain what this function do
+    if (
+      !emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+    ) {
+      showAlert(
+        Alert.AlertType.ERROR,
+        owner,
+        "Form Error!",
+        "Please enter a valid email"
+      );
+      return;
+    }
     if (passwordField.getText().isEmpty()) {
       showAlert(
         Alert.AlertType.ERROR,
         owner,
         "Form Error!",
         "Please enter a password"
+      );
+      return;
+    }
+    if (
+      !passwordField
+        .getText()
+        .matches(
+          "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+        )
+    ) {
+      showAlert(
+        Alert.AlertType.ERROR,
+        owner,
+        "Form Error!",
+        "Password must be at least 8 characters long, contain at least 1 special character, 1 number, 1 uppercase letter, 1 lowercase letter"
       );
       return;
     }
@@ -88,6 +110,8 @@ public class SignUpController {
       return;
     }
 
+    // check if password consists of at least 8 characters, 1 special character, 1 number, 1 uppercase letter, 1 lowercase letter
+
     String username = usernameField.getText();
     String email = emailField.getText();
     String password = passwordField.getText();
@@ -103,7 +127,7 @@ public class SignUpController {
         "Username already exists"
       );
 
-      // clear field 
+      // clear field
       usernameField.setText("");
       emailField.setText("");
       passwordField.setText("");
@@ -121,7 +145,9 @@ public class SignUpController {
     );
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ecohub/fxml/Login.fxml"));
+      FXMLLoader loader = new FXMLLoader(
+        getClass().getResource("/com/ecohub/fxml/Login.fxml")
+      );
       Parent root = loader.load();
 
       Scene scene = submitButton.getScene();
@@ -147,7 +173,9 @@ public class SignUpController {
 
   @FXML
   void switchToLogin() throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("/com/ecohub/fxml/Login.fxml"));
+    Parent root = FXMLLoader.load(
+      getClass().getResource("/com/ecohub/fxml/Login.fxml")
+    );
     Scene scene = usernameField.getScene();
     scene.setRoot(root);
   }
