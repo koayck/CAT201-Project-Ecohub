@@ -56,11 +56,11 @@ public class RecordController implements Initializable {
 
   @FXML
   void clearFilter(ActionEvent event) {
-    subCategoryBox.getSelectionModel().clearSelection();
     categoryBox.getSelectionModel().clearSelection();
-    subCategoryBox.getSelectionModel().selectFirst();
-    categoryBox.getSelectionModel().selectFirst();
-    subCategoryBox.getSelectionModel().selectFirst();
+    subCategoryBox.getSelectionModel().clearSelection();
+    // categoryBox.getSelectionModel().selectFirst();
+    // subCategoryBox.getSelectionModel().selectFirst();
+    loadDataToTable();
   }
 
   @FXML
@@ -203,9 +203,9 @@ public class RecordController implements Initializable {
       if (newValue != null) {
         // If an activity is selected, select the related category
         categoryBox.getSelectionModel().selectedItemProperty().removeListener(categoryListener);
-        if (newValue.equals("All Subcategories")) {
-          loadFilterDataToTable(categoryBox.getSelectionModel().getSelectedItem(), null, 1);
+        if (newValue.equals("All Subcategories") && categoryBox.getSelectionModel().getSelectedItem() != null) {
           // categoryBox.getSelectionModel().select("All Categories");
+          loadFilterDataToTable(categoryBox.getSelectionModel().getSelectedItem(), null, 1);
           // loadDataToTable();
         } else if (Arrays.asList("Walking", "Car").contains(newValue)) {
           categoryBox.getSelectionModel().select("Travel");
